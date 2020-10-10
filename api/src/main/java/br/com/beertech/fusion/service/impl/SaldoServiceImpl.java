@@ -15,15 +15,17 @@ public class SaldoServiceImpl implements SaldoService {
     @Override
     public Saldo calcularSaldo(List<OperacaoDto> operacoes) {
         Double valorTotal = 0.0;
-        Double depositos = operacoes.stream()
-                .filter(o -> OperationType.DEPOSITO.equals(o.getTipoOperacao()))
-                .mapToDouble(o -> o.getValorOperacao())
-                .sum();
-        Double saques = operacoes.stream()
-                .filter(o -> OperationType.SAQUE.equals(o.getTipoOperacao()))
-                .mapToDouble(o -> o.getValorOperacao())
-                .sum();
-        valorTotal = depositos - saques;
+        if (operacoes != null && !operacoes.isEmpty()) {
+            Double depositos = operacoes.stream()
+                    .filter(o -> OperationType.DEPOSITO.equals(o.getTipoOperacao()))
+                    .mapToDouble(o -> o.getValorOperacao())
+                    .sum();
+            Double saques = operacoes.stream()
+                    .filter(o -> OperationType.SAQUE.equals(o.getTipoOperacao()))
+                    .mapToDouble(o -> o.getValorOperacao())
+                    .sum();
+            valorTotal = depositos - saques;
+        }
         return new Saldo(valorTotal);
     }
 

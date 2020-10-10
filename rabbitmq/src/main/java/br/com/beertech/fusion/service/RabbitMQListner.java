@@ -9,7 +9,8 @@ public class RabbitMQListner implements MessageListener {
 
 	public void onMessage(Message message)
 	{
-		System.out.println("Consuming Message - " + new String(message.getBody()));
+
+		System.out.println("TESTE RETORNO - " + new String(message.getBody()));
 	}
 
 }

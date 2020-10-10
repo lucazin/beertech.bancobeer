@@ -1,13 +1,13 @@
-package com.example.demo;
+package br.com.beertech.fusion;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class ConsumerRabbitMQApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(ConsumerRabbitMQApplication.class, args);
 	}
 
 }

@@ -7,6 +7,14 @@ public class OperacaoDto {
     private OperationType tipoOperacao;
     private Double valorOperacao;
 
+    public OperacaoDto() {
+    }
+    
+    public OperacaoDto(OperationType tipoOperacao, Double valorOperacao) {
+        this.tipoOperacao = tipoOperacao;
+        this.valorOperacao = valorOperacao;
+    }
+    
     public OperationType getTipoOperacao() {
         return tipoOperacao;
     }

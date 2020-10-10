@@ -27,4 +27,8 @@ public class Saldo implements Serializable {
         return Objects.hash(saldo);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this == obj || (obj != null && obj instanceof Saldo && saldo.equals(((Saldo) obj).getSaldo()));
+    }
 }

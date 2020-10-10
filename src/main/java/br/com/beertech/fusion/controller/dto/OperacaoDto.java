@@ -4,22 +4,22 @@ import br.com.beertech.fusion.domain.OperationType;
 
 public class OperacaoDto {
 
-    private OperationType tipo;
-    private Double valor;
+    private OperationType tipoOperacao;
+    private Double valorOperacao;
 
-    public OperationType getTipo() {
-        return tipo;
+    public OperationType getTipoOperacao() {
+        return tipoOperacao;
     }
 
-    public void setTipo(OperationType tipo) {
-        this.tipo = tipo;
+    public void setTipoOperacao(OperationType tipoOperacao) {
+        this.tipoOperacao = tipoOperacao;
     }
 
-    public Double getValor() {
-        return valor;
+    public Double getValorOperacao() {
+        return valorOperacao;
     }
 
-    public void setValor(Double valor) {
-        this.valor = valor;
+    public void setValorOperacao(Double valorOperacao) {
+        this.valorOperacao = valorOperacao;
     }
 }

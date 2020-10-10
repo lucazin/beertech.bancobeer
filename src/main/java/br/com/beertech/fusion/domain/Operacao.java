@@ -37,8 +37,8 @@ public class Operacao implements Serializable {
     }
 
     public Operacao(OperacaoDto operacaoDto) {
-        this.tipoOperacao = operacaoDto.getTipo().ID;
-        this.valorOperacao = operacaoDto.getValor();
+        this.tipoOperacao = operacaoDto.getTipoOperacao().ID;
+        this.valorOperacao = operacaoDto.getValorOperacao();
         this.horarioOperacao = getDataAtual();
     }
 

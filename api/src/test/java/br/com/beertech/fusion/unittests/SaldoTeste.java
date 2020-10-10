@@ -40,4 +40,11 @@ public class SaldoTeste {
         SaldoService saldoService = new SaldoServiceImpl();
         assertThat(saldoService.calcularSaldo(operacoes)).isEqualTo(new Saldo(65.));
     }
+    
+    @Test
+    void testaSaldoSemOperacoes() {
+        List<OperacaoDto> operacoes = new ArrayList<>();
+        SaldoService saldoService = new SaldoServiceImpl();
+        assertThat(saldoService.calcularSaldo(operacoes)).isEqualTo(new Saldo(0.));
+    }
 }

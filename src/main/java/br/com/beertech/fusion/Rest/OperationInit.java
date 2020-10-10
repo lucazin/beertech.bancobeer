@@ -1,6 +1,6 @@
 package br.com.beertech.fusion.Rest;
 
-import br.com.beertech.fusion.domain.operacao;
+import br.com.beertech.fusion.domain.Operacao;
 import br.com.beertech.fusion.domain.operacao_saldo;
 import br.com.beertech.fusion.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class OperationInit {
     private OperationService operationService;
 
     @GetMapping("/Transacoes")
-    public List<operacao> listOperations() {
+    public List<Operacao> listOperations() {
         return operationService.ListaTransacoes();
     }
 
@@ -28,7 +28,7 @@ public class OperationInit {
     public ResponseEntity<operacao_saldo> listSaldo() {
         try
         {
-            List<operacao> Transacoes = operationService.ListaTransacoes();
+            List<Operacao> Transacoes = operationService.ListaTransacoes();
             Double ValorTotal = 0.0;
 
             Double Depositos = Transacoes.stream().filter(o -> o.getTipoOperacao() == 1).mapToDouble(o -> o.getValorOperacao()).sum();
@@ -44,8 +44,8 @@ public class OperationInit {
     }
 
     @PostMapping("/NovaTransacao")
-    public ResponseEntity<operacao> saveOperations(@RequestBody operacao operacao) {
-        operacao.setHorarioOperacao(operacao.GetDataAtual());
+    public ResponseEntity<Operacao> saveOperations(@RequestBody Operacao operacao) {
+        operacao.setHorarioOperacao(operacao.getDataAtual());
         return new ResponseEntity<>(operationService.NovaTransacao(operacao), CREATED);
     }
 

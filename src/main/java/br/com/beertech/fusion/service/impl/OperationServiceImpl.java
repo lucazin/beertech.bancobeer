@@ -1,6 +1,6 @@
 package br.com.beertech.fusion.service.impl;
 
-import br.com.beertech.fusion.domain.operacao;
+import br.com.beertech.fusion.domain.Operacao;
 import br.com.beertech.fusion.repository.OperationRepository;
 import br.com.beertech.fusion.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public operacao NovaTransacao(operacao operacao) {
+    public Operacao NovaTransacao(Operacao operacao) {
         return operationRepository.save(operacao);
     }
     @Override
-    public List<operacao> ListaTransacoes() {
+    public List<Operacao> ListaTransacoes() {
         return operationRepository.findAll();
     }
 
@@ -33,7 +33,7 @@ public class OperationServiceImpl implements OperationService {
     }
 
 
-    private operacao getOperationById(Long idOperation) {
+    private Operacao getOperationById(Long idOperation) {
         return operationRepository.getOne(idOperation);
     }
 

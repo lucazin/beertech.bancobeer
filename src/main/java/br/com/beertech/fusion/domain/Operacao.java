@@ -1,18 +1,24 @@
 package br.com.beertech.fusion.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 @Entity
 @Table(name="operacao")
-public class operacao implements Serializable {
+public class Operacao implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOperacao;
     private int tipoOperacao;
@@ -20,7 +26,7 @@ public class operacao implements Serializable {
     private String horarioOperacao;
 
 
-    public operacao() {
+    public Operacao() {
     }
 
     public String getHorarioOperacao() {
@@ -61,7 +67,7 @@ public class operacao implements Serializable {
         return Objects.hash(idOperacao, tipoOperacao, valorOperacao);
     }
 
-    public  String GetDataAtual() {
+    public  String getDataAtual() {
         Date HoraDataAtual = null;
         SimpleDateFormat HoraFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date now = new Date();

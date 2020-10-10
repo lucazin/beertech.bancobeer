@@ -1,2 +1,2 @@
 # BEERTECH_FUSION
-LEGACY POC
+LEGACY POC - Banco API com 2 End-Points

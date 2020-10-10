@@ -12,4 +12,9 @@ LEGACY POC - Controle de operações bancárias
 
 
 Author: Time Fusion
+Patricia Crevelário Lisboa  
+Lucas Bergamo  
+Maria Luísa Souza Matos  
+Sabrina Jodely Rufo  
+
 

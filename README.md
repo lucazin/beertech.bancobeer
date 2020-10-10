@@ -8,7 +8,7 @@ LEGACY POC - Controle de operações bancárias
 - SpringBoot
 - MYSQL
 - JPA
-- * RabbitMQ
+- RabbitMQ
 
 
 Author: Time Fusion

@@ -42,6 +42,7 @@ public class Operacao implements Serializable {
         this.horarioOperacao = getDataAtual();
     }
 
+    @JsonIgnore
     public OperacaoDto getOperacaoDto() {
         return new OperacaoDto(OperationType.getById(this.tipoOperacao), this.valorOperacao);
     }

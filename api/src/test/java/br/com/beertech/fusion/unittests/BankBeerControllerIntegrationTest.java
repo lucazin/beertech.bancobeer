@@ -2,7 +2,7 @@ package br.com.beertech.fusion.unittests;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,8 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.beertech.fusion.FusionApplication;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = FusionApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@RunWith(SpringRunner.class)
 public class BankBeerControllerIntegrationTest {
 	@Autowired
     private TestRestTemplate restTemplate;

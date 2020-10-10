@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -34,8 +35,9 @@ public class OperationController {
     public ResponseEntity<Saldo> listSaldo() {
         try
         {
-            List<Operacao> Transacoes = operationService.ListaTransacoes();
-            Saldo Saldo = saldoService.calcularSaldo(Transacoes);
+            List<Operacao> transacoes = operationService.ListaTransacoes();
+            Saldo Saldo = saldoService.calcularSaldo(
+                    transacoes.stream().map(Operacao::getOperacaoDto).collect(Collectors.toList()));
             return new ResponseEntity<>(Saldo, OK);
         }
         catch (Exception e)

@@ -42,6 +42,10 @@ public class Operacao implements Serializable {
         this.horarioOperacao = getDataAtual();
     }
 
+    public OperacaoDto getOperacaoDto() {
+        return new OperacaoDto(OperationType.getById(this.tipoOperacao), this.valorOperacao);
+    }
+    
     public String getHorarioOperacao() {
         return horarioOperacao;
     }

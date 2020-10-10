@@ -6,7 +6,16 @@ public enum OperationType {
     SAQUE(2);
 
     public int ID;
+
     OperationType(int value) {
         ID = value;
+    }
+
+    public static OperationType getById(int id) {
+        if (id == 1) {
+            return DEPOSITO;
+        } else {
+            return SAQUE;
+        }
     }
 }

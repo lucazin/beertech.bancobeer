@@ -1,5 +1,15 @@
 # BEERTECH_FUSION
-LEGACY POC - Banco API com 2 End-Points
-By Fusion
-Author: Patricia Crevelário Lisboa
+
+
+
+LEGACY POC - Controle de operações bancárias
+
+- Desenvolvimento de API com integração com banco de dados relacional MYSQL.
+- SpringBoot
+- MYSQL
+- JPA
+- * RabbitMQ
+
+
+Author: Time Fusion
 

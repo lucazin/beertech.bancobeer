@@ -1,4 +1,4 @@
-package br.com.beertech.fusion.Mock;
+package br.com.beertech.fusion.domain;
 
 public enum OperationType {
 

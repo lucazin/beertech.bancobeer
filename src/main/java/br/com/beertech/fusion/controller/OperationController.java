@@ -1,7 +1,8 @@
-package br.com.beertech.fusion.Rest;
+package br.com.beertech.fusion.controller;
 
+import br.com.beertech.fusion.controller.dto.OperacaoDto;
 import br.com.beertech.fusion.domain.Operacao;
-import br.com.beertech.fusion.domain.operacao_saldo;
+import br.com.beertech.fusion.domain.Saldo;
 import br.com.beertech.fusion.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,19 +14,19 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("/Bank")
-public class OperationInit {
+@RequestMapping("/bankbeer")
+public class OperationController {
 
     @Autowired
     private OperationService operationService;
 
-    @GetMapping("/Transacoes")
+    @GetMapping("/transacoes")
     public List<Operacao> listOperations() {
         return operationService.ListaTransacoes();
     }
 
-    @GetMapping("/Saldo")
-    public ResponseEntity<operacao_saldo> listSaldo() {
+    @GetMapping("/saldo")
+    public ResponseEntity<Saldo> listSaldo() {
         try
         {
             List<Operacao> Transacoes = operationService.ListaTransacoes();
@@ -34,7 +35,7 @@ public class OperationInit {
             Double Depositos = Transacoes.stream().filter(o -> o.getTipoOperacao() == 1).mapToDouble(o -> o.getValorOperacao()).sum();
             Double Saques = Transacoes.stream().filter(o -> o.getTipoOperacao() == 2).mapToDouble(o -> o.getValorOperacao()).sum();
             ValorTotal =   Depositos - Saques;
-            operacao_saldo Saldo = new operacao_saldo(ValorTotal);
+            Saldo Saldo = new Saldo(ValorTotal);
             return new ResponseEntity<>(Saldo, OK);
         }
         catch (Exception e)
@@ -43,15 +44,11 @@ public class OperationInit {
         }
     }
 
-    @PostMapping("/NovaTransacao")
-    public ResponseEntity<Operacao> saveOperations(@RequestBody Operacao operacao) {
-        operacao.setHorarioOperacao(operacao.getDataAtual());
+    @PostMapping("/operacao")
+    public ResponseEntity<Operacao> saveOperations(@RequestBody OperacaoDto operacaoDto) {
+        Operacao operacao = new Operacao(operacaoDto);
         return new ResponseEntity<>(operationService.NovaTransacao(operacao), CREATED);
     }
 
-    @DeleteMapping("/Remover/{id}")
-    public void removeOperation(@PathVariable Long id) {
-        operationService.RemoveTransacao(id);
-    }
 
 }

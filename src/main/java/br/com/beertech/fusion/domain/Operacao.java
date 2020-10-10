@@ -11,22 +11,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.beertech.fusion.controller.dto.OperacaoDto;
 
 @Entity
-@Table(name="operacao")
+@Table(name = "operacao")
 public class Operacao implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idOperacao;
     private int tipoOperacao;
     private Double valorOperacao;
     private String horarioOperacao;
 
-
     public Operacao() {
+    }
+
+    public Operacao(OperacaoDto operacaoDto) {
+        this.tipoOperacao = operacaoDto.getTipo().ID;
+        this.valorOperacao = operacaoDto.getValor();
+        this.horarioOperacao = getDataAtual();
     }
 
     public String getHorarioOperacao() {
@@ -36,7 +42,6 @@ public class Operacao implements Serializable {
     public void setHorarioOperacao(String horarioOperacao) {
         this.horarioOperacao = horarioOperacao;
     }
-
 
     public Long getIdOperacao() {
         return idOperacao;
@@ -67,8 +72,7 @@ public class Operacao implements Serializable {
         return Objects.hash(idOperacao, tipoOperacao, valorOperacao);
     }
 
-    public  String getDataAtual() {
-        Date HoraDataAtual = null;
+    private String getDataAtual() {
         SimpleDateFormat HoraFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date now = new Date();
         return HoraFormat.format(now);

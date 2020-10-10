@@ -3,9 +3,11 @@ package br.com.beertech.fusion.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class operacao_saldo implements Serializable {
+public class Saldo implements Serializable {
 
-    private Double saldo;
+	private static final long serialVersionUID = 1L;
+	
+	private Double saldo;
 
     public Double getSaldo() {
         return saldo;
@@ -15,7 +17,7 @@ public class operacao_saldo implements Serializable {
         this.saldo = saldo;
     }
 
-    public operacao_saldo(Double saldo) {
+    public Saldo(Double saldo) {
         this.saldo = saldo;
     }
 

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.com.beertech.fusion.controller.dto.OperacaoDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "operacao")
@@ -21,10 +22,16 @@ public class Operacao implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @JsonIgnore
     private Long idOperacao;
+
+    private String horarioOperacao;
+
     private int tipoOperacao;
     private Double valorOperacao;
-    private String horarioOperacao;
+
+
 
     public Operacao() {
     }

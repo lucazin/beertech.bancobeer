@@ -31,7 +31,7 @@ Eclipse:
 
 -------------------------------------------------------------------------------------------  
 
-## DOCKER  / RABBITMQ
+## Docker / RabbitMQ
 Instale o docker do seguinte endereço (https://hub.docker.com/editions/community/docker-ce-desktop-windows/)  
 
 * Se por ventura o docker não funcionar, verifique se o WSL2 está instalado: https://docs.docker.com/docker-for-windows/wsl/

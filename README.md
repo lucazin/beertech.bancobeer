@@ -24,10 +24,10 @@ LEGACY POC - Controle de operações bancárias
 
 ## IDE  
 Instale o IntelliJ Community: https://www.jetbrains.com/pt-br/idea/download/#section=windows  
-* Faça o import do projeto e espera resolver as dependencias do pom.xml
+* Faça o import do projeto e espere resolver as dependencias do pom.xml no carregamento do projeto.
 
 Eclipse: 
-* Abra o eclipse e faça o import do projeto e espera resolver as dependencias do pom.xml  
+* Abra o eclipse e faça o import do projeto e espere resolver as dependencias do pom.xml no carregamento do projeto.
 
 -------------------------------------------------------------------------------------------  
 

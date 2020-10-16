@@ -9,6 +9,7 @@ LEGACY POC - Controle de operações bancárias
 - MYSQL
 - JPA
 - RabbitMQ
+- JWT
 
 
 ##### Instalação do Ambiente

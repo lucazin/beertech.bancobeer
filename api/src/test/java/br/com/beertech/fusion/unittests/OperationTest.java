@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.domain.Balance;
@@ -18,7 +18,7 @@ public class OperationTest {
 	private static final String HASH_ORIGIN = "94fc5d08-8269-4d0d-b45c-41dec9914e9d";
 	
     @Test
-    void testBalanceDeposit() {
+    public void testBalanceDeposit() {
         List<OperationDTO> operacoes = new ArrayList<>();
         operacoes.add(new OperationDTO(OperationType.DEPOSITO, 100.,HASH_ORIGIN));
         BalanceService saldoService = new BalanceServiceImpl();
@@ -26,7 +26,7 @@ public class OperationTest {
     }
 
     @Test
-    void testBalanceWithdraw() {
+    public void testBalanceWithdraw() {
         List<OperationDTO> operacoes = new ArrayList<>();
         operacoes.add(new OperationDTO(OperationType.SAQUE, 10.,HASH_ORIGIN));
         BalanceService saldoService = new BalanceServiceImpl();
@@ -34,7 +34,7 @@ public class OperationTest {
     }
 
     @Test
-    void testBalanceOperationVariable() {
+    public void testBalanceOperationVariable() {
         List<OperationDTO> operacoes = new ArrayList<>();
         operacoes.add(new OperationDTO(OperationType.DEPOSITO, 100.,HASH_ORIGIN));
         operacoes.add(new OperationDTO(OperationType.SAQUE, 25.,HASH_ORIGIN));
@@ -44,7 +44,7 @@ public class OperationTest {
     }
 
     @Test
-    void testBalanceNoOperations() {
+    public void testBalanceNoOperations() {
         List<OperationDTO> operacoes = new ArrayList<>();
         BalanceService saldoService = new BalanceServiceImpl();
         assertEquals(saldoService.calcularSaldo(operacoes), new Balance(0.));

@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
@@ -20,10 +17,10 @@ import br.com.beertech.fusion.domain.Operation;
 import br.com.beertech.fusion.domain.OperationType;
 import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.service.BalanceService;
-import br.com.beertech.fusion.service.impl.OperationServiceImpl;
 import br.com.beertech.fusion.service.impl.BalanceServiceImpl;
+import br.com.beertech.fusion.service.impl.OperationServiceImpl;
 
-@RunWith(MockitoJUnitRunner.class)
+//@RunWith(MockitoJUnitRunner.class)
 public class TransferTest {
 
 	private static final String HASH_ORIGIN = "94fc5d08-8269-4d0d-b45c-41dec9914e9d";

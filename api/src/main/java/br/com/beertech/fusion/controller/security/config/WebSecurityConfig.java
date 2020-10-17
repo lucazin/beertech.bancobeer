@@ -1,6 +1,5 @@
 package br.com.beertech.fusion.controller.security.config;
 
-import br.com.beertech.fusion.service.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +14,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import br.com.beertech.fusion.service.security.JwtService;
 
 @Configuration
 @EnableWebSecurity
@@ -65,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				// Autenticacao usuario / senha nestes endpoints
 				.authorizeRequests()
-						.antMatchers("/bankbeer/autoriza", "/bankbeer/registra").permitAll().
+                        .antMatchers("/bankbeer/usuarios", "/bankbeer/login").permitAll().
 
 				// Necessário ESTAR Autenticado em todos endpoints
 				anyRequest().authenticated()

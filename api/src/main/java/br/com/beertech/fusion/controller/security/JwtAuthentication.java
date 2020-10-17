@@ -33,7 +33,7 @@ public class JwtAuthentication {
 	@Autowired
 	private JwtService userDetailsService;
 
-	@PostMapping(value = "/autoriza")
+    @PostMapping(value = "/login")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());

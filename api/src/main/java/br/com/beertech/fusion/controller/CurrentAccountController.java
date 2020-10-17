@@ -11,6 +11,7 @@ import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.domain.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.beertech.fusion.domain.CurrentAccount;
@@ -18,6 +19,7 @@ import br.com.beertech.fusion.service.CurrentAccountService;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/bankbeer")
 public class CurrentAccountController {
 
@@ -31,12 +33,12 @@ public class CurrentAccountController {
 	
 
     @PostMapping("/conta-corrente")
+    @PreAuthorize("hasRole('MODERATOR')")
     public CompletableFuture<ResponseEntity> saveCurrentAccount() throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
         try
         {
-            // Run a task specified by a Supplier object asynchronously
             future = CompletableFuture.supplyAsync(new Supplier<ResponseEntity>() {
                 @Override
                 public ResponseEntity get()

@@ -1,6 +1,6 @@
 package br.com.beertech.fusion.service.security;
 
-import br.com.beertech.fusion.controller.dto.UsuarioDto;
+import br.com.beertech.fusion.controller.dto.UserDto;
 import br.com.beertech.fusion.domain.security.Usuarios;
 import br.com.beertech.fusion.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class JwtService implements UserDetailsService {
 				new ArrayList<>());
 	}
 
-	public Usuarios save(UsuarioDto user) {
+	public Usuarios save(UserDto user) {
 		Usuarios newUser = new Usuarios();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(PasswordEncrypt.encode(user.getPassword()));

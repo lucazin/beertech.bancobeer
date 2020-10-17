@@ -12,7 +12,16 @@ public class Usuarios {
 
     @Column
     private String username;
-
+    
+    @Column
+    private String name;
+    
+    @Column
+    private String email;
+    
+    @Column
+    private String cnpj;
+    
     @Column
     @JsonIgnore
     private String password;
@@ -33,6 +42,23 @@ public class Usuarios {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail1(String email) {
+        this.email = email;
+    }
+    
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+   
 
 }
 

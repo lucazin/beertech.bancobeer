@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.beertech.fusion.controller.dto.UsuarioDto;
+import br.com.beertech.fusion.controller.dto.UserDto;
 import br.com.beertech.fusion.controller.security.config.JwtTokenUtil;
 import br.com.beertech.fusion.domain.security.JwtRequest;
 import br.com.beertech.fusion.domain.security.JwtResponse;
@@ -46,7 +46,7 @@ public class JwtAuthentication {
 	}
 
     @PostMapping(value = "/usuarios")
-	public ResponseEntity<?> saveUser(@RequestBody UsuarioDto user) throws Exception {
+	public ResponseEntity<?> saveUser(@RequestBody UserDto user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
 

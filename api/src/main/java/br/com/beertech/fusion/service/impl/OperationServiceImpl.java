@@ -1,21 +1,11 @@
 package br.com.beertech.fusion.service.impl;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-
-import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
 import br.com.beertech.fusion.domain.Balance;
 import br.com.beertech.fusion.domain.CurrentAccount;
@@ -23,21 +13,17 @@ import br.com.beertech.fusion.domain.Operation;
 import br.com.beertech.fusion.domain.OperationType;
 import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.repository.OperationRepository;
+import br.com.beertech.fusion.service.BalanceService;
 import br.com.beertech.fusion.service.CurrentAccountService;
 import br.com.beertech.fusion.service.OperationService;
-import br.com.beertech.fusion.service.SaldoService;
 
 @Service
 public class OperationServiceImpl implements OperationService {
 
-	private static final String HOST = "localhost";
-	private static final String QUEUE_OPERATION_NAME = "queueFusion";
-	private static final String QUEUE_TRANSFER_NAME = "queueTransfer";
-
 	private OperationRepository operationRepository;
 
 	@Autowired
-	private SaldoService saldoService;
+	private BalanceService saldoService;
 
 	@Autowired
 	private CurrentAccountService currentAccountService;
@@ -115,51 +101,6 @@ public class OperationServiceImpl implements OperationService {
 		}
 	}
 
-	@Override
-	public void publisheOperation(OperationDTO operationDTO) {
-		ObjectMapper objectMapper = new ObjectMapper();
-
-		String msgm = null;
-
-		try {
-			msgm = objectMapper.writeValueAsString(operationDTO);
-		} catch (JsonProcessingException e1) {
-			e1.printStackTrace();
-		}
-		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost(HOST);
-
-		try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
-			channel.queueDeclare(QUEUE_OPERATION_NAME, false, false, false, null);
-			channel.basicPublish("", QUEUE_OPERATION_NAME, null, msgm.getBytes(StandardCharsets.UTF_8));
-		} catch (IOException | TimeoutException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	@Override
-	public void publisheTransfer(TransferDTO transferDTO) {
 	
-		ObjectMapper objectMapper = new ObjectMapper();
-
-		String msgm = null;
-
-		try {
-			msgm = objectMapper.writeValueAsString(transferDTO);
-		} catch (JsonProcessingException e1) {
-			e1.printStackTrace();
-		}
-		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost(HOST);
-
-		try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
-			channel.queueDeclare(QUEUE_TRANSFER_NAME, false, false, false, null);
-			channel.basicPublish("", QUEUE_TRANSFER_NAME, null, msgm.getBytes(StandardCharsets.UTF_8));
-		} catch (IOException | TimeoutException e) {
-			e.printStackTrace();
-		}
-		
-	}
 
 }

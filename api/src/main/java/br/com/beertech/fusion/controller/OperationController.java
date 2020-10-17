@@ -1,5 +1,9 @@
 package br.com.beertech.fusion.controller;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.OK;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -20,10 +24,9 @@ import br.com.beertech.fusion.controller.dto.TransferDTO;
 import br.com.beertech.fusion.domain.Balance;
 import br.com.beertech.fusion.domain.Operation;
 import br.com.beertech.fusion.exception.FusionException;
+import br.com.beertech.fusion.service.BalanceService;
 import br.com.beertech.fusion.service.OperationService;
-import br.com.beertech.fusion.service.SaldoService;
-
-import static org.springframework.http.HttpStatus.*;
+import br.com.beertech.fusion.service.PublishTransaction;
 
 @RestController
 @RequestMapping("/bankbeer")
@@ -33,10 +36,12 @@ public class OperationController {
     private OperationService operationService;
 
     @Autowired
-    private SaldoService saldoService;
+    private BalanceService saldoService;
 
+    @Autowired
+    private PublishTransaction publisheTransaction;
 
-    @GetMapping("/transacoes")
+    @GetMapping("/transaction")
     public CompletableFuture<List<Operation>> listOperations() throws ExecutionException, InterruptedException {
 
         CompletableFuture<List<Operation>> future = new CompletableFuture<>();
@@ -56,7 +61,7 @@ public class OperationController {
         return CompletableFuture.completedFuture(future.get());
     }
 
-    @GetMapping("/saldo")
+    @GetMapping("/balance")
     public CompletableFuture<ResponseEntity> listSaldo() throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -79,7 +84,7 @@ public class OperationController {
         return CompletableFuture.completedFuture(future.get());
     }
 
-    @GetMapping("/saldo/{hash}")
+    @GetMapping("/balance/{hash}")
     public CompletableFuture<ResponseEntity> listSaldoConta(@PathVariable String hash) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -100,7 +105,7 @@ public class OperationController {
         return CompletableFuture.completedFuture(future.get());
     }
 
-    @PostMapping("/operacao/salvar")
+    @PostMapping("/operation/save")
     public CompletableFuture<ResponseEntity> saveOperations(@RequestBody OperationDTO operationDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -122,7 +127,7 @@ public class OperationController {
     }
 
 
-    @PostMapping("/operacao")
+    @PostMapping("/operation")
     public CompletableFuture<ResponseEntity> queueOperationsx(@RequestBody OperationDTO operationDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -133,7 +138,7 @@ public class OperationController {
                 @Override
                 public ResponseEntity get()
                 {
-                    operationService.publisheOperation(operationDTO);
+                	publisheTransaction.publisheOperation(operationDTO);
                     return ResponseEntity.status(OK).body("Solicitação de Operação executada!");
                 }
             });
@@ -143,7 +148,7 @@ public class OperationController {
         return CompletableFuture.completedFuture(future.get());
     }
 
-    @PostMapping("/transferencia/salvar")
+    @PostMapping("/trasfer/salve")
     public CompletableFuture<ResponseEntity> saveTransfer(@RequestBody TransferDTO transferDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -169,7 +174,7 @@ public class OperationController {
         return CompletableFuture.completedFuture(future.get());
     }
 
-    @PostMapping("/transferencia")
+    @PostMapping("/transfer")
     public CompletableFuture<ResponseEntity> queueTransfer(@RequestBody TransferDTO transferDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -180,7 +185,7 @@ public class OperationController {
                 @Override
                 public ResponseEntity get()
                 {
-                    operationService.publisheTransfer(transferDTO);
+                	publisheTransaction.publisheTransfer(transferDTO);
                     return ResponseEntity.status(OK).body("Solicitação de Transferêcia executada!");
                 }
             });

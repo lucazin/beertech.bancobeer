@@ -1,8 +1,8 @@
 package br.com.beertech.fusion.service.security;
 
 import br.com.beertech.fusion.controller.dto.UserDto;
-import br.com.beertech.fusion.domain.security.Usuarios;
-import br.com.beertech.fusion.repository.UsuarioRepository;
+import br.com.beertech.fusion.domain.security.User;
+import br.com.beertech.fusion.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,14 +15,14 @@ import java.util.ArrayList;
 @Service
 public class JwtService implements UserDetailsService {
 	@Autowired
-	private UsuarioRepository userDao;
+	private UserRepository userDao;
 
 	@Autowired
 	private PasswordEncoder PasswordEncrypt;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuarios user = userDao.findByUsername(username);
+		User user = userDao.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("Usuario não encontrado: " + username);
 		}
@@ -30,8 +30,8 @@ public class JwtService implements UserDetailsService {
 				new ArrayList<>());
 	}
 
-	public Usuarios save(UserDto user) {
-		Usuarios newUser = new Usuarios();
+	public User save(UserDto user) {
+		User newUser = new User();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(PasswordEncrypt.encode(user.getPassword()));
 		return userDao.save(newUser);

@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.domain.Balance;
 import br.com.beertech.fusion.domain.OperationType;
-import br.com.beertech.fusion.service.SaldoService;
-import br.com.beertech.fusion.service.impl.SaldoServiceImpl;
+import br.com.beertech.fusion.service.BalanceService;
+import br.com.beertech.fusion.service.impl.BalanceServiceImpl;
 
 public class OperationTest {
 	
@@ -21,7 +21,7 @@ public class OperationTest {
     void testBalanceDeposit() {
         List<OperationDTO> operacoes = new ArrayList<>();
         operacoes.add(new OperationDTO(OperationType.DEPOSITO, 100.,HASH_ORIGIN));
-        SaldoService saldoService = new SaldoServiceImpl();
+        BalanceService saldoService = new BalanceServiceImpl();
         assertEquals(saldoService.calcularSaldo(operacoes), new Balance(100.));
     }
 
@@ -29,7 +29,7 @@ public class OperationTest {
     void testBalanceWithdraw() {
         List<OperationDTO> operacoes = new ArrayList<>();
         operacoes.add(new OperationDTO(OperationType.SAQUE, 10.,HASH_ORIGIN));
-        SaldoService saldoService = new SaldoServiceImpl();
+        BalanceService saldoService = new BalanceServiceImpl();
         assertEquals(saldoService.calcularSaldo(operacoes), new Balance(-10.));
     }
 
@@ -39,14 +39,14 @@ public class OperationTest {
         operacoes.add(new OperationDTO(OperationType.DEPOSITO, 100.,HASH_ORIGIN));
         operacoes.add(new OperationDTO(OperationType.SAQUE, 25.,HASH_ORIGIN));
         operacoes.add(new OperationDTO(OperationType.SAQUE, 10.,HASH_ORIGIN));
-        SaldoService saldoService = new SaldoServiceImpl();
+        BalanceService saldoService = new BalanceServiceImpl();
         assertEquals(saldoService.calcularSaldo(operacoes), new Balance(65.));
     }
 
     @Test
     void testBalanceNoOperations() {
         List<OperationDTO> operacoes = new ArrayList<>();
-        SaldoService saldoService = new SaldoServiceImpl();
+        BalanceService saldoService = new BalanceServiceImpl();
         assertEquals(saldoService.calcularSaldo(operacoes), new Balance(0.));
     }
 }

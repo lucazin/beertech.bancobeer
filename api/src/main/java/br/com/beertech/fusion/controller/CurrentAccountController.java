@@ -24,13 +24,13 @@ public class CurrentAccountController {
 	@Autowired
 	private CurrentAccountService currentAccountService;
 	
-	@GetMapping("/conta-corrente")
+	@GetMapping("/current-account")
     public List<CurrentAccount> listAccounts() {
         return currentAccountService.listAccounts();
     }
 	
 
-    @PostMapping("/conta-corrente")
+    @PostMapping("/current-account")
     public CompletableFuture<ResponseEntity> saveCurrentAccount() throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();

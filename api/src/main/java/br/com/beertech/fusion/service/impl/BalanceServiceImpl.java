@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.domain.OperationType;
 import br.com.beertech.fusion.domain.Balance;
-import br.com.beertech.fusion.service.SaldoService;
+import br.com.beertech.fusion.service.BalanceService;
 
 @Service
-public class SaldoServiceImpl implements SaldoService {
+public class BalanceServiceImpl implements BalanceService {
 
     @Override
     public Balance calcularSaldo(List<OperationDTO> operacoes) {

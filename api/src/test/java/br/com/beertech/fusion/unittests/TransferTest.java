@@ -19,9 +19,9 @@ import br.com.beertech.fusion.domain.Balance;
 import br.com.beertech.fusion.domain.Operation;
 import br.com.beertech.fusion.domain.OperationType;
 import br.com.beertech.fusion.exception.FusionException;
-import br.com.beertech.fusion.service.SaldoService;
+import br.com.beertech.fusion.service.BalanceService;
 import br.com.beertech.fusion.service.impl.OperationServiceImpl;
-import br.com.beertech.fusion.service.impl.SaldoServiceImpl;
+import br.com.beertech.fusion.service.impl.BalanceServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TransferTest {
@@ -49,7 +49,7 @@ public class TransferTest {
 		operacoes.add(
 				new OperationDTO(OperationType.DEPOSITO, newTransaction.getValorOperacao(), newTransaction.getHash()));
 
-		SaldoService saldoService = new SaldoServiceImpl();
+		BalanceService saldoService = new BalanceServiceImpl();
 		assertEquals(saldoService.calcularSaldo(operacoes), new Balance(100.));
 	}
 
@@ -76,7 +76,7 @@ public class TransferTest {
 		operacoes.add(new OperationDTO(OperationType.SAQUE, transactionWithdraw.getValorOperacao(),
 				transactionWithdraw.getHash()));
 
-		SaldoService saldoService = new SaldoServiceImpl();
+		BalanceService saldoService = new BalanceServiceImpl();
 		assertEquals(saldoService.calcularSaldo(operacoes), new Balance(400.));
 	}
 

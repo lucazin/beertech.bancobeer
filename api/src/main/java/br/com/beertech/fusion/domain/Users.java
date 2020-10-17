@@ -1,4 +1,6 @@
-package br.com.beertech.fusion.domain.security.roles;
+package br.com.beertech.fusion.domain;
+
+import br.com.beertech.fusion.domain.security.roles.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -8,15 +10,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(	name = "usuario",
+@Table(	name = "usuarios",
 		uniqueConstraints = { 
 			@UniqueConstraint(columnNames = "username"),
 			@UniqueConstraint(columnNames = "email")
 		})
-public class Usuario {
+public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@NotBlank
+	@Size(max = 50)
+	private String nome;
 
 	@NotBlank
 	@Size(max = 20)
@@ -36,17 +42,19 @@ public class Usuario {
 	private String cnpj;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "usuario_roles",
-				joinColumns = @JoinColumn(name = "usuario_id"),
+	@JoinTable(	name = "usuarios_roles",
+				joinColumns = @JoinColumn(name = "usuarios_id"),
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
-	public Usuario() {}
+	public Users() {}
 
-	public Usuario(String username, String email, String password) {
+	public Users(String username, String email, String password,String cnpj,String nome) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.cnpj = cnpj;
+		this.nome = nome;
 	}
 
 	public Long getId() {
@@ -88,4 +96,12 @@ public class Usuario {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
+	public String getCnpj() { return cnpj; }
+
+	public void setCnpj(String cnpj) { this.cnpj = cnpj; }
+
+	public String getNome() { return nome; }
+
+	public void setNome(String nome) { this.nome = nome; }
 }

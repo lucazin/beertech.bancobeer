@@ -18,7 +18,17 @@ public class SignupRequest {
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
-  
+
+    @NotBlank
+    @Size(max = 50)
+    @Email
+    private String nome;
+
+    @NotBlank
+    @Size(max = 14)
+    @Email
+    private String cnpj;
+
     public String getUsername() {
         return username;
     }
@@ -50,4 +60,12 @@ public class SignupRequest {
     public void setRole(Set<String> role) {
       this.role = role;
     }
+
+    public String getCnpj() { return cnpj; }
+
+    public void setCnpj(String cnpj) { this.cnpj = cnpj; }
+
+    public String getNome() { return nome; }
+
+    public void setNome(String nome) { this.nome = nome; }
 }

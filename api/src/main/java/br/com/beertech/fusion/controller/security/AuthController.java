@@ -6,9 +6,9 @@ import br.com.beertech.fusion.domain.security.response.JwtResponse;
 import br.com.beertech.fusion.domain.security.response.MessageResponse;
 import br.com.beertech.fusion.domain.security.roles.EnumRole;
 import br.com.beertech.fusion.domain.security.roles.Role;
-import br.com.beertech.fusion.domain.security.roles.Usuario;
+import br.com.beertech.fusion.domain.Users;
 import br.com.beertech.fusion.repository.RoleRepository;
-import br.com.beertech.fusion.repository.UsuarioRepository;
+import br.com.beertech.fusion.repository.UserRepository;
 import br.com.beertech.fusion.service.security.jwt.JwtUtils;
 import br.com.beertech.fusion.service.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	UserRepository userRepository;
 
 	@Autowired
 	RoleRepository roleRepository;
@@ -62,28 +62,29 @@ public class AuthController {
 		return ResponseEntity.ok(new JwtResponse(jwt,
 												 userDetails.getId(), 
 												 userDetails.getUsername(), 
-												 userDetails.getEmail(), 
+												 userDetails.getEmail(),
 												 roles));
 	}
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-		if (usuarioRepository.existsByUsername(signUpRequest.getUsername())) {
+		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Erro: Usuário já existente"));
 		}
 
-		if (usuarioRepository.existsByEmail(signUpRequest.getEmail())) {
+		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Erro: E-mail já existente!"));
 		}
 
 		//Cria nova conta do cliente
-		Usuario usuario = new Usuario(signUpRequest.getUsername(),
+		Users usuario = new Users(signUpRequest.getUsername(),
 							 signUpRequest.getEmail(),
-							 encoder.encode(signUpRequest.getPassword()));
+							 encoder.encode(signUpRequest.getPassword()),
+							 signUpRequest.getCnpj(),signUpRequest.getNome());
 
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
@@ -113,7 +114,7 @@ public class AuthController {
 		}
 
 		usuario.setRoles(roles);
-		usuarioRepository.save(usuario);
+		userRepository.save(usuario);
 
 		return ResponseEntity.ok(new MessageResponse("Cliente registrado com sucesso!"));
 	}

@@ -1,11 +1,5 @@
 package br.com.beertech.fusion.controller.security;
 
-import br.com.beertech.fusion.controller.dto.UsuarioDto;
-import br.com.beertech.fusion.controller.security.config.JwtTokenUtil;
-import br.com.beertech.fusion.domain.security.JwtRequest;
-import br.com.beertech.fusion.domain.security.JwtResponse;
-import br.com.beertech.fusion.service.security.JwtService;
-import br.com.beertech.fusion.util.Support;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +7,17 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.beertech.fusion.controller.dto.UsuarioDto;
+import br.com.beertech.fusion.controller.security.config.JwtTokenUtil;
+import br.com.beertech.fusion.domain.security.JwtRequest;
+import br.com.beertech.fusion.domain.security.JwtResponse;
+import br.com.beertech.fusion.service.security.JwtService;
 
 @RestController
 @CrossOrigin
@@ -41,7 +45,7 @@ public class JwtAuthentication {
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 
-	@PostMapping(value = "/registra")
+    @PostMapping(value = "/usuarios")
 	public ResponseEntity<?> saveUser(@RequestBody UsuarioDto user) throws Exception {
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}

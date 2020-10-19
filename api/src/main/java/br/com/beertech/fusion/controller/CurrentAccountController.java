@@ -33,7 +33,6 @@ public class CurrentAccountController {
 	
 
     @PostMapping("/current-account")
-    @PreAuthorize("hasRole('MODERATOR')")
     public CompletableFuture<ResponseEntity> saveCurrentAccount() throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();

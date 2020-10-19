@@ -1,5 +1,6 @@
 package br.com.beertech.fusion.controller.security;
 
+import br.com.beertech.fusion.domain.CurrentAccount;
 import br.com.beertech.fusion.domain.security.request.LoginRequest;
 import br.com.beertech.fusion.domain.security.request.SignupRequest;
 import br.com.beertech.fusion.domain.security.response.JwtResponse;
@@ -9,6 +10,7 @@ import br.com.beertech.fusion.domain.security.roles.Role;
 import br.com.beertech.fusion.domain.Users;
 import br.com.beertech.fusion.repository.RoleRepository;
 import br.com.beertech.fusion.repository.UserRepository;
+import br.com.beertech.fusion.service.CurrentAccountService;
 import br.com.beertech.fusion.service.security.jwt.JwtUtils;
 import br.com.beertech.fusion.service.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/bankbeer/auth")
@@ -38,6 +42,9 @@ public class AuthController {
 
 	@Autowired
 	RoleRepository roleRepository;
+
+	@Autowired
+	private CurrentAccountService currentAccountService;
 
 	@Autowired
     PasswordEncoder encoder;
@@ -116,6 +123,10 @@ public class AuthController {
 		usuario.setRoles(roles);
 		userRepository.save(usuario);
 
-		return ResponseEntity.ok(new MessageResponse("Cliente registrado com sucesso!"));
+		CurrentAccount currentAccount = new CurrentAccount();
+		currentAccount.setCnpj(usuario.getCnpj());
+		currentAccountService.saveAccount(currentAccount);
+
+		return ResponseEntity.ok(new MessageResponse("Cliente cadastrado com sucesso!"));
 	}
 }

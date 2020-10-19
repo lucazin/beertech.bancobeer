@@ -23,6 +23,8 @@ public class CurrentAccount implements Serializable {
 	
 	private String hash;
 
+	private String cnpj;
+
 	public Long getIdConta() {
 		return idConta;
 	}
@@ -38,7 +40,9 @@ public class CurrentAccount implements Serializable {
 	public void setHash(String hash) {
 		this.hash = hash;
 	}
-	
-	
+
+	public String getCnpj() { return cnpj; }
+
+	public void setCnpj(String cnpj) { this.cnpj = cnpj; }
 
 }

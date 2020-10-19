@@ -3,6 +3,8 @@ package br.com.beertech.fusion.service.impl;
 import java.util.List;
 import java.util.UUID;
 
+import br.com.beertech.fusion.domain.collections.CurrentAccountDocument;
+import br.com.beertech.fusion.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +15,23 @@ import br.com.beertech.fusion.service.CurrentAccountService;
 @Service
 public class CurrentAccountServiceImpl implements CurrentAccountService{
 
-	@Autowired
+
 	private CurrentAccountRepository currentAccountRepository;
+
+	public CurrentAccountServiceImpl(CurrentAccountRepository currentAccountRepository)
+	{
+		this.currentAccountRepository  = currentAccountRepository;
+	}
+
+	public CurrentAccountServiceImpl(){}
 	
 	@Override
-	public List<CurrentAccount> listAccounts() {
+	public List<CurrentAccountDocument> listAccounts() {
 		return currentAccountRepository.findAll();
 	}
 
 	@Override
-	public CurrentAccount saveAccount(CurrentAccount account) {
+	public CurrentAccountDocument saveAccount(CurrentAccountDocument account) {
 		String hash = UUID.randomUUID().toString();
 		account.setHash(hash);
 		return currentAccountRepository.save(account);
@@ -30,7 +39,7 @@ public class CurrentAccountServiceImpl implements CurrentAccountService{
 	}
 
 	@Override
-	public CurrentAccount findByHash(String hash) {
+	public CurrentAccountDocument findByHash(String hash) {
 		return currentAccountRepository.findAccountByHash(hash);
 	}
 

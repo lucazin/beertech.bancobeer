@@ -3,6 +3,9 @@ package br.com.beertech.fusion.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.com.beertech.fusion.domain.collections.CurrentAccountDocument;
+import br.com.beertech.fusion.domain.collections.OperationDocument;
+import br.com.beertech.fusion.repository.CurrentAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,46 +25,41 @@ public class OperationServiceImpl implements OperationService {
 
 	private OperationRepository operationRepository;
 
+	public OperationServiceImpl(OperationRepository operationRepository) {
+		this.operationRepository = operationRepository;
+	}
+
+	public OperationServiceImpl(){}
+
 	@Autowired
 	private BalanceService saldoService;
 
 	@Autowired
 	private CurrentAccountService currentAccountService;
 
-	@Autowired
-	public OperationServiceImpl(OperationRepository operationRepository) {
-		this.operationRepository = operationRepository;
-	}
+
+
 
 	@Override
-	public Operation newTransaction(Operation operation) {
+	public OperationDocument newTransaction(OperationDocument operation) {
 		return operationRepository.save(operation);
 	}
 
 	@Override
-	public List<Operation> ListaTransacoes() {
+	public List<OperationDocument> ListaTransacoes() {
 		return operationRepository.findAll();
 	}
 
 	@Override
-	public void RemoveTransacao(Long idOperation) {
-		operationRepository.delete(getOperationById(idOperation));
-	}
-
-	private Operation getOperationById(Long idOperation) {
-		return operationRepository.getOne(idOperation);
-	}
-
-	@Override
-	public List<Operation> listTransactionByHash(String hash) {
-		return operationRepository.listTransactionByHash(hash);
+	public List<OperationDocument> listTransactionByHash(String hash) {
+		return operationRepository.findAllByHash(hash);
 	}
 
 	@Override
 	public TransferDTO saveTransfer(TransferDTO transferDTO) throws FusionException {
 
-		CurrentAccount accountOrigin = currentAccountService.findByHash(transferDTO.getHashOrigin());
-		CurrentAccount accountDestiny = currentAccountService.findByHash(transferDTO.getHashDestination());
+		CurrentAccountDocument accountOrigin = currentAccountService.findByHash(transferDTO.getHashOrigin());
+		CurrentAccountDocument accountDestiny = currentAccountService.findByHash(transferDTO.getHashDestination());
 
 		if (accountOrigin == null) {
 			throw new FusionException("Conta de origem inexistente!");
@@ -73,8 +71,8 @@ public class OperationServiceImpl implements OperationService {
 		Balance sldOrigin = calculateBalance(transferDTO.getHashOrigin());
 
 		if (sldOrigin.getSaldo() != null && sldOrigin.getSaldo() >= transferDTO.getValue()) {
-			Operation origin = new Operation(transferDTO, OperationType.SAQUE, transferDTO.getHashOrigin());
-			Operation destiny = new Operation(transferDTO, OperationType.DEPOSITO, transferDTO.getHashDestination());
+			OperationDocument origin = new OperationDocument(transferDTO, OperationType.SAQUE, transferDTO.getHashOrigin());
+			OperationDocument destiny = new OperationDocument(transferDTO, OperationType.DEPOSITO, transferDTO.getHashDestination());
 			operationRepository.save(origin);
 			operationRepository.save(destiny);
 		} else {
@@ -89,12 +87,12 @@ public class OperationServiceImpl implements OperationService {
 		Balance saldo = new Balance(null);
 
 		try {
-			List<Operation> transacoes = listTransactionByHash(hash);
+			List<OperationDocument> transacoes = listTransactionByHash(hash);
 			if (transacoes.isEmpty()) {
 				return saldo;
 			}
 			saldo = saldoService
-					.calcularSaldo(transacoes.stream().map(Operation::getOperacaoDto).collect(Collectors.toList()));
+					.calcularSaldo(transacoes.stream().map(OperationDocument::getOperacaoDto).collect(Collectors.toList()));
 			return saldo;
 		} catch (Exception e) {
 			throw e;

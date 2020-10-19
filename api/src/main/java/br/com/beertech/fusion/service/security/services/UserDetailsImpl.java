@@ -1,6 +1,7 @@
 package br.com.beertech.fusion.service.security.services;
 
 import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.domain.collections.UserDocument;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,9 +35,9 @@ public class UserDetailsImpl implements UserDetails {
 		this.authorities = authorities;
 	}
 
-	public static UserDetailsImpl build(Users usuario) {
+	public static UserDetailsImpl build(UserDocument usuario) {
 		List<GrantedAuthority> authorities = usuario.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
+				.map(role -> new SimpleGrantedAuthority(role.toString()))
 				.collect(Collectors.toList());
 
 		return new UserDetailsImpl(

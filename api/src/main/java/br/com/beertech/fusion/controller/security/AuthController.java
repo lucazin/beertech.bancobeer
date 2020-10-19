@@ -1,15 +1,14 @@
 package br.com.beertech.fusion.controller.security;
 
 import br.com.beertech.fusion.domain.CurrentAccount;
+import br.com.beertech.fusion.domain.collections.CurrentAccountDocument;
 import br.com.beertech.fusion.domain.security.request.LoginRequest;
 import br.com.beertech.fusion.domain.security.request.SignupRequest;
 import br.com.beertech.fusion.domain.security.response.JwtResponse;
 import br.com.beertech.fusion.domain.security.response.MessageResponse;
-import br.com.beertech.fusion.domain.security.roles.EnumRole;
-import br.com.beertech.fusion.domain.security.roles.Role;
-import br.com.beertech.fusion.domain.Users;
 import br.com.beertech.fusion.repository.RoleRepository;
 import br.com.beertech.fusion.repository.UserRepository;
+import br.com.beertech.fusion.domain.collections.UserDocument;
 import br.com.beertech.fusion.service.CurrentAccountService;
 import br.com.beertech.fusion.service.security.jwt.JwtUtils;
 import br.com.beertech.fusion.service.security.services.UserDetailsImpl;
@@ -23,12 +22,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static org.springframework.http.HttpStatus.CREATED;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -88,42 +85,50 @@ public class AuthController {
 		}
 
 		//Cria nova conta do cliente
-		Users usuario = new Users(signUpRequest.getUsername(),
+		UserDocument usuario = new UserDocument(signUpRequest.getUsername(),
 							 signUpRequest.getEmail(),
 							 encoder.encode(signUpRequest.getPassword()),
 							 signUpRequest.getCnpj(),signUpRequest.getNome());
 
+
 		Set<String> strRoles = signUpRequest.getRole();
-		Set<Role> roles = new HashSet<>();
 
-		// verifica roles
-		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(EnumRole.ROLE_USER)
-					.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
-			roles.add(userRole);
-		} else {
-			strRoles.forEach(role -> {
-				switch (role) {
-				case "user":
-					Role adminRole = roleRepository.findByName(EnumRole.ROLE_USER)
-							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
-					roles.add(adminRole);
+		usuario.setRoles(new ArrayList<>(strRoles));
 
-					break;
-				case "moderator":
-					Role modRole = roleRepository.findByName(EnumRole.ROLE_MODERATOR)
-							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
-					roles.add(modRole);
+		//Set<Role> roles = new HashSet<>();
 
-					break;
-				}
-			});
-		}
 
-		usuario.setRoles(roles);
+
+
+//		// verifica roles
+//		if (strRoles == null) {
+//			Role userRole = roleRepository.findByName(EnumRole.ROLE_USER)
+//					.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
+//			roles.add(userRole);
+//		} else {
+//			strRoles.forEach(role -> {
+//				switch (role) {
+//				case "user":
+//					Role adminRole = roleRepository.findByName(EnumRole.ROLE_USER)
+//							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
+//					roles.add(adminRole);
+//
+//					break;
+//				case "moderator":
+//					Role modRole = roleRepository.findByName(EnumRole.ROLE_MODERATOR)
+//							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
+//					roles.add(modRole);
+//
+//					break;
+//				}
+//			});
+//		}
+//
+//
+//		usuario.setRoles();
 		userRepository.save(usuario);
 
-		CurrentAccount currentAccount = new CurrentAccount();
+		CurrentAccountDocument currentAccount = new CurrentAccountDocument();
 		currentAccount.setCnpj(usuario.getCnpj());
 		currentAccountService.saveAccount(currentAccount);
 

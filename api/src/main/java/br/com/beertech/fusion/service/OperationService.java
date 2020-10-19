@@ -5,17 +5,16 @@ import java.util.List;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
 import br.com.beertech.fusion.domain.Balance;
 import br.com.beertech.fusion.domain.Operation;
+import br.com.beertech.fusion.domain.collections.OperationDocument;
 import br.com.beertech.fusion.exception.FusionException;
 
 public interface OperationService {
 
-    Operation newTransaction(Operation operacao);
+    OperationDocument newTransaction(OperationDocument operacao);
 
-    void RemoveTransacao(Long idBeer);
-
-    List<Operation> ListaTransacoes();
+    List<OperationDocument> ListaTransacoes();
     
-    List<Operation> listTransactionByHash(String hash);
+    List<OperationDocument> listTransactionByHash(String hash);
 
     TransferDTO saveTransfer(TransferDTO transferDTO) throws FusionException;
 	

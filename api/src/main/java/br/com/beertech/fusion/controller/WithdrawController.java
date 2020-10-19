@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Supplier;
 
+import br.com.beertech.fusion.domain.collections.OperationDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,8 +35,8 @@ public class WithdrawController {
             // Run a task specified by a Supplier object asynchronously
             future = CompletableFuture.supplyAsync(new Supplier<ResponseEntity>() {
                 @Override
-                public ResponseEntity<Operation> get() {
-                    Operation operacao = new Operation(new OperationDTO(OperationType.SAQUE,
+                public ResponseEntity<OperationDocument> get() {
+                    OperationDocument operacao = new OperationDocument(new OperationDTO(OperationType.SAQUE,
                             saqueDTO.getValorOperacao(), saqueDTO.getHash()));
                     return new ResponseEntity<>(operationService.newTransaction(operacao), CREATED);
                 }

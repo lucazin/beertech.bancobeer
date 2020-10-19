@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import br.com.beertech.fusion.domain.collections.OperationDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,15 +44,15 @@ public class OperationController {
     private PublishTransaction publisheTransaction;
 
     @GetMapping("/transaction")
-    public CompletableFuture<List<Operation>> listOperations() throws ExecutionException, InterruptedException {
+    public CompletableFuture<List<OperationDocument>> listOperations() throws ExecutionException, InterruptedException {
 
-        CompletableFuture<List<Operation>> future = new CompletableFuture<>();
+        CompletableFuture<List<OperationDocument>> future = new CompletableFuture<>();
         try
         {
             // Run a task specified by a Supplier object asynchronously
-            future = CompletableFuture.supplyAsync(new Supplier<List<Operation>>() {
+            future = CompletableFuture.supplyAsync(new Supplier<List<OperationDocument>>() {
                 @Override
-                public List<Operation> get()
+                public List<OperationDocument> get()
                 {
                     return operationService.ListaTransacoes();
                 }
@@ -73,9 +74,9 @@ public class OperationController {
                 @Override
                 public ResponseEntity get()
                 {
-                    List<Operation> transacoes = operationService.ListaTransacoes();
+                    List<OperationDocument> transacoes = operationService.ListaTransacoes();
                     Balance Saldo = saldoService.calcularSaldo(
-                            transacoes.stream().map(Operation::getOperacaoDto).collect(Collectors.toList()));
+                            transacoes.stream().map(OperationDocument::getOperacaoDto).collect(Collectors.toList()));
                     return new ResponseEntity<>(Saldo, OK);
                 }
             });
@@ -117,7 +118,7 @@ public class OperationController {
                 @Override
                 public ResponseEntity get()
                 {
-                    Operation operacao = new Operation(operationDTO);
+                    OperationDocument operacao = new OperationDocument(operationDTO);
                     return new ResponseEntity<>(operationService.newTransaction(operacao), CREATED);
                 }
             });

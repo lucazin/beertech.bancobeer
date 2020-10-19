@@ -10,15 +10,15 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
-@Table(name = "conta_corrente")
+//@Entity
+//@Table(name = "conta_corrente")
 public class CurrentAccount implements Serializable { 
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+//	@Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @JsonIgnore
 	private Long idConta;
 	
 	private String hash;

@@ -3,13 +3,14 @@ package br.com.beertech.fusion.service;
 import java.util.List;
 
 import br.com.beertech.fusion.domain.CurrentAccount;
+import br.com.beertech.fusion.domain.collections.CurrentAccountDocument;
 
 public interface CurrentAccountService {
 
-	 public List<CurrentAccount> listAccounts();
+	 public List<CurrentAccountDocument> listAccounts();
 	 
-	 public CurrentAccount findByHash(String hash);
+	 public CurrentAccountDocument findByHash(String hash);
 	 
-	 public CurrentAccount saveAccount(CurrentAccount account);	 
+	 public CurrentAccountDocument saveAccount(CurrentAccountDocument account);
 	 
 }

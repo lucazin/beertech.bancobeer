@@ -9,6 +9,7 @@ import java.util.function.Supplier;
 
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.domain.Operation;
+import br.com.beertech.fusion.domain.collections.CurrentAccountDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,7 +28,7 @@ public class CurrentAccountController {
 	private CurrentAccountService currentAccountService;
 	
 	@GetMapping("/current-account")
-    public List<CurrentAccount> listAccounts() {
+    public List<CurrentAccountDocument> listAccounts() {
         return currentAccountService.listAccounts();
     }
 	
@@ -42,7 +43,7 @@ public class CurrentAccountController {
                 @Override
                 public ResponseEntity get()
                 {
-                    CurrentAccount currentAccount = new CurrentAccount();
+                    CurrentAccountDocument currentAccount = new CurrentAccountDocument();
                     return new ResponseEntity<>(currentAccountService.saveAccount(currentAccount),CREATED);
                 }
             });

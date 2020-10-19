@@ -20,8 +20,8 @@ public class RestClient {
 	private RestTemplate restTemplate;
 	private Operation operation;
 	private Transfer transfer;
-	public final String OPERATION_URL = "http://localhost:8081/bankbeer/operacao/salvar";
-	public final String TRANSFER_URL = "http://localhost:8081/bankbeer/transferencia/salvar";
+	public final String OPERATION_URL = "http://localhost:8081/bankbeer/operation/save";
+	public final String TRANSFER_URL = "http://localhost:8081/bankbeer/transfer/save";
 
 	public RestClient(Operation restObjectParamenter) {
 		operation = restObjectParamenter;

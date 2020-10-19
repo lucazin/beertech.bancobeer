@@ -10,6 +10,7 @@ public class Transfer implements Serializable{
 	private String hashOrigin;
 	private String hashDestination;
 	private Double value;
+    private String debitCredit;
 
 	public String getHashOrigin() {
 		return hashOrigin;
@@ -35,8 +36,17 @@ public class Transfer implements Serializable{
 		this.value = value;
 	}
 	
+	
+	public String getDebitCredit() {
+		return debitCredit;
+	}
+
+	public void setDebitCredit(String debitCredit) {
+		this.debitCredit = debitCredit;
+	}
+
 	@Override
     public int hashCode() {
-        return Objects.hash(hashOrigin, hashDestination, value);
+        return Objects.hash(hashOrigin, hashDestination, value, debitCredit);
     }
 }

@@ -1,12 +1,14 @@
 package br.com.beertech.fusion.controller.dto;
 
+import br.com.beertech.fusion.domain.DebitCreditType;
+
 public class TransferDTO {
 	
 	private String hashOrigin;
-	
 	private String hashDestination;
-	
 	private Double value;
+	private DebitCreditType debitCredit;
+
 
 	public String getHashOrigin() {
 		return hashOrigin;
@@ -30,5 +32,13 @@ public class TransferDTO {
 
 	public void setValue(Double value) {
 		this.value = value;
+	}
+
+	public DebitCreditType getDebitCredit() {
+		return debitCredit;
+	}
+
+	public void setDebitCredit(DebitCreditType debitCredit) {
+		this.debitCredit = debitCredit;
 	}
 }

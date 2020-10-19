@@ -13,7 +13,7 @@ public interface OperationService {
 
     void RemoveTransacao(Long idBeer);
 
-    List<Operation> ListaTransacoes();
+    List<Operation> listTransaction(String hash);
     
     List<Operation> listTransactionByHash(String hash);
 

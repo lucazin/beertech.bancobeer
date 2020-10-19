@@ -26,14 +26,13 @@ public class Operation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long idOperacao;
-
     private String horarioOperacao;
-
     private int tipoOperacao;
     private Double valorOperacao;
     private String hash;
+    private String debitCredit;
 
-    public Operation() {
+	public Operation() {
     }
 
     public Operation(OperationDTO operacaoDTO) {
@@ -43,16 +42,17 @@ public class Operation implements Serializable {
         this.hash = operacaoDTO.getHash();
     }
 
-    public Operation(TransferDTO transferDTO, OperationType operationType, String hash) {
+    public Operation(TransferDTO transferDTO, OperationType operationType, String hash, DebitCreditType debitCredit) {
     	this.tipoOperacao = operationType.ID;
     	this.valorOperacao = transferDTO.getValue();
     	this.horarioOperacao = getDataAtual();
     	this.hash = hash;    	
+    	this.debitCredit = debitCredit.id;
     }
     
     @JsonIgnore
     public OperationDTO getOperacaoDto() {
-        return new OperationDTO(OperationType.getById(this.tipoOperacao), this.valorOperacao,this.hash);
+        return new OperationDTO(OperationType.getById(this.tipoOperacao), this.valorOperacao,this.hash, DebitCreditType.getById(this.debitCredit));
     }
     
     public String getHorarioOperacao() {
@@ -95,9 +95,17 @@ public class Operation implements Serializable {
 		this.hash = hash;
 	}
 
+    public String getDebitCredit() {
+		return debitCredit;
+	}
+
+	public void setDebitCredit(String debitCredit) {
+		this.debitCredit = debitCredit;
+	}
+	
 	@Override
     public int hashCode() {
-        return Objects.hash(idOperacao, tipoOperacao, valorOperacao, hash);
+        return Objects.hash(idOperacao, tipoOperacao, valorOperacao, hash, debitCredit);
     }
 
     private String getDataAtual() {

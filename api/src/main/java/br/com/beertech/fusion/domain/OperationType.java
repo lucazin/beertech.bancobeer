@@ -3,7 +3,8 @@ package br.com.beertech.fusion.domain;
 public enum OperationType {
 
     DEPOSITO(1),
-    SAQUE(2);
+    SAQUE(2),
+	TRANSFERENCIA(3);
 
     public int ID;
 
@@ -14,8 +15,11 @@ public enum OperationType {
     public static OperationType getById(int id) {
         if (id == 1) {
             return DEPOSITO;
-        } else {
+        } else if (id == 2) {
             return SAQUE;
+        } else {
+        	return TRANSFERENCIA;
         }
+        	
     }
 }

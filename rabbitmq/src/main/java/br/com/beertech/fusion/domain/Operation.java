@@ -11,6 +11,7 @@ public class Operation implements Serializable {
     private String tipoOperacao;
     private Double valorOperacao;
     private String hash;
+    private String debitCredit;
 
     public String getTipoOperacao() {
         return tipoOperacao;
@@ -35,9 +36,17 @@ public class Operation implements Serializable {
 	public void setHash(String hash) {
 		this.hash = hash;
 	}
-	
-    @Override
+
+	public String getDebitCredit() {
+		return debitCredit;
+	}
+
+	public void setDebitCredit(String debitCredit) {
+		this.debitCredit = debitCredit;
+	}
+
+	@Override
     public int hashCode() {
-        return Objects.hash(tipoOperacao, valorOperacao, hash);
+        return Objects.hash(tipoOperacao, valorOperacao, hash, debitCredit);
     }
 }

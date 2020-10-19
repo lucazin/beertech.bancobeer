@@ -1,5 +1,6 @@
 package br.com.beertech.fusion.controller.dto;
 
+import br.com.beertech.fusion.domain.DebitCreditType;
 import br.com.beertech.fusion.domain.OperationType;
 
 public class OperationDTO {
@@ -7,17 +8,19 @@ public class OperationDTO {
     private OperationType tipoOperacao;
     private Double valorOperacao;
     private String hash;
+    private DebitCreditType debitCredit;
 
     public OperationDTO() {
     }
     
-    public OperationDTO(OperationType tipoOperacao, Double valorOperacao, String hash) {
+    public OperationDTO(OperationType tipoOperacao, Double valorOperacao, String hash, DebitCreditType debitCredit) {
         this.tipoOperacao = tipoOperacao;
         this.valorOperacao = valorOperacao;
         this.hash = hash;
+        this.debitCredit = debitCredit;        
     }
-    
-    public OperationType getTipoOperacao() {
+
+	public OperationType getTipoOperacao() {
         return tipoOperacao;
     }
 
@@ -40,4 +43,12 @@ public class OperationDTO {
     public void setHash(String hash) {
         this.hash = hash;
     }
+    
+    public DebitCreditType getDebitCredit() {
+		return debitCredit;
+	}
+
+	public void setDebitCredit(DebitCreditType debitCredit) {
+		this.debitCredit = debitCredit;
+	}
 }

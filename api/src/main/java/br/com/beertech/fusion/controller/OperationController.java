@@ -42,28 +42,8 @@ public class OperationController {
     @Autowired
     private PublishTransaction publisheTransaction;
 
-    @GetMapping("/transaction")
-    public CompletableFuture<List<Operation>> listOperations() throws ExecutionException, InterruptedException {
-
-        CompletableFuture<List<Operation>> future = new CompletableFuture<>();
-        try
-        {
-            // Run a task specified by a Supplier object asynchronously
-            future = CompletableFuture.supplyAsync(new Supplier<List<Operation>>() {
-                @Override
-                public List<Operation> get()
-                {
-                    return operationService.ListaTransacoes();
-                }
-            });
-        }
-        catch (Exception e)
-        { e.printStackTrace(); }
-        return CompletableFuture.completedFuture(future.get());
-    }
-
-    @GetMapping("/balance")
-    public CompletableFuture<ResponseEntity> listSaldo() throws ExecutionException, InterruptedException {
+    @GetMapping("/extract/{hash}")
+    public CompletableFuture<ResponseEntity> listExtract(@PathVariable String hash) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
         try
@@ -73,10 +53,10 @@ public class OperationController {
                 @Override
                 public ResponseEntity get()
                 {
-                    List<Operation> transacoes = operationService.ListaTransacoes();
+                    List<Operation> transacoes = operationService.listTransaction(hash);
                     Balance Saldo = saldoService.calcularSaldo(
                             transacoes.stream().map(Operation::getOperacaoDto).collect(Collectors.toList()));
-                    return new ResponseEntity<>(Saldo, OK);
+                    return new ResponseEntity<>(transacoes, OK);
                 }
             });
         }
@@ -127,29 +107,7 @@ public class OperationController {
         return CompletableFuture.completedFuture(future.get());
     }
 
-
-    @PostMapping("/operation")
-    public CompletableFuture<ResponseEntity> queueOperationsx(@RequestBody OperationDTO operationDTO) throws ExecutionException, InterruptedException {
-
-        CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
-        try
-        {
-            // Run a task specified by a Supplier object asynchronously
-            future = CompletableFuture.supplyAsync(new Supplier<ResponseEntity>() {
-                @Override
-                public ResponseEntity get()
-                {
-                	publisheTransaction.publisheOperation(operationDTO);
-                    return ResponseEntity.status(OK).body("Solicitação de Operação executada!");
-                }
-            });
-        }
-        catch (Exception e)
-        { e.printStackTrace(); }
-        return CompletableFuture.completedFuture(future.get());
-    }
-
-    @PostMapping("/trasfer/salve")
+    @PostMapping("/transfer/save")
     public CompletableFuture<ResponseEntity> saveTransfer(@RequestBody TransferDTO transferDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -176,7 +134,7 @@ public class OperationController {
     }
 
     @PostMapping("/transfer")
-    @PreAuthorize("hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('USER')")
     public CompletableFuture<ResponseEntity> queueTransfer(@RequestBody TransferDTO transferDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();

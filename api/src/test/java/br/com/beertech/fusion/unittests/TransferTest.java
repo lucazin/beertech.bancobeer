@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
 import br.com.beertech.fusion.domain.Balance;
+import br.com.beertech.fusion.domain.DebitCreditType;
 import br.com.beertech.fusion.domain.Operation;
 import br.com.beertech.fusion.domain.OperationType;
 import br.com.beertech.fusion.exception.FusionException;
@@ -37,14 +38,14 @@ public class TransferTest {
 
 		List<OperationDTO> operacoes = new ArrayList<>();
 
-		Operation operation = new Operation(new OperationDTO(OperationType.DEPOSITO, 100., HASH_ORIGIN));
+		Operation operation = new Operation(new OperationDTO(OperationType.DEPOSITO, 100., HASH_ORIGIN, DebitCreditType.CREDITO));
 
 		OperationServiceImpl operationServiceImpl = mock(OperationServiceImpl.class);
 		when(operationServiceImpl.newTransaction(operation)).thenReturn(operation);
 
 		Operation newTransaction = operationServiceImpl.newTransaction(operation);
 		operacoes.add(
-				new OperationDTO(OperationType.DEPOSITO, newTransaction.getValorOperacao(), newTransaction.getHash()));
+				new OperationDTO(OperationType.DEPOSITO, newTransaction.getValorOperacao(), newTransaction.getHash(), DebitCreditType.CREDITO));
 
 		BalanceService saldoService = new BalanceServiceImpl();
 		assertEquals(saldoService.calcularSaldo(operacoes), new Balance(100.));
@@ -55,23 +56,23 @@ public class TransferTest {
 
 		List<OperationDTO> operacoes = new ArrayList<>();
 
-		Operation deposit = new Operation(new OperationDTO(OperationType.DEPOSITO, 500., HASH_ORIGIN));
+		Operation deposit = new Operation(new OperationDTO(OperationType.DEPOSITO, 500., HASH_ORIGIN,DebitCreditType.CREDITO));
 
 		OperationServiceImpl operationServiceDeposit = mock(OperationServiceImpl.class);
 		when(operationServiceDeposit.newTransaction(deposit)).thenReturn(deposit);
 
 		Operation transactionDeposit = operationServiceDeposit.newTransaction(deposit);
 		operacoes.add(new OperationDTO(OperationType.DEPOSITO, transactionDeposit.getValorOperacao(),
-				transactionDeposit.getHash()));
+				transactionDeposit.getHash(), DebitCreditType.CREDITO));
 
-		Operation withdraw = new Operation(new OperationDTO(OperationType.SAQUE, 100., HASH_ORIGIN));
+		Operation withdraw = new Operation(new OperationDTO(OperationType.SAQUE, 100., HASH_ORIGIN,DebitCreditType.DEBITO));
 
 		OperationServiceImpl operationServiceWithdraw = mock(OperationServiceImpl.class);
 		when(operationServiceWithdraw.newTransaction(withdraw)).thenReturn(withdraw);
 
 		Operation transactionWithdraw = operationServiceWithdraw.newTransaction(withdraw);
 		operacoes.add(new OperationDTO(OperationType.SAQUE, transactionWithdraw.getValorOperacao(),
-				transactionWithdraw.getHash()));
+				transactionWithdraw.getHash(),DebitCreditType.DEBITO));
 
 		BalanceService saldoService = new BalanceServiceImpl();
 		assertEquals(saldoService.calcularSaldo(operacoes), new Balance(400.));
@@ -82,14 +83,14 @@ public class TransferTest {
 
 		List<OperationDTO> operacoes = new ArrayList<>();
 
-		Operation deposit = new Operation(new OperationDTO(OperationType.DEPOSITO, 500., HASH_ORIGIN));
+		Operation deposit = new Operation(new OperationDTO(OperationType.DEPOSITO, 500., HASH_ORIGIN,DebitCreditType.CREDITO));
 
 		OperationServiceImpl operationServiceDeposit = mock(OperationServiceImpl.class);
 		when(operationServiceDeposit.newTransaction(deposit)).thenReturn(deposit);
 
 		Operation transactionDeposit = operationServiceDeposit.newTransaction(deposit);
 		operacoes.add(new OperationDTO(OperationType.DEPOSITO, transactionDeposit.getValorOperacao(),
-				transactionDeposit.getHash()));
+				transactionDeposit.getHash(), DebitCreditType.CREDITO));
 
 		TransferDTO transferDTO = new TransferDTO();
 

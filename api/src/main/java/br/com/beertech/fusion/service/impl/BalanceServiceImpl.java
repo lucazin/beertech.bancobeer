@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.domain.OperationType;
 import br.com.beertech.fusion.domain.Balance;
+import br.com.beertech.fusion.domain.DebitCreditType;
 import br.com.beertech.fusion.service.BalanceService;
 
 @Service
@@ -24,7 +25,15 @@ public class BalanceServiceImpl implements BalanceService {
                     .filter(o -> OperationType.SAQUE.equals(o.getTipoOperacao()))
                     .mapToDouble(o -> o.getValorOperacao())
                     .sum();
-            valorTotal = depositos - saques;
+            Double transferenciaDebito = operacoes.stream()
+                    .filter(o -> OperationType.TRANSFERENCIA.equals(o.getTipoOperacao()) && DebitCreditType.DEBITO.equals(o.getDebitCredit())) 
+                    .mapToDouble(o -> o.getValorOperacao())
+                    .sum();
+            Double transferenciaCredito = operacoes.stream()
+                    .filter(o -> OperationType.TRANSFERENCIA.equals(o.getTipoOperacao()) && DebitCreditType.CREDITO.equals(o.getDebitCredit()))
+                    .mapToDouble(o -> o.getValorOperacao())
+                    .sum();
+            valorTotal = (depositos + transferenciaCredito) - (saques - transferenciaDebito);
         }
         return new Balance(valorTotal);
     }

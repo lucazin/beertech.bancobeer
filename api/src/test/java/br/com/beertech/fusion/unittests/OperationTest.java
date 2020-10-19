@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.domain.Balance;
+import br.com.beertech.fusion.domain.DebitCreditType;
 import br.com.beertech.fusion.domain.OperationType;
 import br.com.beertech.fusion.service.BalanceService;
 import br.com.beertech.fusion.service.impl.BalanceServiceImpl;
@@ -20,7 +21,7 @@ public class OperationTest {
     @Test
     public void testBalanceDeposit() {
         List<OperationDTO> operacoes = new ArrayList<>();
-        operacoes.add(new OperationDTO(OperationType.DEPOSITO, 100.,HASH_ORIGIN));
+        operacoes.add(new OperationDTO(OperationType.DEPOSITO, 100.,HASH_ORIGIN,DebitCreditType.CREDITO));
         BalanceService saldoService = new BalanceServiceImpl();
         assertEquals(saldoService.calcularSaldo(operacoes), new Balance(100.));
     }
@@ -28,7 +29,7 @@ public class OperationTest {
     @Test
     public void testBalanceWithdraw() {
         List<OperationDTO> operacoes = new ArrayList<>();
-        operacoes.add(new OperationDTO(OperationType.SAQUE, 10.,HASH_ORIGIN));
+        operacoes.add(new OperationDTO(OperationType.SAQUE, 10.,HASH_ORIGIN, DebitCreditType.DEBITO));
         BalanceService saldoService = new BalanceServiceImpl();
         assertEquals(saldoService.calcularSaldo(operacoes), new Balance(-10.));
     }
@@ -36,9 +37,9 @@ public class OperationTest {
     @Test
     public void testBalanceOperationVariable() {
         List<OperationDTO> operacoes = new ArrayList<>();
-        operacoes.add(new OperationDTO(OperationType.DEPOSITO, 100.,HASH_ORIGIN));
-        operacoes.add(new OperationDTO(OperationType.SAQUE, 25.,HASH_ORIGIN));
-        operacoes.add(new OperationDTO(OperationType.SAQUE, 10.,HASH_ORIGIN));
+        operacoes.add(new OperationDTO(OperationType.DEPOSITO, 100.,HASH_ORIGIN, DebitCreditType.CREDITO));
+        operacoes.add(new OperationDTO(OperationType.SAQUE, 25.,HASH_ORIGIN, DebitCreditType.DEBITO));
+        operacoes.add(new OperationDTO(OperationType.SAQUE, 10.,HASH_ORIGIN, DebitCreditType.DEBITO));
         BalanceService saldoService = new BalanceServiceImpl();
         assertEquals(saldoService.calcularSaldo(operacoes), new Balance(65.));
     }

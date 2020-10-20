@@ -17,7 +17,7 @@ import java.util.Set;
 //			@UniqueConstraint(columnNames = "username"),
 //			@UniqueConstraint(columnNames = "email")
 //		})
-public class Users {
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -63,9 +63,9 @@ public class Users {
 			inverseJoinColumns = @JoinColumn(name = "account_id"))
 	private Set<CurrentAccount> Accounts = new HashSet<>();
 
-	public Users() {}
+	public User() {}
 
-	public Users(String username, String email, String password,String cnpj,String name,String phone) {
+	public User(String username, String email, String password,String cnpj,String name,String phone) {
 		this.username = username;
 		this.email = email;
 		this.password = password;

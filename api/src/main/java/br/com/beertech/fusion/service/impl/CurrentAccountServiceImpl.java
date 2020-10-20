@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.beertech.fusion.domain.AccountType;
 import br.com.beertech.fusion.domain.CurrentAccount;
-import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.domain.User;
 import br.com.beertech.fusion.domain.security.request.SignupRequest;
 import br.com.beertech.fusion.repository.CurrentAccountRepository;
 import br.com.beertech.fusion.repository.UserRepository;
@@ -45,7 +45,7 @@ public class CurrentAccountServiceImpl implements CurrentAccountService{
 	}
 
 	@Override
-	public CurrentAccount saveNewAccountRegister(SignupRequest signUpRequest, UserRepository userRepository, Users userRegistered) {
+	public CurrentAccount saveNewAccountRegister(SignupRequest signUpRequest, UserRepository userRepository, User userRegistered) {
 
 		Set<CurrentAccount> accounts = new HashSet<>();
 		if(signUpRequest.getAccountType() == AccountType.CORRENTE_POUPANCA.ID)

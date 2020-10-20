@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cdad5e45-37b7-4116-a950-f09bf3adacf2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/controller/OperationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/controller/OperationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/beertech/fusion/service/impl/OperationServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/beertech/fusion/service/impl/OperationServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../rabbitmq/src/main/java/br/com/beertech/fusion/service/RestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../rabbitmq/src/main/java/br/com/beertech/fusion/service/RestClient.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="ProjectId" id="1j0ZHgAZM8rlBCGzP4TnbuyHP2n" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../rabbitmq" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="br.com.beertech.fusion.controller" />
+      <recent name="br.com.beertech.fusion.controller.dto" />
+      <recent name="br.com.beertech.fusion.repository" />
+      <recent name="br.com.beertech.fusion.domain" />
+      <recent name="br.com.beertech.fusion.service.security" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\super\Desktop\beertech.bancobeer-SecurityPoc\api\src\main\java\br\com\beertech\fusion\service\security" />
+      <recent name="C:\Users\super\Desktop\beertech.bancobeer-SecurityPoc\api\src\main\java\br\com\beertech\fusion\repository" />
+      <recent name="C:\Users\super\Desktop\beertech.bancobeer-SecurityPoc\api\src\main\java\br\com\beertech\fusion\domain\security\roles" />
+      <recent name="C:\Users\super\Desktop\beertech.bancobeer-SecurityPoc\api\src\main\java\br\com\beertech\fusion\domain\security" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="FusionApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="legacy-poc-fusion" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="br.com.beertech.fusion.FusionApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cdad5e45-37b7-4116-a950-f09bf3adacf2" name="Default Changelist" comment="" />
+      <created>1602942883965</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1602942883965</updated>
+      <workItem from="1602942887097" duration="6213000" />
+      <workItem from="1602949696272" duration="19000" />
+      <workItem from="1602949835014" duration="48077000" />
+      <workItem from="1603078541985" duration="23608000" />
+      <workItem from="1603131737748" duration="4269000" />
+      <workItem from="1603158393698" duration="2780000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser" timestamp="1603088021593">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="574" y="110" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1603088021593" />
+    <state x="473" y="93" key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog" timestamp="1603118838776">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="473" y="93" key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog/0.0.1536.834@0.0.1536.834" timestamp="1603118838776" />
+    <state x="353" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1603036442543">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="353" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.834@0.0.1536.834" timestamp="1603036442543" />
+    <state x="460" y="102" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603031245893">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="460" y="102" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.834@0.0.1536.834" timestamp="1603031245893" />
+    <state width="522" height="466" key="DebuggerActiveHint" timestamp="1603110581661">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="522" height="466" key="DebuggerActiveHint/0.0.1536.834@0.0.1536.834" timestamp="1603110581661" />
+    <state x="549" y="175" key="FileChooserDialogImpl" timestamp="1603158409366">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="549" y="175" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1603158409366" />
+    <state width="1493" height="289" key="GridCell.Tab.0.bottom" timestamp="1603158573741">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="289" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1603158573741" />
+    <state width="1493" height="289" key="GridCell.Tab.0.center" timestamp="1603158573741">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="289" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1603158573741" />
+    <state width="1493" height="289" key="GridCell.Tab.0.left" timestamp="1603158573741">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="289" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1603158573741" />
+    <state width="1493" height="289" key="GridCell.Tab.0.right" timestamp="1603158573741">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="289" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1603158573741" />
+    <state width="1493" height="289" key="GridCell.Tab.1.bottom" timestamp="1603158573742">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="289" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1603158573742" />
+    <state width="1493" height="289" key="GridCell.Tab.1.center" timestamp="1603158573741">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="289" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1603158573741" />
+    <state width="1493" height="289" key="GridCell.Tab.1.left" timestamp="1603158573741">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="289" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1603158573741" />
+    <state width="1493" height="289" key="GridCell.Tab.1.right" timestamp="1603158573742">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="289" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1603158573742" />
+    <state width="1493" height="164" key="GridCell.Tab.2.bottom" timestamp="1603122373655">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="164" key="GridCell.Tab.2.bottom/0.0.1536.834@0.0.1536.834" timestamp="1603122373655" />
+    <state width="1493" height="164" key="GridCell.Tab.2.center" timestamp="1603122373655">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="164" key="GridCell.Tab.2.center/0.0.1536.834@0.0.1536.834" timestamp="1603122373655" />
+    <state width="1493" height="164" key="GridCell.Tab.2.left" timestamp="1603122373655">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="164" key="GridCell.Tab.2.left/0.0.1536.834@0.0.1536.834" timestamp="1603122373655" />
+    <state width="1493" height="164" key="GridCell.Tab.2.right" timestamp="1603122373655">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="164" key="GridCell.Tab.2.right/0.0.1536.834@0.0.1536.834" timestamp="1603122373655" />
+    <state x="299" y="75" key="Maven.ArtifactSearchDialog" timestamp="1602943306883">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="299" y="75" key="Maven.ArtifactSearchDialog/0.0.1536.834@0.0.1536.834" timestamp="1602943306883" />
+    <state x="477" y="244" key="com.intellij.ide.util.TipDialog" timestamp="1603078555107">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="477" y="244" key="com.intellij.ide.util.TipDialog/0.0.1536.834@0.0.1536.834" timestamp="1603078555107" />
+    <state x="474" y="173" width="588" height="488" key="find.popup" timestamp="1603090449685">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="474" y="173" width="588" height="488" key="find.popup/0.0.1536.834@0.0.1536.834" timestamp="1603090449685" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1603071204045">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1603071204045" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/controller/WithdrawController.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/controller/WithdrawController.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/controller/WithdrawController.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/br/com/beertech/fusion/controller/WithdrawController.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="PersonalAccountOrigin.getBalance() - transferDTO.getTrasferValue()" language="JAVA" />
+        <watch expression="getjwtSecret()" language="JAVA" />
+        <watch expression="PersonalAccount.getBalance() - operation.getOperationValue()" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

@@ -10,11 +10,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(	name = "usuarios",
-		uniqueConstraints = { 
-			@UniqueConstraint(columnNames = "username"),
-			@UniqueConstraint(columnNames = "email")
-		})
+@Table(	name = "usuarios")
+
+//@Table(	name = "usuarios",
+//		uniqueConstraints = {
+//			@UniqueConstraint(columnNames = "username"),
+//			@UniqueConstraint(columnNames = "email")
+//		})
 public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,7 @@ public class Users {
 
 	@NotBlank
 	@Size(max = 50)
-	private String nome;
+	private String name;
 
 	@NotBlank
 	@Size(max = 20)
@@ -38,23 +40,38 @@ public class Users {
 	private String password;
 
 	@NotBlank
-	@Size(max = 120)
+	@Size(max = 14)
 	private String cnpj;
 
+	@NotBlank
+	@Size(max = 14)
+	private String phone;
+
+	@NotBlank
+	private int accountType;
+
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "usuarios_roles",
-				joinColumns = @JoinColumn(name = "usuarios_id"),
+	@JoinTable(	name = "user_roles",
+				joinColumns = @JoinColumn(name = "user_id"),
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
+
+	@ManyToMany(fetch = FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@JoinTable(	name = "user_accounts",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "account_id"))
+	private Set<CurrentAccount> Accounts = new HashSet<>();
+
 	public Users() {}
 
-	public Users(String username, String email, String password,String cnpj,String nome) {
+	public Users(String username, String email, String password,String cnpj,String name,String phone) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.cnpj = cnpj;
-		this.nome = nome;
+		this.name = name;
+		this.phone = phone;
 	}
 
 	public Long getId() {
@@ -101,7 +118,19 @@ public class Users {
 
 	public void setCnpj(String cnpj) { this.cnpj = cnpj; }
 
-	public String getNome() { return nome; }
+	public String getName() { return name; }
 
-	public void setNome(String nome) { this.nome = nome; }
+	public void setName(String name) { this.name = name; }
+
+	public String getPhone() { return phone; }
+
+	public void setPhone(String phone) { this.phone = phone; }
+
+	public Set<CurrentAccount> getAccounts() { return Accounts; }
+
+	public void setAccounts(Set<CurrentAccount> accounts) { Accounts = accounts; }
+
+	public int getAccountType() { return accountType; }
+
+	public void setAccountType(int accountType) { this.accountType = accountType; }
 }

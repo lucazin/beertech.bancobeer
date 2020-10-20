@@ -20,7 +20,7 @@ import br.com.beertech.fusion.service.PublishTransaction;
 public class PublishTransactionImpl implements PublishTransaction {
 	
 	private static final String HOST = "localhost";
-	private static final String QUEUE_OPERATION_NAME = "queueFusion";
+	private static final String QUEUE_OPERATION_NAME = "queueDeposit";
 	private static final String QUEUE_TRANSFER_NAME = "queueTransfer";
 	
 	@Override
@@ -61,7 +61,8 @@ public class PublishTransactionImpl implements PublishTransaction {
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost(HOST);
 
-		try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel()) {
+		try (Connection connection = factory.newConnection(); Channel channel = connection.createChannel())
+		{
 			channel.queueDeclare(QUEUE_TRANSFER_NAME, false, false, false, null);
 			channel.basicPublish("", QUEUE_TRANSFER_NAME, null, msgm.getBytes(StandardCharsets.UTF_8));
 		} catch (IOException | TimeoutException e) {

@@ -1,6 +1,6 @@
 package br.com.beertech.fusion.controller.dto;
 
-public class DepositoDTO {
+public class BankDepositDTO {
 
     private Double valorOperacao;
     private String hashContaCorrente;

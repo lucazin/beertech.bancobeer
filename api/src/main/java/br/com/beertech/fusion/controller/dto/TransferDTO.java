@@ -1,34 +1,48 @@
 package br.com.beertech.fusion.controller.dto;
 
+import br.com.beertech.fusion.domain.OperationType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class TransferDTO {
 	
-	private String hashOrigin;
-	
-	private String hashDestination;
-	
-	private Double value;
+	private String transferHashOrigin;
+	private String transferHashDestination;
+	private Double trasferValue;
+	private String tokenOperation;
 
-	public String getHashOrigin() {
-		return hashOrigin;
+	public TransferDTO() {
 	}
 
-	public void setHashOrigin(String hashOrigin) {
-		this.hashOrigin = hashOrigin;
+	public TransferDTO(String transferHashOrigin, String transferHashDestination, Double trasferValue,String tokenOperation) {
+		this.transferHashOrigin = transferHashOrigin;
+		this.transferHashDestination = transferHashDestination;
+		this.trasferValue = trasferValue;
+		this.tokenOperation = tokenOperation;
 	}
 
-	public String getHashDestination() {
-		return hashDestination;
+	public String getTransferHashOrigin() {
+		return transferHashOrigin;
 	}
 
-	public void setHashDestination(String hashDestination) {
-		this.hashDestination = hashDestination;
+	public void setTransferHashOrigin(String transferHashOrigin) {
+		this.transferHashOrigin = transferHashOrigin;
 	}
 
-	public Double getValue() {
-		return value;
+	public String getTransferHashDestination() {
+		return transferHashDestination;
 	}
 
-	public void setValue(Double value) {
-		this.value = value;
+	public void setTransferHashDestination(String transferHashDestination) { this.transferHashDestination = transferHashDestination; }
+
+	public Double getTrasferValue() {
+		return trasferValue;
 	}
+
+	public void setTrasferValue(Double trasferValue) {
+		this.trasferValue = trasferValue;
+	}
+
+	public String getTokenOperation() { return tokenOperation; }
+
+	public void setTokenOperation(String tokenOperation) { this.tokenOperation = tokenOperation; }
 }

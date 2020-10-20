@@ -7,36 +7,54 @@ public class Transfer implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	private String hashOrigin;
-	private String hashDestination;
-	private Double value;
+	private String transferHashOrigin;
+	private String transferHashDestination;
+	private Double trasferValue;
+	private String tokenOperation;
 
-	public String getHashOrigin() {
-		return hashOrigin;
+	public Transfer(){}
+
+	public Transfer(String transferHashOrigin,String transferHashDestination,Double trasferValue,String tokenOperation)
+	{
+		this.transferHashOrigin = transferHashOrigin;
+		this.transferHashDestination = transferHashDestination;
+		this.trasferValue = trasferValue;
+		this.tokenOperation = tokenOperation;
 	}
 
-	public void setHashOrigin(String hashOrigin) {
-		this.hashOrigin = hashOrigin;
+	public String getTokenOperation() {
+		return tokenOperation;
 	}
 
-	public String getHashDestination() {
-		return hashDestination;
+	public void setTokenOperation(String tokenOperation) {
+		this.tokenOperation = tokenOperation;
 	}
 
-	public void setHashDestination(String hashDestination) {
-		this.hashDestination = hashDestination;
+
+	public String getTransferHashOrigin() {
+		return transferHashOrigin;
 	}
 
-	public Double getValue() {
-		return value;
+	public void setTransferHashOrigin(String transferHashOrigin) {
+		this.transferHashOrigin = transferHashOrigin;
 	}
 
-	public void setValue(Double value) {
-		this.value = value;
+	public String getTransferHashDestination() {
+		return transferHashDestination;
+	}
+
+	public void setTransferHashDestination(String transferHashDestination) { this.transferHashDestination = transferHashDestination; }
+
+	public Double getTrasferValue() {
+		return trasferValue;
+	}
+
+	public void setTrasferValue(Double trasferValue) {
+		this.trasferValue = trasferValue;
 	}
 	
 	@Override
     public int hashCode() {
-        return Objects.hash(hashOrigin, hashDestination, value);
+        return Objects.hash(this.transferHashOrigin, this.transferHashDestination, this.trasferValue);
     }
 }

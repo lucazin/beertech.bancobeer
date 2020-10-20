@@ -9,7 +9,10 @@ import br.com.beertech.fusion.domain.Operation;
 
 public interface OperationRepository extends JpaRepository<Operation, Long> {
 
-	@Query(value = "select * from operacao o where o.hash = ?1", nativeQuery=true)
-	List<Operation> listTransactionByHash(String hash);
+	List<Operation> findAllByOperationHash(String hashOperation);
+
+	List<Operation> findAllByOperationAgencyAndOperationAccountNumber(String agency,String accountnumber);
+
+	List<Operation> findAllByOperationHashAndOperationType(String hashOperation,int operationType);
 
 }

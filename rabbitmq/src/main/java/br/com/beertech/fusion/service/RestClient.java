@@ -20,8 +20,12 @@ public class RestClient {
 	private RestTemplate restTemplate;
 	private Operation operation;
 	private Transfer transfer;
-	public final String OPERATION_URL = "http://localhost:8081/bankbeer/operacao/salvar";
-	public final String TRANSFER_URL = "http://localhost:8081/bankbeer/transferencia/salvar";
+
+	public final String OPERATION_TRANSFER_URL = "http://localhost:8081/beercoin/transfers/operation";
+	public final String OPERATION_DEPOSIT_URL = "http://localhost:8081/beercoin/deposits";
+	public final String OPERATION_WITHDRAW_URL = "http://localhost:8081/beercoin/withdrawals";
+	public final String TRANSFER_URL = "http://localhost:8081/beercoin/transfers/save";
+
 
 	public RestClient(Operation restObjectParamenter) {
 		operation = restObjectParamenter;
@@ -33,6 +37,7 @@ public class RestClient {
 
 	public void sendPostOperationAPI() {
 		try {
+			String finalUrl = "";
 			this.restTemplate = new RestTemplateBuilder().build();
 
 			HttpHeaders headers = new HttpHeaders();
@@ -40,12 +45,23 @@ public class RestClient {
 			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
 			Map<String, Object> map = new HashMap<>();
-			map.put("tipoOperacao", operation.getTipoOperacao());
-			map.put("valorOperacao", operation.getValorOperacao());
-			map.put("hash", operation.getHash());
+			map.put("typeOperation", operation.getTypeOperation());
+			map.put("valueOperation", operation.getValueOperation());
+			map.put("hashOperation", operation.getHashOperation());
+			map.put("agencyOperation", operation.getAgencyOperation());
+			map.put("accountOperation", operation.getAccountOperation());
+			map.put("tokenOperation", operation.getTokenOperation());
 
 			HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
-			ResponseEntity<Operation> response = this.restTemplate.postForEntity(OPERATION_URL, entity, Operation.class);
+
+			if(operation.getTypeOperation().equals("BANKDEPOSIT"))
+				finalUrl = OPERATION_DEPOSIT_URL;
+			else if(operation.getTypeOperation().equals("WITHDRAW"))
+				finalUrl = OPERATION_WITHDRAW_URL;
+			else if(operation.getTypeOperation().equals("TRANSFER"))
+				finalUrl = OPERATION_TRANSFER_URL;
+
+			ResponseEntity<Operation> response = this.restTemplate.postForEntity(finalUrl, entity, Operation.class);
 
 			if (response.getStatusCode() == HttpStatus.CREATED) {
 				System.out.println(response.getBody().toString());
@@ -66,9 +82,10 @@ public class RestClient {
 			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
 			Map<String, Object> map = new HashMap<>();
-			map.put("hashOrigin", transfer.getHashOrigin());
-			map.put("hashDestination", transfer.getHashDestination());
-			map.put("value", transfer.getValue());
+			map.put("transferHashOrigin", transfer.getTransferHashOrigin());
+			map.put("transferHashDestination", transfer.getTransferHashDestination());
+			map.put("trasferValue", transfer.getTrasferValue());
+			map.put("tokenOperation",transfer.getTokenOperation());
 
 			HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
 			ResponseEntity<Transfer> response = this.restTemplate.postForEntity(TRANSFER_URL, entity, Transfer.class);

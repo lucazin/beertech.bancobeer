@@ -1,43 +1,68 @@
 package br.com.beertech.fusion.controller.dto;
 
 import br.com.beertech.fusion.domain.OperationType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class OperationDTO {
 
-    private OperationType tipoOperacao;
-    private Double valorOperacao;
-    private String hash;
+    private OperationType typeOperation;
+    private Double valueOperation;
+    private String hashOperation;
+    private String agencyOperation;
+    private String accountOperation;
 
-    public OperationDTO() {
-    }
+    private String tokenOperation;
+
+    public OperationDTO() { }
     
-    public OperationDTO(OperationType tipoOperacao, Double valorOperacao, String hash) {
-        this.tipoOperacao = tipoOperacao;
-        this.valorOperacao = valorOperacao;
-        this.hash = hash;
-    }
-    
-    public OperationType getTipoOperacao() {
-        return tipoOperacao;
-    }
-
-    public void setTipoOperacao(OperationType tipoOperacao) {
-        this.tipoOperacao = tipoOperacao;
+    public OperationDTO(OperationType typeOperation, Double valueOperation, String hashOperation,
+                        String agencyOperation,String AccountOperation,String tokenOperation)
+    {
+        this.typeOperation = typeOperation;
+        this.valueOperation = valueOperation;
+        this.hashOperation = hashOperation;
+        this.agencyOperation = agencyOperation;
+        this.accountOperation = AccountOperation;
+        this.tokenOperation = tokenOperation;
     }
 
-    public Double getValorOperacao() {
-        return valorOperacao;
+    public String getTokenOperation() {
+        return tokenOperation;
     }
 
-    public void setValorOperacao(Double valorOperacao) {
-        this.valorOperacao = valorOperacao;
-    }
-    
-    public String getHash() {
-        return hash;
+    public void setTokenOperation(String tokenOperation) {
+        this.tokenOperation = tokenOperation;
     }
 
-    public void setHash(String hash) {
-        this.hash = hash;
+    public String getAgencyOperation() { return agencyOperation; }
+
+    public void setAgencyOperation(String agencyOperation) { this.agencyOperation = agencyOperation; }
+
+    public String getAccountOperation() { return accountOperation; }
+
+    public void setAccountOperation(String accountOperation) { this.accountOperation = accountOperation; }
+
+    public OperationType getTypeOperation() {
+        return typeOperation;
+    }
+
+    public void setTypeOperation(OperationType typeOperation) {
+        this.typeOperation = typeOperation;
+    }
+
+    public Double getValueOperation() {
+        return valueOperation;
+    }
+
+    public void setValueOperation(Double valueOperation) {
+        this.valueOperation = valueOperation;
+    }
+
+    public String getHashOperation() {
+        return hashOperation;
+    }
+
+    public void setHashOperation(String hashOperation) {
+        this.hashOperation = hashOperation;
     }
 }

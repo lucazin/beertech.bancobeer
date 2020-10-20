@@ -9,16 +9,20 @@ import br.com.beertech.fusion.exception.FusionException;
 
 public interface OperationService {
 
+    List<Operation> getTransactions();
+
+    List<Operation> getTransactionsByHash(String hash);
+
+    List<Operation> getTransactionsByAgencyAccount(String agency,String account);
+
     Operation newTransaction(Operation operacao);
 
-    void RemoveTransacao(Long idBeer);
+    List<Operation> getReportByHashAndType(String hash,int operationType);
 
-    List<Operation> ListaTransacoes();
-    
-    List<Operation> listTransactionByHash(String hash);
+
+
+
+
 
     TransferDTO saveTransfer(TransferDTO transferDTO) throws FusionException;
-	
-	Balance calculateBalance(String hash);
-	
 }

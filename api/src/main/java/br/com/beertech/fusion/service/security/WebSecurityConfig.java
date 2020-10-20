@@ -65,8 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests().antMatchers("/bankbeer/auth/**").permitAll()
-			//.antMatchers("/caminho/teste/**").permitAll()
+			.authorizeRequests().antMatchers("/beercoin/auth/**","/beercoin/transfers/save/**",
+				"/beercoin/deposits/**","/beercoin/withdrawals/**","/beercoin/transferoperation/**").permitAll()
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

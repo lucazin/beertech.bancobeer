@@ -1,0 +1,118 @@
+*** Exemplo ****
+
+## Cadastro de cliente e conta integrada (Corrente & Poupança)
+http://localhost:8081/beercoin/auth/signup
+
+- Json Body -
+{
+	"username":"Patricia",
+	"password":"123456",
+    "email":"pat@gmail.com",
+    "cnpj":"123456789",
+    "name":"Patricia Lisboa",
+    "phone":"1998746123",
+    "role":["moderator"],
+    "accountType":"1",
+    "approvedLimit":1000.0
+}
+
+## Autenticação do cliente - Recebimento Token para operacoes
+http://localhost:8081/beercoin/auth/signin
+
+- Json Body -
+{
+	"username":"Patricia",
+	"password":"123456"
+}
+
+
+## Transferencia entre contas por hash ##
+http://localhost:8081/beercoin/transfer/queue
+
+- Json Body -
+{
+	"transferHashOrigin":"dd983b9f-ac8c-4235-a98b-3f490d49c4be",
+	"transferHashDestination":"db02a521-fafa-4b7e-9b4b-e9fa27bde226",
+    "trasferValue":400,
+    "tokenOperation":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJQYXRyaWNpYSIsImlhdCI6MTYwMzA4OTczNSwiZXhwIjoxNjAzMTc2MTM1fQ.
+	P2VxnCqCUbTuz5yZQ11xhqd9l7gu4q7R35w3vUeXudR6qDg-cjQTIao0yW8Om1l0bODZ9c1IwoOokKPLSw1HfA"
+}
+
+
+## Operação - Saque ##
+http://localhost:8081/beercoin/operation/queue
+
+- Json Body -
+{
+	"typeOperation":"WITHDRAW",
+    "hashOperation":"db02a521-fafa-4b7e-9b4b-e9fa27bde226",
+	"valueOperation":"100",
+    "agencyOperation":"5300",
+    "accountOperation":"253269",
+    "tokenOperation":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJQYXRyaWNpYSIsImlhdCI6MTYwMzA4OTczNSwiZXhwIjoxNjAzMTc2MTM1fQ.
+	P2VxnCqCUbTuz5yZQ11xhqd9l7gu4q7R35w3vUeXudR6qDg-cjQTIao0yW8Om1l0bODZ9c1IwoOokKPLSw1HfA"
+}
+
+## Operação - Deposito ##
+http://localhost:8081/beercoin/operation/queue
+
+- Json Body -
+{
+	"typeOperation":"BANKDEPOSIT",
+    "hashOperation":"db02a521-fafa-4b7e-9b4b-e9fa27bde226",
+	"valueOperation":"100",
+    "agencyOperation":"5300",
+    "accountOperation":"253269",
+    "tokenOperation":"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJQYXRyaWNpYSIsImlhdCI6MTYwMzA4OTczNSwiZXhwIjoxNjAzMTc2MTM1fQ.
+	P2VxnCqCUbTuz5yZQ11xhqd9l7gu4q7R35w3vUeXudR6qDg-cjQTIao0yW8Om1l0bODZ9c1IwoOokKPLSw1HfA"
+}
+
+
+## Operação - Extrato da conta por Hash / Tipo de Operação
+http://localhost:8081/beercoin/bankstatement
+
+- Json Body -
+{
+	 "hashAccount":"db02a521-fafa-4b7e-9b4b-e9fa27bde226",
+     "operationType":1
+}
+
+
+## Operação - Extrato da conta geral por Hash 
+http://localhost:8081/beercoin/reportall
+
+- Json Body -
+{
+	 "hashAccount":"db02a521-fafa-4b7e-9b4b-e9fa27bde226"
+}
+
+
+## Todas Operações Bancarias ##
+http://localhost:8081/beercoin/transaction/
+
+## Todas Operações Bancarias por Hash Conta ##
+http://localhost:8081/beercoin/transaction/dd983b9f-ac8c-4235-a98b-3f490d49c4be
+
+## Todas Operações Bancarias por Agencia e Conta ##
+http://localhost:8081/beercoin/transaction/8399/597973
+
+
+## Saldo total do Banco Beercoin
+http://localhost:8081/beercoin/totalbalance
+
+## Saldo total da conta por Hash ##
+http://localhost:8081/beercoin/accountbalance/bbdd4534-dac7-4c8b-8bc6-9a2a9ca7b553
+
+## Saldo total da conta por Agencia e conta ##
+http://localhost:8081/beercoin/accountbalance/8399/597973
+
+
+
+
+
+
+
+
+
+
+

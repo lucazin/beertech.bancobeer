@@ -14,8 +14,8 @@ import br.com.beertech.fusion.service.TransferListener;
 @Configuration
 public class RabbitMQConfig {
 
-	@Value("${javainuse.rabbitmq.queue}")
-	String queueName;
+	@Value("${javainuse.rabbitmq.queue.deposit}")
+	String queueDeposit;
 
 	@Value("${javainuse.rabbitmq.queue.transfer}")
 	String queueTransfer;
@@ -28,8 +28,8 @@ public class RabbitMQConfig {
 	private String password;
 
 	@Bean
-	Queue queue() {
-		return new Queue(queueName, false);
+	Queue queueDeposit() {
+		return new Queue(queueDeposit, false);
 	}
 	
 	@Bean
@@ -41,7 +41,7 @@ public class RabbitMQConfig {
 	MessageListenerContainer messageListenerContainer(ConnectionFactory connectionFactory ) {
 		SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
 		simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
-		simpleMessageListenerContainer.setQueues(queue());
+		simpleMessageListenerContainer.setQueues(queueDeposit());
 		simpleMessageListenerContainer.setMessageListener(new OperationListener());
 		return simpleMessageListenerContainer;
 

@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
 
+import br.com.beertech.fusion.util.Support;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -25,84 +26,80 @@ public class Operation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
-    private Long idOperacao;
+    private Long id;
+    private String operationDate;
+    private int operationType;
+    private Double operationValue;
+    private String operationHash;
+    private String operationAgency;
+    private String operationAccountNumber;
 
-    private String horarioOperacao;
+    public Operation() { }
 
-    private int tipoOperacao;
-    private Double valorOperacao;
-    private String hash;
-
-    public Operation() {
-    }
-
-    public Operation(OperationDTO operacaoDTO) {
-        this.tipoOperacao = operacaoDTO.getTipoOperacao().ID;
-        this.valorOperacao = operacaoDTO.getValorOperacao();
-        this.horarioOperacao = getDataAtual();
-        this.hash = operacaoDTO.getHash();
+    public Operation(OperationDTO operationDTO) {
+        this.operationType = operationDTO.getTypeOperation().ID;
+        this.operationValue = operationDTO.getValueOperation();
+        this.operationDate = Support.getDataAtual();
+        this.operationHash = operationDTO.getHashOperation();
+        this.operationAgency = operationDTO.getAgencyOperation();
+        this.operationAccountNumber = operationDTO.getAccountOperation();
     }
 
     public Operation(TransferDTO transferDTO, OperationType operationType, String hash) {
-    	this.tipoOperacao = operationType.ID;
-    	this.valorOperacao = transferDTO.getValue();
-    	this.horarioOperacao = getDataAtual();
-    	this.hash = hash;    	
+    	this.operationType = operationType.ID;
+    	this.operationValue = transferDTO.getTrasferValue();
+    	this.operationDate = Support.getDataAtual();
+    	this.operationHash = hash;
     }
     
-    @JsonIgnore
-    public OperationDTO getOperacaoDto() {
-        return new OperationDTO(OperationType.getById(this.tipoOperacao), this.valorOperacao,this.hash);
-    }
-    
-    public String getHorarioOperacao() {
-        return horarioOperacao;
-    }
-
-    public void setHorarioOperacao(String horarioOperacao) {
-        this.horarioOperacao = horarioOperacao;
-    }
-
-    public Long getIdOperacao() {
-        return idOperacao;
-    }
-
-    public void setIdOperacao(Long idOperacao) {
-        this.idOperacao = idOperacao;
-    }
-
-    public int getTipoOperacao() {
-        return tipoOperacao;
-    }
-
-    public void setTipoOperacao(int tipoOperacao) {
-        this.tipoOperacao = tipoOperacao;
-    }
-
-    public Double getValorOperacao() {
-        return valorOperacao;
-    }
-
-    public void setValorOperacao(Double valorOperacao) {
-        this.valorOperacao = valorOperacao;
-    }
-    
-    public String getHash() {
-		return hash;
-	}
-
-	public void setHash(String hash) {
-		this.hash = hash;
-	}
-
 	@Override
     public int hashCode() {
-        return Objects.hash(idOperacao, tipoOperacao, valorOperacao, hash);
+        return Objects.hash(id, operationType, operationValue, operationHash);
     }
 
-    private String getDataAtual() {
-        SimpleDateFormat HoraFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        Date now = new Date();
-        return HoraFormat.format(now);
+    public Long getId() {
+        return id;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getOperationDate() {
+        return operationDate;
+    }
+
+    public void setOperationDate(String operationDate) {
+        this.operationDate = operationDate;
+    }
+
+    public int getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(int operationType) {
+        this.operationType = operationType;
+    }
+
+    public Double getOperationValue() {
+        return operationValue;
+    }
+
+    public void setOperationValue(Double operationValue) {
+        this.operationValue = operationValue;
+    }
+
+    public String getOperationHash() {
+        return operationHash;
+    }
+
+    public void setOperationHash(String operationHash) { this.operationHash = operationHash; }
+
+    public String getOperationAgency() { return operationAgency; }
+
+    public void setOperationAgency(String operationAgency) { this.operationAgency = operationAgency; }
+
+    public String getOperationAccountNumber() { return operationAccountNumber; }
+
+    public void setOperationAccountNumber(String operationAccountNumber) { this.operationAccountNumber = operationAccountNumber; }
 }

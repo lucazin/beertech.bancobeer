@@ -1,0 +1,31 @@
+* Implemntações
+
+Criacao de Usuario / Conta Cliente  Unificadas
+Autorizacao do usuario com jwt token
+Autorizacao de rest api com jwt token bearer
+Swagger API Habilitado
+Criacao de Conta Poupanca Standalone
+Verificao de tipo de conta criada
+Atualizacao e insercao de novos campos nas tabelas contacorrente e operacao
+Relacionamento entre tabela de usuario e conta corrente
+Contas integradas - poupanca e corrente
+Busca conta por agencia e numero
+Inserido numero de agencia e conta na conta corrente
+Inserido saldo e limite de cheque especial na conta corrente
+Deposita por hash
+Saque por hash
+Deposita por agencia e conta
+Saque por agencia e conta
+Atualiza saldo da conta deposito 
+Atualiza saldo da conta saque
+controle do limite do cheque especial (deposito / saque)
+Busca Saldo total das contas correntes
+Busca Saldo conta corrente por hash
+Busca Saldo conta corrente por agencia e conta
+Busca conta corrente por hash
+Busca conta corrente por ID
+
+Transferencia entre contas (hash)
+Atualizacao saldo da conta corrente (Credito e debito)
+Atualização do Swagger para não exibir as apis não publicas.
+Atualização do Swaager para documentar melhor as chamadas da apis.

@@ -23,7 +23,7 @@ public class SwaggerConfiguration {
 
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final String DEFAULT_INCLUDE_PATTERN = "/bankbeer/.*";
+    public static final String DEFAULT_INCLUDE_PATTERN = "/beercoin/.*";
 
     @Bean
     public Docket swaggerSpringfoxDocket() {

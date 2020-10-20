@@ -21,13 +21,21 @@ public class SignupRequest {
 
     @NotBlank
     @Size(max = 50)
-    @Email
-    private String nome;
+    private String name;
 
     @NotBlank
     @Size(max = 14)
-    @Email
     private String cnpj;
+
+    @NotBlank
+    @Size(max = 14)
+    private String phone;
+
+    @NotBlank
+    private int accountType;
+
+    @NotBlank
+    private double approvedLimit;
 
     public String getUsername() {
         return username;
@@ -65,7 +73,20 @@ public class SignupRequest {
 
     public void setCnpj(String cnpj) { this.cnpj = cnpj; }
 
-    public String getNome() { return nome; }
 
-    public void setNome(String nome) { this.nome = nome; }
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
+
+    public String getPhone() { return phone; }
+
+    public void setPhone(String phone) { this.phone = phone; }
+
+    public int getAccountType() { return accountType; }
+
+    public void setAccountType(int accountType) { this.accountType = accountType; }
+
+    public double getApprovedLimit() { return approvedLimit; }
+
+    public void setApprovedLimit(double approvedLimit) { this.approvedLimit = approvedLimit; }
 }

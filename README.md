@@ -1,6 +1,9 @@
 # BeerTech - Banco Beer
 
+##### Pending
 
+- Implementar Eureka Naming Server / Spring Cloud Discovery
+- Gateway de requisiçoes zuul 
 
 LEGACY POC - Controle de operações bancárias
 

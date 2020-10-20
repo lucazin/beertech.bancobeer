@@ -8,36 +8,76 @@ public class Operation implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String tipoOperacao;
-    private Double valorOperacao;
-    private String hash;
+    private String typeOperation;
+    private Double valueOperation;
+    private String hashOperation;
+    private String agencyOperation;
+    private String accountOperation;
+    private String tokenOperation;
 
-    public String getTipoOperacao() {
-        return tipoOperacao;
+    public Operation(){}
+
+    public Operation(String typeOperation, Double valueOperation, String hashOperation,
+                     String agencyOperation,String accountOperation,String tokenOperation)
+    {
+        this.typeOperation = typeOperation;
+        this.valueOperation = valueOperation;
+        this.hashOperation = hashOperation;
+        this.agencyOperation = agencyOperation;
+        this.accountOperation = accountOperation;
+        this.tokenOperation = tokenOperation;
     }
 
-    public void setTipoOperacao(String tipoOperacao) {
-        this.tipoOperacao = tipoOperacao;
+    public String getTokenOperation() {
+        return tokenOperation;
     }
 
-    public Double getValorOperacao() {
-        return valorOperacao;
+    public void setTokenOperation(String tokenOperation) {
+        this.tokenOperation = tokenOperation;
     }
 
-    public void setValorOperacao(Double valorOperacao) {
-        this.valorOperacao = valorOperacao;
+    public String getTypeOperation() {
+        return typeOperation;
     }
 
-	public String getHash() {
-		return hash;
-	}
+    public void setTypeOperation(String typeOperation) {
+        this.typeOperation = typeOperation;
+    }
 
-	public void setHash(String hash) {
-		this.hash = hash;
-	}
-	
+    public Double getValueOperation() {
+        return valueOperation;
+    }
+
+    public void setValueOperation(Double valueOperation) {
+        this.valueOperation = valueOperation;
+    }
+
+    public String getHashOperation() {
+        return hashOperation;
+    }
+
+    public void setHashOperation(String hashOperation) {
+        this.hashOperation = hashOperation;
+    }
+
+    public String getAgencyOperation() {
+        return agencyOperation;
+    }
+
+    public void setAgencyOperation(String agencyOperation) {
+        this.agencyOperation = agencyOperation;
+    }
+
+    public String getAccountOperation() {
+        return accountOperation;
+    }
+
+    public void setAccountOperation(String accountOperation) {
+        this.accountOperation = accountOperation;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(tipoOperacao, valorOperacao, hash);
+        return Objects.hash(typeOperation, valueOperation, hashOperation,agencyOperation,accountOperation);
     }
 }

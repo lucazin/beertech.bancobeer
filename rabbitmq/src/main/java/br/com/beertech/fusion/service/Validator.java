@@ -19,22 +19,23 @@ public class Validator {
 	public boolean ValidateResponseRMQ() {
 		boolean passed = false;
 
-		if (objectValidator.getTipoOperacao().equals("DEPOSITO") || objectValidator.getTipoOperacao().equals("SAQUE")) {
-			if (objectValidator.getValorOperacao() > 0)
+		if (objectValidator.getTypeOperation().equals("BANKDEPOSIT")
+				|| objectValidator.getTypeOperation().equals("WITHDRAW")
+				|| objectValidator.getTypeOperation().equals("TRANSFER"))
+		{
+			if (objectValidator.getValueOperation() > 0 &&
+					(objectValidator.getTokenOperation() != null && !objectValidator.getTokenOperation().isEmpty()))
 				passed = true;
 		}
-
 		return passed;
 	}
-
 	public boolean ValidateTransferResponseRMQ() {
 		boolean passed = false;
 
-		if (transferValidator.getHashOrigin() != null && transferValidator.getHashDestination()!= null
-				&& transferValidator.getValue() > 0) {
+		if (transferValidator.getTransferHashOrigin() != null && transferValidator.getTransferHashDestination()!= null
+				&& transferValidator.getTrasferValue() > 0) {
 			passed = true;
 		}
-
 		return passed;
 	}
 }

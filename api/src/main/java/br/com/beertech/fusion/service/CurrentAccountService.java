@@ -1,15 +1,25 @@
 package br.com.beertech.fusion.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import br.com.beertech.fusion.domain.CurrentAccount;
+import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.domain.security.request.SignupRequest;
+import br.com.beertech.fusion.repository.UserRepository;
 
 public interface CurrentAccountService {
 
-	 public List<CurrentAccount> listAccounts();
+	 List<CurrentAccount> listAccounts();
+
+	 CurrentAccount findAccountByHash(String hash);
+
+	 CurrentAccount findAccountById(long id);
+
+	 CurrentAccount findByAgencyAccountNumber(String agency,String AccountNumber);
 	 
-	 public CurrentAccount findByHash(String hash);
-	 
-	 public CurrentAccount saveAccount(CurrentAccount account);	 
-	 
+	 CurrentAccount saveAccount(CurrentAccount account);
+
+	 CurrentAccount saveNewAccountRegister(SignupRequest signUpRequest, UserRepository userRepository,Users userInfo);
+
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 
 @Service
-@org.springframework.amqp.rabbit.annotation.RabbitListener(queues = "${javainuse.rabbitmq.queue}")
+@org.springframework.amqp.rabbit.annotation.RabbitListener(queues = "${javainuse.rabbitmq.queue.deposit}")
 public class OperationListener implements MessageListener {
 
 	public void onMessage(Message message) {
@@ -23,6 +23,6 @@ public class OperationListener implements MessageListener {
 			}
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
-		}
+			}
 	}
 }

@@ -1,0 +1,32 @@
+# Java
+.mtj.tmp/
+*.class
+*.jar
+*.war
+
+# Maven
+target
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+pom.xml.bak
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+#Eclipse
+api/.classpath
+api/.project
+api/.settings/
+api/bin/
+
+# IntelliJ
+out/
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws

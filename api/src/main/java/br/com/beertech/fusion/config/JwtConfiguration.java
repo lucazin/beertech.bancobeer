@@ -1,9 +1,7 @@
 package br.com.beertech.fusion.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import br.com.beertech.fusion.service.security.services.UserDetailsServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -12,9 +10,6 @@ import io.jsonwebtoken.UnsupportedJwtException;
 
 @Configuration
 public class JwtConfiguration {
-
-    @Autowired
-    private static UserDetailsServiceImpl userDetailsService;
 
     public static String getjwtSecret() {
         return "grupofusion";

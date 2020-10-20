@@ -1,12 +1,12 @@
 package br.com.beertech.fusion.controller;
 
+import br.com.beertech.fusion.config.JwtConfiguration;
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
 import br.com.beertech.fusion.domain.Operation;
 import br.com.beertech.fusion.domain.OperationType;
 import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.service.OperationService;
-import br.com.beertech.fusion.util.Support;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +42,7 @@ public class TransferController {
                 @Override
                 public ResponseEntity<Operation> get()
                 {
-                    if(Support.checkToken(TransferDepositDTO.getTokenOperation()))
+                    if(JwtConfiguration.checkToken(TransferDepositDTO.getTokenOperation()))
                     {
                         Operation BankTransferOperation = new Operation(new OperationDTO(OperationType.TRANSFER,
                                 TransferDepositDTO.getValueOperation(), TransferDepositDTO.getHashOperation(),

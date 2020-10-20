@@ -7,7 +7,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Supplier;
 
-import br.com.beertech.fusion.util.Support;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.beertech.fusion.config.JwtConfiguration;
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.domain.Operation;
 import br.com.beertech.fusion.domain.OperationType;
@@ -43,7 +43,7 @@ public class DepositController {
                 @Override
                 public ResponseEntity<Operation> get()
                 {
-                    if(Support.checkToken(BankDepositDTO.getTokenOperation()))
+                    if(JwtConfiguration.checkToken(BankDepositDTO.getTokenOperation()))
                     {
                         Operation BankDepositOperation = new Operation(new OperationDTO(OperationType.BANKDEPOSIT,
                                 BankDepositDTO.getValueOperation(), BankDepositDTO.getHashOperation(),

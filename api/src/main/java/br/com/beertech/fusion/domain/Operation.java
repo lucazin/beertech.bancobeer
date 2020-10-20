@@ -1,8 +1,6 @@
 package br.com.beertech.fusion.domain;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -11,11 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
-
-import br.com.beertech.fusion.util.Support;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import br.com.beertech.fusion.util.Util;
 
 @Entity
 @Table(name = "operacao")
@@ -39,7 +37,7 @@ public class Operation implements Serializable {
     public Operation(OperationDTO operationDTO) {
         this.operationType = operationDTO.getTypeOperation().ID;
         this.operationValue = operationDTO.getValueOperation();
-        this.operationDate = Support.getDataAtual();
+        this.operationDate = Util.getDataAtual();
         this.operationHash = operationDTO.getHashOperation();
         this.operationAgency = operationDTO.getAgencyOperation();
         this.operationAccountNumber = operationDTO.getAccountOperation();
@@ -48,7 +46,7 @@ public class Operation implements Serializable {
     public Operation(TransferDTO transferDTO, OperationType operationType, String hash) {
     	this.operationType = operationType.ID;
     	this.operationValue = transferDTO.getTrasferValue();
-    	this.operationDate = Support.getDataAtual();
+        this.operationDate = Util.getDataAtual();
     	this.operationHash = hash;
     }
     

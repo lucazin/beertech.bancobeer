@@ -1,4 +1,4 @@
-package br.com.beertech.fusion.util;
+package br.com.beertech.fusion.config;
 
 import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;

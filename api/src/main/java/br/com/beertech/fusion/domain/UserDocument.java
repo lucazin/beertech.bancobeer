@@ -1,11 +1,11 @@
-package br.com.beertech.fusion.domain.collections;
+package br.com.beertech.fusion.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document(collection="users")
+@Document
 public class UserDocument {
 
     @Id

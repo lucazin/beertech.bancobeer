@@ -1,4 +1,4 @@
-package br.com.beertech.fusion.domain.collections;
+package br.com.beertech.fusion.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,7 +11,6 @@ public class CurrentAccountDocument implements Serializable {
 
 	private String hash;
 	private String cnpj;
-
 
 	public String getHash() {
 		return hash;

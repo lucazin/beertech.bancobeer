@@ -1,4 +1,4 @@
-package br.com.beertech.fusion.domain.security.response;
+package br.com.beertech.fusion.domain;
 
 public class MessageResponse {
 	private String message;

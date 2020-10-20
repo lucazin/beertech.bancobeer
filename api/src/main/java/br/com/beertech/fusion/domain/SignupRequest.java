@@ -1,4 +1,4 @@
-package br.com.beertech.fusion.domain.security.request;
+package br.com.beertech.fusion.domain;
 
 import javax.validation.constraints.*;
 import java.util.Set;

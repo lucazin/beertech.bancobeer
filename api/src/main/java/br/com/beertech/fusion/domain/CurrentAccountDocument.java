@@ -1,14 +1,14 @@
 package br.com.beertech.fusion.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.persistence.*;
 import java.io.Serializable;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class CurrentAccountDocument implements Serializable {
 
+    @Id
 	private String hash;
 	private String cnpj;
 

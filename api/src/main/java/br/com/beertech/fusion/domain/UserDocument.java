@@ -1,15 +1,15 @@
 package br.com.beertech.fusion.domain;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
-@Document
+@Document(collation = "userstest")
 public class UserDocument {
 
     @Id
-    private long id;
+    private String id;
 
     private String nome;
 
@@ -83,8 +83,12 @@ public class UserDocument {
         this.roles = roles;
     }
 
-    public long getId() { return id; }
+    public String getId() {
+        return id;
+    }
 
-    public void setId(long id) { this.id = id; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
 }

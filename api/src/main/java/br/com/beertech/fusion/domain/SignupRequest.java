@@ -1,6 +1,5 @@
 package br.com.beertech.fusion.domain;
 
-import javax.validation.constraints.*;
 import java.util.Set;
 
 public class SignupRequest {

@@ -10,4 +10,7 @@ public interface CurrentAccountRepository extends JpaRepository<CurrentAccount, 
 	@Query(value = "select * from conta_corrente c where c.hash = ?1", nativeQuery=true)
 	CurrentAccount findAccountByHash(String hash);
 
+	@Query(value = "select * from conta_corrente c where c.id and c.hash = ?1", nativeQuery=true)
+	CurrentAccount findAccountByIdAndHash(Long id, String hash);
+
 }

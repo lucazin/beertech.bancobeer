@@ -6,10 +6,12 @@ import br.com.beertech.fusion.domain.CurrentAccount;
 
 public interface CurrentAccountService {
 
-	 public List<CurrentAccount> listAccounts();
+	 List<CurrentAccount> listAccounts();
 	 
-	 public CurrentAccount findByHash(String hash);
+	 CurrentAccount findByHash(String hash);
 	 
-	 public CurrentAccount saveAccount(CurrentAccount account);	 
+	 CurrentAccount saveAccount(CurrentAccount account);
+
+	 CurrentAccount getAccount(Long id, String hash);
 	 
 }

@@ -11,14 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.domain.DebitCreditType;
-import br.com.beertech.fusion.domain.Operation;
 import br.com.beertech.fusion.domain.OperationType;
-import br.com.beertech.fusion.service.OperationService;
 import br.com.beertech.fusion.service.PublishTransaction;
 
 @RestController
@@ -26,14 +25,12 @@ import br.com.beertech.fusion.service.PublishTransaction;
 public class WithdrawController {
 
     @Autowired
-    private OperationService operationService;
-    
-    @Autowired
     private PublishTransaction publisheTransaction;
 
     @PostMapping("/withdrawals")
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
-    public CompletableFuture<ResponseEntity> queueWithdrawal(@RequestBody OperationDTO saqueDTO)
+    public CompletableFuture<ResponseEntity> queueWithdrawal(@RequestBody OperationDTO saqueDTO,
+            @RequestHeader(value = "Authorization", required = false) String token)
             throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -43,7 +40,7 @@ public class WithdrawController {
                 @Override
                 public ResponseEntity<String> get() {
                 	publisheTransaction.publisheOperation(new OperationDTO(OperationType.SAQUE,
-                			saqueDTO.getValorOperacao(), saqueDTO.getHash(), DebitCreditType.DEBITO));
+                			saqueDTO.getValorOperacao(), saqueDTO.getHash(), DebitCreditType.DEBITO,token));
                     return ResponseEntity.status(OK).body("Solicitação de saque executada!");
                 }
             });

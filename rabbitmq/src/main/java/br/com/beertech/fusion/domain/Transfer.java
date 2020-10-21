@@ -11,6 +11,7 @@ public class Transfer implements Serializable{
 	private String hashDestination;
 	private Double value;
     private String debitCredit;
+	private String authToken;
 
 	public String getHashOrigin() {
 		return hashOrigin;
@@ -49,4 +50,8 @@ public class Transfer implements Serializable{
     public int hashCode() {
         return Objects.hash(hashOrigin, hashDestination, value, debitCredit);
     }
+
+	public String getAuthToken() { return authToken; }
+
+	public void setAuthToken(String authToken) { this.authToken = authToken; }
 }

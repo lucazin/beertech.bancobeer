@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,10 +26,11 @@ public class DepositController {
 
     @Autowired
     private PublishTransaction publisheTransaction;
-    
+
     @PostMapping("/deposits")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    public CompletableFuture<ResponseEntity> queueDeposit(@RequestBody OperationDTO depositoDTO)
+    public CompletableFuture<ResponseEntity> queueDeposit(@RequestBody OperationDTO depositoDTO,
+            @RequestHeader(value = "Authorization", required = false) String token)
             throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -38,9 +40,10 @@ public class DepositController {
                 @Override
                 public ResponseEntity<String> get() {
 
-                   	publisheTransaction.publisheOperation(new OperationDTO(OperationType.DEPOSITO,
-                            depositoDTO.getValorOperacao(), depositoDTO.getHash(), DebitCreditType.CREDITO));
-                    return ResponseEntity.status(OK).body("Solicitação de Deposito executada!");
+                        publisheTransaction.publisheOperation(new OperationDTO(OperationType.DEPOSITO,
+                                depositoDTO.getValorOperacao(), depositoDTO.getHash(), DebitCreditType.CREDITO,token));
+
+                        return ResponseEntity.status(OK).body("Solicitação de Deposito executada!");
                 }
             });
         } catch (Exception e) {

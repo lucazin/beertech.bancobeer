@@ -9,6 +9,7 @@ public class OperationDTO {
     private Double valorOperacao;
     private String hash;
     private DebitCreditType debitCredit;
+    private String authToken;
 
     public OperationDTO() {
     }
@@ -17,8 +18,18 @@ public class OperationDTO {
         this.tipoOperacao = tipoOperacao;
         this.valorOperacao = valorOperacao;
         this.hash = hash;
-        this.debitCredit = debitCredit;        
+        this.debitCredit = debitCredit;
     }
+
+    public OperationDTO(OperationType tipoOperacao, Double valorOperacao, String hash, DebitCreditType debitCredit,String authToken) {
+        this.tipoOperacao = tipoOperacao;
+        this.valorOperacao = valorOperacao;
+        this.hash = hash;
+        this.debitCredit = debitCredit;
+        this.authToken = authToken;
+
+    }
+
 
 	public OperationType getTipoOperacao() {
         return tipoOperacao;
@@ -51,4 +62,8 @@ public class OperationDTO {
 	public void setDebitCredit(DebitCreditType debitCredit) {
 		this.debitCredit = debitCredit;
 	}
+
+    public String getAuthToken() { return authToken; }
+
+    public void setAuthToken(String authToken) { this.authToken = authToken; }
 }

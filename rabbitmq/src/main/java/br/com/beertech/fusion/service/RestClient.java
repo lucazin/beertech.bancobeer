@@ -38,11 +38,13 @@ public class RestClient {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+			headers.setBearerAuth(operation.getAuthToken().replace("Bearer",""));
 
 			Map<String, Object> map = new HashMap<>();
 			map.put("tipoOperacao", operation.getTipoOperacao());
 			map.put("valorOperacao", operation.getValorOperacao());
 			map.put("hash", operation.getHash());
+
 
 			HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
 			ResponseEntity<Operation> response = this.restTemplate.postForEntity(OPERATION_URL, entity, Operation.class);
@@ -64,11 +66,13 @@ public class RestClient {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+			headers.setBearerAuth(transfer.getAuthToken().replace("Bearer",""));
 
 			Map<String, Object> map = new HashMap<>();
 			map.put("hashOrigin", transfer.getHashOrigin());
 			map.put("hashDestination", transfer.getHashDestination());
 			map.put("value", transfer.getValue());
+
 
 			HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
 			ResponseEntity<Transfer> response = this.restTemplate.postForEntity(TRANSFER_URL, entity, Transfer.class);

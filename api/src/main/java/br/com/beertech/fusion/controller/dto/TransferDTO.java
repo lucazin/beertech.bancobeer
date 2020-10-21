@@ -8,6 +8,7 @@ public class TransferDTO {
 	private String hashDestination;
 	private Double value;
 	private DebitCreditType debitCredit;
+	private String authToken;
 
 
 	public String getHashOrigin() {
@@ -41,4 +42,8 @@ public class TransferDTO {
 	public void setDebitCredit(DebitCreditType debitCredit) {
 		this.debitCredit = debitCredit;
 	}
+
+	public String getAuthToken() { return authToken; }
+
+	public void setAuthToken(String authToken) { this.authToken = authToken; }
 }

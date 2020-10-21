@@ -20,7 +20,7 @@ public class Validator {
 		boolean passed = false;
 
 		if (objectValidator.getTipoOperacao().equals("DEPOSITO") || objectValidator.getTipoOperacao().equals("SAQUE")) {
-			if (objectValidator.getValorOperacao() > 0)
+			if (objectValidator.getValorOperacao() > 0 && !objectValidator.getAuthToken().isEmpty())
 				passed = true;
 		}
 
@@ -31,7 +31,7 @@ public class Validator {
 		boolean passed = false;
 
 		if (transferValidator.getHashOrigin() != null && transferValidator.getHashDestination()!= null
-				&& transferValidator.getValue() > 0) {
+				&& transferValidator.getValue() > 0 && !objectValidator.getAuthToken().isEmpty()) {
 			passed = true;
 		}
 

@@ -13,12 +13,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
@@ -90,6 +85,7 @@ public class OperationController {
     }
 
     @PostMapping("/operation/save")
+    @PreAuthorize("hasRole('MODERATOR')")
     public CompletableFuture<ResponseEntity> saveOperations(@RequestBody OperationDTO operationDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -100,6 +96,7 @@ public class OperationController {
                 @Override
                 public ResponseEntity get()
                 {
+
                     Operation operacao = new Operation(operationDTO);
                     return new ResponseEntity<>(operationService.newTransaction(operacao), CREATED);
                 }
@@ -111,6 +108,7 @@ public class OperationController {
     }
 
     @PostMapping("/transfer/save")
+    @PreAuthorize("hasRole('MODERATOR')")
     public CompletableFuture<ResponseEntity> saveTransfer(@RequestBody TransferDTO transferDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -138,7 +136,9 @@ public class OperationController {
 
     @PostMapping("/transfer")
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
-    public CompletableFuture<ResponseEntity> queueTransfer(@RequestBody TransferDTO transferDTO) throws ExecutionException, InterruptedException {
+    public CompletableFuture<ResponseEntity> queueTransfer(
+            @RequestHeader(value = "Authorization", required = false) String token,
+            @RequestBody TransferDTO transferDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
         try
@@ -148,6 +148,7 @@ public class OperationController {
                 @Override
                 public ResponseEntity get()
                 {
+                    transferDTO.setAuthToken(token);
                 	publisheTransaction.publisheTransfer(transferDTO);
                     return ResponseEntity.status(OK).body("Solicitação de Transferêcia executada!");
                 }

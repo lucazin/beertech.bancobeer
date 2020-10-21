@@ -12,6 +12,8 @@ public class Operation implements Serializable {
     private Double valorOperacao;
     private String hash;
     private String debitCredit;
+    private String authToken;
+
 
     public String getTipoOperacao() {
         return tipoOperacao;
@@ -49,4 +51,8 @@ public class Operation implements Serializable {
     public int hashCode() {
         return Objects.hash(tipoOperacao, valorOperacao, hash, debitCredit);
     }
+
+    public String getAuthToken() { return authToken; }
+
+    public void setAuthToken(String authToken) { this.authToken = authToken; }
 }

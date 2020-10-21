@@ -33,7 +33,7 @@ public class WithdrawController {
 
     @PostMapping("/withdrawals")
     @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
-    public CompletableFuture<ResponseEntity> saveWithdrawal(@RequestBody OperationDTO saqueDTO)
+    public CompletableFuture<ResponseEntity> queueWithdrawal(@RequestBody OperationDTO saqueDTO)
             throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();

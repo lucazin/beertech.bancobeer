@@ -2,8 +2,10 @@ package br.com.beertech.fusion.service.impl;
 
 import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
 import java.util.Optional;
+import br.com.beertech.fusion.controller.dto.CurrentAccountUserDTO;
 import br.com.beertech.fusion.domain.CurrentAccount;
 import br.com.beertech.fusion.repository.CurrentAccountRepository;
+import br.com.beertech.fusion.repository.CurrentAccountUserRepository;
 import br.com.beertech.fusion.service.CurrentAccountService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,10 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
 
   @Autowired private CurrentAccountRepository currentAccountRepository;
 
+	@Autowired
+	private CurrentAccountUserRepository currentAccountUserRepository;
+	
+	 
   @Override
   public List<CurrentAccount> listAccounts() {
     return currentAccountRepository.findAll();
@@ -37,13 +43,18 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
   public CurrentAccount findByHash(String hash) {
     return currentAccountRepository.findAccountByHash(hash);
 	}
-
+	
 	@Override
 	public Optional<CurrentAccount> findByCnpj(String cnpj) {
 		return currentAccountRepository.findAccountByCnpj(cnpj);
   }
 
-  @Override
+	@Override
+	public List<CurrentAccountUserDTO> findAllUser() {
+		return currentAccountUserRepository.findAccountAllUser();
+	}
+
+    @Override
   public CurrentAccount getAccount(Long id, String hash) {
     CurrentAccount currentAccount = new CurrentAccount();
 

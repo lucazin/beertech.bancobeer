@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
 import br.com.beertech.fusion.domain.Balance;
+import br.com.beertech.fusion.domain.CurrentAccount;
 import br.com.beertech.fusion.domain.Operation;
 import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.service.BalanceService;
@@ -64,9 +65,11 @@ public class OperationController {
         { e.printStackTrace(); }
         return CompletableFuture.completedFuture(future.get());
     }
-
+    
+    
     @GetMapping("/balance/{hash}")
-    public CompletableFuture<ResponseEntity> listSaldoConta(@PathVariable String hash) throws ExecutionException, InterruptedException {
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('USER')")
+    public CompletableFuture<ResponseEntity> listBalanceAccount(@PathVariable String hash) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
         try

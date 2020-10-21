@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.domain.DebitCreditType;
 import br.com.beertech.fusion.domain.OperationType;
-import br.com.beertech.fusion.service.OperationService;
 import br.com.beertech.fusion.service.PublishTransaction;
 
 @RestController
@@ -25,14 +24,11 @@ import br.com.beertech.fusion.service.PublishTransaction;
 public class DepositController {
 
     @Autowired
-    private OperationService operationService;
-
-    @Autowired
     private PublishTransaction publisheTransaction;
     
     @PostMapping("/deposits")
     @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    public CompletableFuture<ResponseEntity> saveDeposit(@RequestBody OperationDTO depositoDTO)
+    public CompletableFuture<ResponseEntity> queueDeposit(@RequestBody OperationDTO depositoDTO)
             throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();

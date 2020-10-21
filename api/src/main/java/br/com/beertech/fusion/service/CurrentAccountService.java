@@ -2,6 +2,7 @@ package br.com.beertech.fusion.service;
 
 import java.util.List;
 
+import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
 import br.com.beertech.fusion.domain.CurrentAccount;
 
 public interface CurrentAccountService {
@@ -10,7 +11,7 @@ public interface CurrentAccountService {
 	 
 	 CurrentAccount findByHash(String hash);
 	 
-	 CurrentAccount saveAccount(CurrentAccount account);
+	 CurrentAccount saveAccount(CurrentAccountDTO account);
 
 	 CurrentAccount getAccount(Long id, String hash);
 	 

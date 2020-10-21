@@ -1,13 +1,13 @@
 package br.com.beertech.fusion.controller.security;
 
-import br.com.beertech.fusion.domain.CurrentAccount;
+import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
+import br.com.beertech.fusion.domain.Users;
 import br.com.beertech.fusion.domain.security.request.LoginRequest;
 import br.com.beertech.fusion.domain.security.request.SignupRequest;
 import br.com.beertech.fusion.domain.security.response.JwtResponse;
 import br.com.beertech.fusion.domain.security.response.MessageResponse;
 import br.com.beertech.fusion.domain.security.roles.EnumRole;
 import br.com.beertech.fusion.domain.security.roles.Role;
-import br.com.beertech.fusion.domain.Users;
 import br.com.beertech.fusion.repository.RoleRepository;
 import br.com.beertech.fusion.repository.UserRepository;
 import br.com.beertech.fusion.service.CurrentAccountService;
@@ -20,15 +20,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static org.springframework.http.HttpStatus.CREATED;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -123,7 +125,7 @@ public class AuthController {
 		usuario.setRoles(roles);
 		userRepository.save(usuario);
 
-		CurrentAccount currentAccount = new CurrentAccount();
+		CurrentAccountDTO currentAccount = new CurrentAccountDTO();
 		currentAccount.setCnpj(usuario.getCnpj());
 		currentAccountService.saveAccount(currentAccount);
 

@@ -1,5 +1,6 @@
 package br.com.beertech.fusion.service.impl;
 
+import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
 import br.com.beertech.fusion.domain.CurrentAccount;
 import br.com.beertech.fusion.repository.CurrentAccountRepository;
 import br.com.beertech.fusion.service.CurrentAccountService;
@@ -22,9 +23,12 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
   }
 
   @Override
-  public CurrentAccount saveAccount(CurrentAccount account) {
+  public CurrentAccount saveAccount(CurrentAccountDTO accountDTO) {
     String hash = UUID.randomUUID().toString();
+
+    CurrentAccount account = new CurrentAccount();
     account.setHash(hash);
+    account.setCnpj(accountDTO.getCnpj());
     return currentAccountRepository.save(account);
   }
 
@@ -39,11 +43,9 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
 
     if (id != null && StringUtils.isNotBlank(hash)) {
       currentAccount = currentAccountRepository.findAccountByIdAndHash(id, hash);
-    }
-    else if (StringUtils.isNotBlank(hash)) {
+    } else if (StringUtils.isNotBlank(hash)) {
       currentAccount = currentAccountRepository.findAccountByHash(hash);
-    }
-    else if (id != null) {
+    } else if (id != null) {
       Optional<CurrentAccount> optional = currentAccountRepository.findById(id);
       if (optional.isPresent()) {
         currentAccount = optional.get();

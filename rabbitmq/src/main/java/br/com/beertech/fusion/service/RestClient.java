@@ -1,9 +1,10 @@
 package br.com.beertech.fusion.service;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
+import br.com.beertech.fusion.domain.Operation;
+import br.com.beertech.fusion.domain.Transfer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -12,78 +13,94 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.beertech.fusion.domain.Operation;
-import br.com.beertech.fusion.domain.Transfer;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class RestClient {
 
-	private RestTemplate restTemplate;
-	private Operation operation;
-	private Transfer transfer;
-	public final String OPERATION_URL = "http://localhost:8081/bankbeer/operation/save";
-	public final String TRANSFER_URL = "http://localhost:8081/bankbeer/transfer/save";
+  private static final Logger LOGGER = LoggerFactory.getLogger(RestClient.class);
 
-	public RestClient(Operation restObjectParamenter) {
-		operation = restObjectParamenter;
-	}
+  private RestTemplate restTemplate;
+  private Operation operation;
+  private Transfer transfer;
+  private String urlOperation;
+  private String urlTransfer;
 
-	public RestClient(Transfer restObjectParamenter) {
-		transfer = restObjectParamenter;
-	}
+  public RestClient(Operation operation) {
+    this.operation = operation;
+  }
 
-	public void sendPostOperationAPI() {
-		try {
-			this.restTemplate = new RestTemplateBuilder().build();
+  public RestClient(Transfer transfer) {
+    this.transfer = transfer;
+  }
 
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+  @Value("${microservices.operation.url}")
+  public void setUrlOperation(String urlOperation) {
+    this.urlOperation = urlOperation;
+  }
+
+  @Value("${microservices.transfer.url}")
+  public void setUrlTransfer(String urlTransfer) {
+    this.urlTransfer = urlTransfer;
+  }
+
+  public void sendPostOperationAPI() {
+    try {
+      this.restTemplate = new RestTemplateBuilder().build();
+
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.APPLICATION_JSON);
+      headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 			headers.setBearerAuth(operation.getAuthToken().replace("Bearer",""));
 
-			Map<String, Object> map = new HashMap<>();
-			map.put("tipoOperacao", operation.getTipoOperacao());
-			map.put("valorOperacao", operation.getValorOperacao());
-			map.put("hash", operation.getHash());
+      Map<String, Object> map = new HashMap<>();
+      map.put("tipoOperacao", operation.getTipoOperacao());
+      map.put("valorOperacao", operation.getValorOperacao());
+      map.put("hash", operation.getHash());
 
 
-			HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
-			ResponseEntity<Operation> response = this.restTemplate.postForEntity(OPERATION_URL, entity, Operation.class);
+      HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
+      ResponseEntity<Operation> response =
+          this.restTemplate.postForEntity(urlOperation, entity, Operation.class);
 
-			if (response.getStatusCode() == HttpStatus.CREATED) {
-				System.out.println(response.getBody().toString());
-			} else {
-				System.out.println("Sem retorno");
-			}
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-	
-	public void sendPostTransferAPI() {
-		try {
-			this.restTemplate = new RestTemplateBuilder().build();
+      if (response.getStatusCode().equals(HttpStatus.CREATED)) {
+        LOGGER.info(Objects.requireNonNull(response.getBody()).toString());
+      } else {
+        LOGGER.info("Sem retorno");
+      }
+    } catch (Exception e) {
+      LOGGER.error("Error Exception: {}", e.getMessage());
+    }
+  }
 
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+  public void sendPostTransferAPI() {
+    try {
+      this.restTemplate = new RestTemplateBuilder().build();
+
+      HttpHeaders headers = new HttpHeaders();
+      headers.setContentType(MediaType.APPLICATION_JSON);
+      headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 			headers.setBearerAuth(transfer.getAuthToken().replace("Bearer",""));
 
-			Map<String, Object> map = new HashMap<>();
-			map.put("hashOrigin", transfer.getHashOrigin());
-			map.put("hashDestination", transfer.getHashDestination());
-			map.put("value", transfer.getValue());
+      Map<String, Object> map = new HashMap<>();
+      map.put("hashOrigin", transfer.getHashOrigin());
+      map.put("hashDestination", transfer.getHashDestination());
+      map.put("value", transfer.getValue());
 
 
-			HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
-			ResponseEntity<Transfer> response = this.restTemplate.postForEntity(TRANSFER_URL, entity, Transfer.class);
+      HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
+      ResponseEntity<Transfer> response =
+          this.restTemplate.postForEntity(urlTransfer, entity, Transfer.class);
 
-			if (response.getStatusCode() == HttpStatus.CREATED) {
-				System.out.println(response.getBody().toString());
-			} else {
-				System.out.println("Sem retorno");
-			}
-		} catch (Exception e) {
-			throw e;
-		}
-	}
+      if (response.getStatusCode().equals(HttpStatus.CREATED)) {
+        LOGGER.info(Objects.requireNonNull(response.getBody()).toString());
+      } else {
+        LOGGER.info("Sem retorno");
+      }
+    } catch (Exception e) {
+      LOGGER.error("Error Exception: {}", e.getMessage());
+    }
+  }
 }

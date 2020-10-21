@@ -5,36 +5,30 @@ import br.com.beertech.fusion.domain.Transfer;
 
 public class Validator {
 
-	Operation objectValidator;
-	Transfer transferValidator;
+  Operation objectValidator;
+  Transfer transferValidator;
 
-	public Validator(Operation objectValidatorParameter) {
-		objectValidator = objectValidatorParameter;
-	}
+  public Validator(Operation objectValidatorParameter) {
+    objectValidator = objectValidatorParameter;
+  }
 
-	public Validator(Transfer objectValidatorParameter) {
-		transferValidator = objectValidatorParameter;
-	}
+  public Validator(Transfer objectValidatorParameter) {
+    transferValidator = objectValidatorParameter;
+  }
 
-	public boolean ValidateResponseRMQ() {
-		boolean passed = false;
+  public boolean validateResponseRMQ() {
 
-		if (objectValidator.getTipoOperacao().equals("DEPOSITO") || objectValidator.getTipoOperacao().equals("SAQUE")) {
-			if (objectValidator.getValorOperacao() > 0 && !objectValidator.getAuthToken().isEmpty())
-				passed = true;
-		}
+    return ((objectValidator.getTipoOperacao().equals("DEPOSITO")
+            || objectValidator.getTipoOperacao().equals("SAQUE"))
+        && objectValidator.getValorOperacao() > 0)
+                && !objectValidator.getAuthToken().isEmpty();
+  }
 
-		return passed;
-	}
+  public boolean validateTransferResponseRMQ() {
 
-	public boolean ValidateTransferResponseRMQ() {
-		boolean passed = false;
-
-		if (transferValidator.getHashOrigin() != null && transferValidator.getHashDestination()!= null
-				&& transferValidator.getValue() > 0 && !objectValidator.getAuthToken().isEmpty()) {
-			passed = true;
-		}
-
-		return passed;
-	}
+    return (transferValidator.getHashOrigin() != null
+        && transferValidator.getHashDestination() != null
+        && transferValidator.getValue() > 0)
+                && !objectValidator.getAuthToken().isEmpty();
+  }
 }

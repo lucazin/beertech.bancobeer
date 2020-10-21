@@ -1,0 +1,15 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    queues:
+      operation: queueFusion
+      transfer: queueTransfer
+
+microservice:
+  operation:
+    url: http://localhost:8081/bankbeer/operation/save
+  transfer:
+    url: http://localhost:8081/bankbeer/transfer/save

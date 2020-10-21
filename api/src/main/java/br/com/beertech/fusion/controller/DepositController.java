@@ -31,7 +31,7 @@ public class DepositController {
     private PublishTransaction publisheTransaction;
     
     @PostMapping("/deposits")
-    @PreAuthorize("hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public CompletableFuture<ResponseEntity> saveDeposit(@RequestBody OperationDTO depositoDTO)
             throws ExecutionException, InterruptedException {
 

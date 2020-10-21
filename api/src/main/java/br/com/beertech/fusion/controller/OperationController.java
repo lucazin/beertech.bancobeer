@@ -134,7 +134,7 @@ public class OperationController {
     }
 
     @PostMapping("/transfer")
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('USER')")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
     public CompletableFuture<ResponseEntity> queueTransfer(@RequestBody TransferDTO transferDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();

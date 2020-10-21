@@ -55,6 +55,7 @@ public class Users {
 		this.password = password;
 		this.cnpj = cnpj;
 		this.nome = nome;
+		
 	}
 
 	public Long getId() {

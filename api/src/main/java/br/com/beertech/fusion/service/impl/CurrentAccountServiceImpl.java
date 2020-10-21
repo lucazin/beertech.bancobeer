@@ -1,6 +1,7 @@
 package br.com.beertech.fusion.service.impl;
 
 import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
+import java.util.Optional;
 import br.com.beertech.fusion.domain.CurrentAccount;
 import br.com.beertech.fusion.repository.CurrentAccountRepository;
 import br.com.beertech.fusion.service.CurrentAccountService;
@@ -35,6 +36,11 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
   @Override
   public CurrentAccount findByHash(String hash) {
     return currentAccountRepository.findAccountByHash(hash);
+	}
+
+	@Override
+	public Optional<CurrentAccount> findByCnpj(String cnpj) {
+		return currentAccountRepository.findAccountByCnpj(cnpj);
   }
 
   @Override

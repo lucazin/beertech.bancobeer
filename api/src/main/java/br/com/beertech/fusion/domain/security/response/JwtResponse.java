@@ -9,13 +9,15 @@ public class JwtResponse {
 	private String username;
 	private String email;
 	private List<String> roles;
+	private String hash;
 
-	public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles) {
+	public JwtResponse(String accessToken, Long id, String username, String email, String hash, List<String> roles) {
 		this.token = accessToken;
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.roles = roles;
+		this.hash = hash;
 	}
 
 	public String getAccessToken() {
@@ -60,5 +62,13 @@ public class JwtResponse {
 
 	public List<String> getRoles() {
 		return roles;
+	}
+
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 }

@@ -1,18 +1,12 @@
 package br.com.beertech.fusion.controller.security;
 
-import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
-import br.com.beertech.fusion.domain.Users;
-import br.com.beertech.fusion.domain.security.request.LoginRequest;
-import br.com.beertech.fusion.domain.security.request.SignupRequest;
-import br.com.beertech.fusion.domain.security.response.JwtResponse;
-import br.com.beertech.fusion.domain.security.response.MessageResponse;
-import br.com.beertech.fusion.domain.security.roles.EnumRole;
-import br.com.beertech.fusion.domain.security.roles.Role;
-import br.com.beertech.fusion.repository.RoleRepository;
-import br.com.beertech.fusion.repository.UserRepository;
-import br.com.beertech.fusion.service.CurrentAccountService;
-import br.com.beertech.fusion.service.security.jwt.JwtUtils;
-import br.com.beertech.fusion.service.security.services.UserDetailsImpl;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,11 +20,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
+import br.com.beertech.fusion.domain.CurrentAccount;
+import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.domain.security.request.LoginRequest;
+import br.com.beertech.fusion.domain.security.request.SignupRequest;
+import br.com.beertech.fusion.domain.security.response.JwtResponse;
+import br.com.beertech.fusion.domain.security.response.MessageResponse;
+import br.com.beertech.fusion.domain.security.roles.EnumRole;
+import br.com.beertech.fusion.domain.security.roles.Role;
+import br.com.beertech.fusion.repository.RoleRepository;
+import br.com.beertech.fusion.repository.UserRepository;
+import br.com.beertech.fusion.service.CurrentAccountService;
+import br.com.beertech.fusion.service.security.jwt.JwtUtils;
+import br.com.beertech.fusion.service.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -67,12 +70,14 @@ public class AuthController {
 		List<String> roles = userDetails.getAuthorities().stream()
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());
-
+		
+		String hash = currentAccountService.findByCnpj(userDetails.getCnpj()).map(CurrentAccount::getHash).orElse(null);
+		
 		return ResponseEntity.ok(new JwtResponse(jwt,
 												 userDetails.getId(), 
 												 userDetails.getUsername(), 
 												 userDetails.getEmail(),
-												 roles));
+												 hash,roles));
 	}
 
 	@PostMapping("/signup")
@@ -106,13 +111,13 @@ public class AuthController {
 		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
-				case "user":
+				case "ROLE_USER":
 					Role adminRole = roleRepository.findByName(EnumRole.ROLE_USER)
 							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
 					roles.add(adminRole);
 
 					break;
-				case "moderator":
+				case "ROLE_MODERATOR":
 					Role modRole = roleRepository.findByName(EnumRole.ROLE_MODERATOR)
 							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
 					roles.add(modRole);

@@ -32,7 +32,7 @@ public class WithdrawController {
     private PublishTransaction publisheTransaction;
 
     @PostMapping("/withdrawals")
-    @PreAuthorize("hasRole('MODERATOR') or hasRole('USER')")
+    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
     public CompletableFuture<ResponseEntity> saveWithdrawal(@RequestBody OperationDTO saqueDTO)
             throws ExecutionException, InterruptedException {
 

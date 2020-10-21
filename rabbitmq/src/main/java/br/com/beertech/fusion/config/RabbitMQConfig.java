@@ -21,8 +21,13 @@ public class RabbitMQConfig {
 	String queueTransferName;
 
 	@Bean
-	Queue queue(String queueName) {
-		return new Queue(queueName, false);
+	Queue queueOperation() {
+		return new Queue(queueOperationName, false);
+	}
+
+	@Bean
+	Queue queueTransfer() {
+		return new Queue(queueTransferName, false);
 	}
 
 			
@@ -30,7 +35,7 @@ public class RabbitMQConfig {
 	MessageListenerContainer messageListenerContainer(ConnectionFactory connectionFactory ) {
 		SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
 		simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
-		simpleMessageListenerContainer.setQueues(queue(queueOperationName));
+		simpleMessageListenerContainer.setQueues(queueOperation());
 		simpleMessageListenerContainer.setMessageListener(new OperationListener());
 		return simpleMessageListenerContainer;
 
@@ -40,7 +45,7 @@ public class RabbitMQConfig {
 	MessageListenerContainer messageListenerContainerTransfer(ConnectionFactory connectionFactory ) {
 		SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
 		simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
-		simpleMessageListenerContainer.setQueues(queue(queueTransferName));
+		simpleMessageListenerContainer.setQueues(queueTransfer());
 		simpleMessageListenerContainer.setMessageListener(new TransferListener());
 		return simpleMessageListenerContainer;
 

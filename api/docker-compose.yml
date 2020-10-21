@@ -1,11 +1,12 @@
 version: '3'
-
 services:
   mysqlsrv:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: "MyNewPass"
-      MYSQL_DATABASE: "beertech"
+      MYSQL_ROOT_PASSWORD: MyNewPass
+      MYSQL_DATABASE: beertech
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
     ports:
       - "3306:3306"
     volumes:
@@ -20,6 +21,23 @@ services:
     networks:
       - mysql-compose-network
 
+  rabbitmq:
+    image: rabbitmq:3.6-management-alpine
+    ports:
+      - 15672:15672
+      - 5672:5672
+    container_name: rabbitmq
+    healthcheck:
+      test: [ "CMD-SHELL", "nc -z localhost 15672" ]
+      interval: 5scd
+      timeout: 5s
+      retries: 5
+    environment:
+      - RABBITMQ_HOST=localhost
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
+      - RABBITMQ_DEFAULT_VHOST=
+      -
 networks:
   mysql-compose-network:
     driver: bridge

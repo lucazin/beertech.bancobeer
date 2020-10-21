@@ -93,7 +93,7 @@ public class OperationServiceImpl implements OperationService {
 	@Override
 	public Balance calculateBalance(String hash) {
 
-		Balance saldo = new Balance(null);
+    Balance saldo = new Balance(0.);
 
 		try {
 			List<Operation> transacoes = listTransactionByHash(hash);

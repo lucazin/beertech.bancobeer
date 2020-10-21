@@ -3,9 +3,6 @@ package br.com.beertech.fusion.controller;
 import static org.springframework.http.HttpStatus.OK;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.function.Supplier;
 
 import javax.validation.Valid;
 
@@ -22,12 +19,15 @@ import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
 import br.com.beertech.fusion.controller.dto.CurrentAccountUserDTO;
 import br.com.beertech.fusion.domain.CurrentAccount;
 import br.com.beertech.fusion.service.CurrentAccountService;
+import springfox.documentation.annotations.ApiIgnore;
+
 @RestController
-@RequestMapping("/current-account")
+@RequestMapping("/bankbeer/current-account")
 public class CurrentAccountController {
 
   @Autowired private CurrentAccountService currentAccountService;
 
+  @ApiIgnore
   @GetMapping("/allAccount")
   public ResponseEntity<List<CurrentAccount>> getAllAccounts() {
     return new ResponseEntity<>(currentAccountService.listAccounts(), HttpStatus.OK);
@@ -38,6 +38,7 @@ public class CurrentAccountController {
     return new ResponseEntity<>(currentAccountService.getAccount(id, hash), HttpStatus.OK);
   }
 
+  @ApiIgnore
   @PostMapping()
   public ResponseEntity<CurrentAccount> saveCurrentAccount(
       @RequestBody @Valid final CurrentAccountDTO accountDTO) {
@@ -45,20 +46,7 @@ public class CurrentAccountController {
   }
   
   @GetMapping("/accountList")
-  public CompletableFuture<ResponseEntity> listAccountUser() throws ExecutionException, InterruptedException {
-
-      CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
-      try {
-              future = CompletableFuture.supplyAsync(new Supplier<ResponseEntity>() {
-              @Override
-              public ResponseEntity get() {
-                  List<CurrentAccountUserDTO> listAccountUser = currentAccountService.findAllUser();
-                  return new ResponseEntity<>(listAccountUser, OK);
-              }
-          });
-      } catch (Exception e) {
-          e.printStackTrace();
-      }
-      return CompletableFuture.completedFuture(future.get());
+  public ResponseEntity<List<CurrentAccountUserDTO>> listAccountUser() {
+    return new ResponseEntity<>(currentAccountService.findAllUser(), OK);
   }
 }

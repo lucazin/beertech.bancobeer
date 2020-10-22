@@ -21,7 +21,7 @@ import br.com.beertech.fusion.domain.OperationType;
 import br.com.beertech.fusion.service.PublishTransaction;
 
 @RestController
-@RequestMapping("/bankbeer")
+@RequestMapping("/beercoin")
 public class DepositController {
 
     @Autowired

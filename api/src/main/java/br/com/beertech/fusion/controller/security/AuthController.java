@@ -37,7 +37,7 @@ import br.com.beertech.fusion.service.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/bankbeer/auth")
+@RequestMapping("/beercoin/auth")
 public class AuthController {
 	@Autowired
     AuthenticationManager authenticationManager;

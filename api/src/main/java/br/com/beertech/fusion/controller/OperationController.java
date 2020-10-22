@@ -30,7 +30,7 @@ import br.com.beertech.fusion.service.PublishTransaction;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
-@RequestMapping("/bankbeer")
+@RequestMapping("/beercoin")
 public class OperationController {
 
     @Autowired

@@ -22,7 +22,7 @@ import br.com.beertech.fusion.service.CurrentAccountService;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
-@RequestMapping("/bankbeer/current-account")
+@RequestMapping("/beercoin/current-account")
 public class CurrentAccountController {
 
   @Autowired private CurrentAccountService currentAccountService;

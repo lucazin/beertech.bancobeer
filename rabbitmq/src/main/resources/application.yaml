@@ -10,6 +10,6 @@ spring:
 
 microservice:
   operation:
-    url: http://localhost:8081/bankbeer/operation/save
+    url: http://localhost:8081/beercoin/operation/save
   transfer:
-    url: http://localhost:8081/bankbeer/transfer/save
+    url: http://localhost:8081/beercoin/transfer/save

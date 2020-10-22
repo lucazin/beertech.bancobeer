@@ -18,7 +18,7 @@ import br.com.beertech.fusion.FusionApplication;
 
 @SpringBootTest(classes = FusionApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
-public class BankBeerControllerIntegrationTest {
+public class BeerCoinControllerIntegrationTest {
 	@Autowired
     private TestRestTemplate restTemplate;
 	
@@ -26,7 +26,7 @@ public class BankBeerControllerIntegrationTest {
     private int port =8081;
 	
 	private String getRootUrl() {
-        return "http://localhost:" + port + "/bankbeer";
+        return "http://localhost:" + port + "/beercoin";
     }
 	
 	@Test

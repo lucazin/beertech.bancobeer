@@ -8,16 +8,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 
 @Service
-@RabbitListener(queues = "${spring.rabbitmq.queues.operation}")
 public class OperationListener implements MessageListener {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OperationListener.class);
 
+  private RestClient restClient;
+
+  @Autowired
+  public OperationListener(RestClient restClient) {
+    this.restClient = restClient;
+  }
+
+  public OperationListener() {}
+
+  @RabbitListener(queues = "${spring.rabbitmq.queues.operation}")
   public void onMessage(Message message) {
     try {
       ObjectMapper objectMapper = new ObjectMapper();
@@ -28,7 +38,7 @@ public class OperationListener implements MessageListener {
       Operation transactionPojo = objectMapper.readValue(json, Operation.class);
 
       if (new Validator(transactionPojo).validateResponseRMQ()) {
-        new RestClient(transactionPojo).sendPostOperationAPI();
+        restClient.sendPostOperationAPI(transactionPojo);
       }
     } catch (JsonProcessingException e) {
       LOGGER.error("Error Exception {}", e.getMessage());

@@ -1,5 +1,7 @@
 package br.com.beertech.fusion.config;
 
+import br.com.beertech.fusion.service.OperationListener;
+import br.com.beertech.fusion.service.TransferListener;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
@@ -7,9 +9,6 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import br.com.beertech.fusion.service.OperationListener;
-import br.com.beertech.fusion.service.TransferListener;
 
 @Configuration
 public class RabbitMQConfig {

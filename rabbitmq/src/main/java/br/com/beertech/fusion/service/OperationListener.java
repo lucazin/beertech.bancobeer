@@ -1,22 +1,28 @@
 package br.com.beertech.fusion.service;
 
-import br.com.beertech.fusion.domain.Operation;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.nio.charset.StandardCharsets;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import br.com.beertech.fusion.domain.Operation;
 
 @Service
 @RabbitListener(queues = "${spring.rabbitmq.queues.operation}")
 public class OperationListener implements MessageListener {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OperationListener.class);
+
+  @Value("${microservices.operation.url}")
+  private String urlOperation;
 
   public void onMessage(Message message) {
     try {
@@ -28,7 +34,7 @@ public class OperationListener implements MessageListener {
       Operation transactionPojo = objectMapper.readValue(json, Operation.class);
 
       if (new Validator(transactionPojo).validateResponseRMQ()) {
-        new RestClient(transactionPojo).sendPostOperationAPI();
+          new RestClient(transactionPojo, urlOperation).sendPostOperationAPI();
       }
     } catch (JsonProcessingException e) {
       LOGGER.error("Error Exception {}", e.getMessage());

@@ -8,7 +8,7 @@ spring:
       operation: queueFusion
       transfer: queueTransfer
 
-microservice:
+microservices:
   operation:
     url: http://localhost:8081/beercoin/operation/save
   transfer:

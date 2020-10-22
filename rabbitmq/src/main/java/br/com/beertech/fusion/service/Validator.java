@@ -19,16 +19,12 @@ public class Validator {
   public boolean validateResponseRMQ() {
 
     return ((objectValidator.getTipoOperacao().equals("DEPOSITO")
-            || objectValidator.getTipoOperacao().equals("SAQUE"))
-        && objectValidator.getValorOperacao() > 0)
-                && !objectValidator.getAuthToken().isEmpty();
+            || objectValidator.getTipoOperacao().equals("SAQUE")) && objectValidator.getValorOperacao() > 0) && !objectValidator.getAuthToken().isEmpty();
   }
 
   public boolean validateTransferResponseRMQ() {
 
-    return (transferValidator.getHashOrigin() != null
-        && transferValidator.getHashDestination() != null
-        && transferValidator.getValue() > 0)
-                && !objectValidator.getAuthToken().isEmpty();
+    return (transferValidator.getHashOrigin() != null && transferValidator.getHashDestination() != null && transferValidator.getValue() > 0)
+                && !transferValidator.getAuthToken().isEmpty();
   }
 }

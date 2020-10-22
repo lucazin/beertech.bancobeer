@@ -45,7 +45,7 @@ public class OperationController {
     List<Operation> transacoes = operationService.listTransaction(hash);
     return new ResponseEntity<>(transacoes, OK);
   }
-    
+
   @GetMapping("/balance/{hash}")
   @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
   public ResponseEntity<Balance> listBalanceAccount(@PathVariable String hash) {

@@ -1,7 +1,10 @@
 package br.com.beertech.fusion.service;
 
-import br.com.beertech.fusion.domain.Operation;
-import br.com.beertech.fusion.domain.Transfer;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,10 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import br.com.beertech.fusion.domain.Operation;
+import br.com.beertech.fusion.domain.Transfer;
 
 public class RestClient {
 
@@ -64,7 +65,6 @@ public class RestClient {
       HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
       ResponseEntity<Operation> response =
           this.restTemplate.postForEntity(urlOperation, entity, Operation.class);
-
       if (response.getStatusCode().equals(HttpStatus.CREATED)) {
         LOGGER.info(Objects.requireNonNull(response.getBody()).toString());
       } else {

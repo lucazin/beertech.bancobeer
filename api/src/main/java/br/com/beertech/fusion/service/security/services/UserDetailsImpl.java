@@ -18,6 +18,8 @@ public class UserDetailsImpl implements UserDetails {
 
 	private String username;
 
+	private String name;
+
 	private String email;
 	
 	private  String cnpj;
@@ -28,13 +30,14 @@ public class UserDetailsImpl implements UserDetails {
 	private Collection<? extends GrantedAuthority> authorities;
 
 	public UserDetailsImpl(Long id, String username, String email, String password, String cnpj,
-			Collection<? extends GrantedAuthority> authorities) {
+			Collection<? extends GrantedAuthority> authorities,String name) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
 		this.cnpj = cnpj;
+		this.name = name;
 	}
 
 	public static UserDetailsImpl build(Users usuario) {
@@ -48,7 +51,8 @@ public class UserDetailsImpl implements UserDetails {
 				usuario.getEmail(),
 				usuario.getPassword(),
 				usuario.getCnpj(),
-				authorities);
+				authorities,
+				usuario.getNome());
 	}
 
 	@Override
@@ -74,10 +78,8 @@ public class UserDetailsImpl implements UserDetails {
 		return username;
 	}
 	
-	public String getCnpj() {
-		return cnpj;
-		
-	}
+	public String getCnpj() { return cnpj; }
+
 
 	@Override
 	public boolean isAccountNonExpired() {
@@ -108,4 +110,8 @@ public class UserDetailsImpl implements UserDetails {
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
 	}
+
+	public String getName() { return name; }
+
+	public void setName(String name) { this.name = name; }
 }

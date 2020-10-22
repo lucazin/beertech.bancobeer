@@ -2,14 +2,18 @@ package br.com.beertech.fusion.controller.dto;
 
 import br.com.beertech.fusion.domain.DebitCreditType;
 import br.com.beertech.fusion.domain.OperationType;
+import io.swagger.annotations.ApiModelProperty;
 
 public class OperationDTO {
 
-    private OperationType tipoOperacao;
-    private Double valorOperacao;
-    private String hash;
-    private DebitCreditType debitCredit;
-    private String authToken;
+  @ApiModelProperty(hidden = true)
+  private OperationType tipoOperacao;
+  private Double valorOperacao;
+  private String hash;
+  @ApiModelProperty(hidden = true)
+  private DebitCreditType debitCredit;
+  @ApiModelProperty(hidden = true)
+  private String authToken;
 
     public OperationDTO() {
     }

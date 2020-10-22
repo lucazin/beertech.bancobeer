@@ -40,13 +40,14 @@ public class OperationController {
     private PublishTransaction publisheTransaction;
 
   @GetMapping("/bank-statement/{hash}")
+  @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
   public ResponseEntity<List<Operation>> listExtract(@PathVariable String hash) {
     List<Operation> transacoes = operationService.listTransaction(hash);
     return new ResponseEntity<>(transacoes, OK);
   }
     
   @GetMapping("/balance/{hash}")
-  @PreAuthorize("hasRole('MODERATOR') or hasRole('USER')")
+  @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
   public ResponseEntity<Balance> listBalanceAccount(@PathVariable String hash) {
     Balance saldo = operationService.calculateBalance(hash);
     return new ResponseEntity<>(saldo, OK);
@@ -54,7 +55,7 @@ public class OperationController {
 
   @ApiIgnore
     @PostMapping("/operation/save")
-    @PreAuthorize("hasRole('MODERATOR')")
+  @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public CompletableFuture<ResponseEntity> saveOperations(@RequestBody OperationDTO operationDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
@@ -78,7 +79,7 @@ public class OperationController {
 
   @ApiIgnore
     @PostMapping("/transfer/save")
-    @PreAuthorize("hasRole('MODERATOR')")
+  @PreAuthorize("hasRole('ROLE_MODERATOR')")
     public CompletableFuture<ResponseEntity> saveTransfer(@RequestBody TransferDTO transferDTO) throws ExecutionException, InterruptedException {
 
         CompletableFuture<ResponseEntity> future = new CompletableFuture<>();

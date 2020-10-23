@@ -1,7 +1,12 @@
 package br.com.beertech.fusion.domain.security.request;
 
-import javax.validation.constraints.*;
 import java.util.Set;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import io.swagger.annotations.ApiModelProperty;
 
 public class SignupRequest {
     @NotBlank
@@ -12,7 +17,8 @@ public class SignupRequest {
     @Size(max = 50)
     @Email
     private String email;
-    
+
+    @ApiModelProperty(hidden = true)
     private Set<String> role;
     
     @NotBlank

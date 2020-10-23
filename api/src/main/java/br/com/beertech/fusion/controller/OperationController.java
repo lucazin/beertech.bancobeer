@@ -1,12 +1,12 @@
 package br.com.beertech.fusion.controller;
 
-import br.com.beertech.fusion.controller.dto.OperationDTO;
-import br.com.beertech.fusion.controller.dto.TransferDTO;
-import br.com.beertech.fusion.domain.Balance;
-import br.com.beertech.fusion.domain.Operation;
-import br.com.beertech.fusion.exception.FusionException;
-import br.com.beertech.fusion.service.OperationService;
-import br.com.beertech.fusion.service.PublishTransaction;
+import static org.springframework.http.HttpStatus.ACCEPTED;
+import static org.springframework.http.HttpStatus.OK;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.beertech.fusion.controller.dto.OperationDTO;
+import br.com.beertech.fusion.controller.dto.TransferDTO;
+import br.com.beertech.fusion.domain.Balance;
+import br.com.beertech.fusion.domain.Operation;
+import br.com.beertech.fusion.exception.FusionException;
+import br.com.beertech.fusion.service.OperationService;
+import br.com.beertech.fusion.service.PublishTransaction;
+import br.com.beertech.fusion.service.security.jwt.JwtUtils;
 import springfox.documentation.annotations.ApiIgnore;
-
-import java.util.List;
-
-import static org.springframework.http.HttpStatus.ACCEPTED;
-import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/beercoin")
@@ -31,6 +35,9 @@ public class OperationController {
   @Autowired private OperationService operationService;
 
   @Autowired private PublishTransaction publishTransaction;
+  
+  @Autowired
+  JwtUtils jwtUtils;
 
   @GetMapping("/bank-statement/{hash}")
   @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
@@ -42,6 +49,7 @@ public class OperationController {
   @GetMapping("/balance/{hash}")
   @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
   public ResponseEntity<Balance> listBalanceAccount(@PathVariable String hash) {
+	  
     Balance balance = operationService.calculateBalance(hash);
     return new ResponseEntity<>(balance, OK);
   }

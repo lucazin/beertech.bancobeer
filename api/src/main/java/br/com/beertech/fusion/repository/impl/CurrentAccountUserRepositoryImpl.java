@@ -23,4 +23,11 @@ public class CurrentAccountUserRepositoryImpl implements CurrentAccountUserRepos
 		return jdbcTemplate.query(sql, new CurrentAccountUserRowMapper());
 	}
 
+	public List<CurrentAccountUserDTO> findAccountByUser(String user) {
+		
+		String sql	 = "select c.hash from conta_corrente c, usuarios u where c.cnpj = u.cnpj and u.username = "+ user;
+		return jdbcTemplate.query(sql, new CurrentAccountUserRowMapper());
+		
+	}
+	
 }

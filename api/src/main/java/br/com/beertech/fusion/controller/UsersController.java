@@ -1,25 +1,21 @@
 package br.com.beertech.fusion.controller;
 
-import br.com.beertech.fusion.controller.dto.OperationDTO;
-import br.com.beertech.fusion.controller.dto.TransferDTO;
-import br.com.beertech.fusion.domain.Balance;
-import br.com.beertech.fusion.domain.Operation;
-import br.com.beertech.fusion.domain.Users;
-import br.com.beertech.fusion.domain.security.response.MessageResponse;
-import br.com.beertech.fusion.exception.FusionException;
-import br.com.beertech.fusion.service.OperationService;
-import br.com.beertech.fusion.service.PublishTransaction;
-import br.com.beertech.fusion.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
+import static org.springframework.http.HttpStatus.ACCEPTED;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.ACCEPTED;
-import static org.springframework.http.HttpStatus.OK;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.domain.security.response.MessageResponse;
+import br.com.beertech.fusion.service.UserService;
 
 @RestController
 @RequestMapping("/beercoin")

@@ -1,6 +1,8 @@
 package br.com.beertech.fusion.domain;
 
 import br.com.beertech.fusion.domain.security.roles.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -10,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@DynamicUpdate
 @Table(	name = "usuarios",
 		uniqueConstraints = { 
 			@UniqueConstraint(columnNames = "username"),
@@ -35,6 +38,7 @@ public class Users {
 
 	@NotBlank
 	@Size(max = 120)
+	@JsonIgnore
 	private String password;
 
 	@NotBlank
@@ -43,8 +47,8 @@ public class Users {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "usuarios_roles",
-				joinColumns = @JoinColumn(name = "usuarios_id"),
-				inverseJoinColumns = @JoinColumn(name = "role_id"))
+				joinColumns = @JoinColumn(name = "usuariosId"),
+				inverseJoinColumns = @JoinColumn(name = "roleId"))
 	private Set<Role> roles = new HashSet<>();
 
 	public Users() {}

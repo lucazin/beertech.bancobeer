@@ -102,30 +102,8 @@ public class AuthController {
 
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
-
-		// verifica roles
-		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(EnumRole.ROLE_USER)
-					.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
-			roles.add(userRole);
-		} else {
-			strRoles.forEach(role -> {
-				switch (role) {
-				case "ROLE_USER":
-					Role adminRole = roleRepository.findByName(EnumRole.ROLE_USER)
-							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
-					roles.add(adminRole);
-
-					break;
-				case "ROLE_MODERATOR":
-					Role modRole = roleRepository.findByName(EnumRole.ROLE_MODERATOR)
-							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
-					roles.add(modRole);
-
-					break;
-				}
-			});
-		}
+		Role userRole = roleRepository.findByName(EnumRole.ROLE_USER).orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
+		roles.add(userRole);
 
 		usuario.setRoles(roles);
 		userRepository.save(usuario);

@@ -16,3 +16,6 @@ microservices:
 
 amqp:
   maxRetry: 3
+
+server:
+  port : ${PORT:5000}

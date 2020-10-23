@@ -28,6 +28,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
     private JwtUtils jwtUtils;
 	
+	@Autowired
+	private CurrentAccountUserRepositoryImpl currentAccountUserRepositoryImpl; 
+
 	@Override
 	public void updateUserRole(Long idUser) {
 		UsersRoles currentRole = currentUserRoleRepository.findUsersRolesByUsuariosId(idUser);
@@ -57,5 +60,27 @@ public class UserServiceImpl implements UserService {
         String userNameFromJwtToken = jwtUtils.getUserNameFromJwtToken(token);
 
         return currentUserRepository.findByUsername(userNameFromJwtToken);
-    }
+	}
+
+	public Optional<Users> userByToken(HttpServletRequest request) {
+
+		String tokenComplete = request.getHeader("Authorization");
+		String token = tokenComplete.substring(7, tokenComplete.length());
+		String userNameFromJwtToken = jwtUtils.getUserNameFromJwtToken(token);
+
+		return currentUserRepository.findByUsername(userNameFromJwtToken);
+	}
+	
+//	public boolean validateUserLogged(String hashLogin) {
+//	
+//		
+//		
+//		Optional<Users> username = currentUserRepository.findByUsername(userByToken);
+//		List<CurrentAccountUserDTO> accountByUser = currentAccountUserRepositoryImpl.findAccountByUser(username.toString());
+//		
+//		if(accountByUser.equals(hashLogin)) {
+//			return true;
+//		}
+//		return false;		
+//	}
 }

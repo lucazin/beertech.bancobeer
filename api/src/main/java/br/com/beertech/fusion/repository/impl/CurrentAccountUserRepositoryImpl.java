@@ -29,4 +29,5 @@ public class CurrentAccountUserRepositoryImpl implements CurrentAccountUserRepos
 		return jdbcTemplate.query(sql, new CurrentAccountUserRowMapper());
 	}
 
+	
 }

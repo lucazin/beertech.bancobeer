@@ -24,7 +24,7 @@ public class PublishTransactionImpl implements PublishTransaction {
 	private static final String QUEUE_TRANSFER_NAME = "queueTransfer";
 	
 	@Override
-	public void publisheOperation(OperationDTO operationDTO) {
+	public void publishOperation(OperationDTO operationDTO) {
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		String msgm = null;
@@ -47,7 +47,7 @@ public class PublishTransactionImpl implements PublishTransaction {
 	}
 
 	@Override
-	public void publisheTransfer(TransferDTO transferDTO) {
+	public void publishTransfer(TransferDTO transferDTO) {
 	
 		ObjectMapper objectMapper = new ObjectMapper();
 

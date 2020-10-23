@@ -1,11 +1,9 @@
 package br.com.beertech.fusion.controller;
 
-import static org.springframework.http.HttpStatus.OK;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.function.Supplier;
-
+import br.com.beertech.fusion.controller.dto.OperationDTO;
+import br.com.beertech.fusion.domain.DebitCreditType;
+import br.com.beertech.fusion.domain.OperationType;
+import br.com.beertech.fusion.service.PublishTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,38 +13,28 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.beertech.fusion.controller.dto.OperationDTO;
-import br.com.beertech.fusion.domain.DebitCreditType;
-import br.com.beertech.fusion.domain.OperationType;
-import br.com.beertech.fusion.service.PublishTransaction;
+import static org.springframework.http.HttpStatus.ACCEPTED;
 
 @RestController
 @RequestMapping("/beercoin")
 public class WithdrawController {
 
-    @Autowired
-    private PublishTransaction publisheTransaction;
+  @Autowired private PublishTransaction publishTransaction;
 
-    @PostMapping("/withdrawals")
-    @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
-    public CompletableFuture<ResponseEntity> queueWithdrawal(@RequestBody OperationDTO saqueDTO,
-            @RequestHeader(value = "Authorization", required = false) String token)
-            throws ExecutionException, InterruptedException {
+  @PostMapping("/withdrawals")
+  @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
+  public ResponseEntity<Void> queueWithdrawal(
+      @RequestBody OperationDTO operationDTO,
+      @RequestHeader(value = "Authorization", required = false) String token) {
 
-        CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
-        try {
-            // Run a task specified by a Supplier object asynchronously
-            future = CompletableFuture.supplyAsync(new Supplier<ResponseEntity>() {
-                @Override
-                public ResponseEntity<String> get() {
-                	publisheTransaction.publisheOperation(new OperationDTO(OperationType.SAQUE,
-                			saqueDTO.getValorOperacao(), saqueDTO.getHash(), DebitCreditType.DEBITO,token));
-                    return ResponseEntity.status(OK).body("Solicitação de saque executada!");
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return CompletableFuture.completedFuture(future.get());
-    }
+    publishTransaction.publishOperation(
+        new OperationDTO(
+            OperationType.SAQUE,
+            operationDTO.getValorOperacao(),
+            operationDTO.getHash(),
+            DebitCreditType.DEBITO,
+            token));
+
+    return new ResponseEntity<>(ACCEPTED);
+  }
 }

@@ -1,10 +1,6 @@
 package br.com.beertech.fusion.controller;
 
-import static org.springframework.http.HttpStatus.OK;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.function.Supplier;
+import static org.springframework.http.HttpStatus.ACCEPTED;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,31 +20,21 @@ import br.com.beertech.fusion.service.PublishTransaction;
 @RequestMapping("/beercoin")
 public class DepositController {
 
-    @Autowired
-    private PublishTransaction publisheTransaction;
+  @Autowired private PublishTransaction publishTransaction;
 
-    @PostMapping("/deposits")
-    @PreAuthorize("hasRole('ROLE_MODERATOR')")
-    public CompletableFuture<ResponseEntity> queueDeposit(@RequestBody OperationDTO depositoDTO,
-            @RequestHeader(value = "Authorization", required = false) String token)
-            throws ExecutionException, InterruptedException {
+  @PostMapping("/deposits")
+  @PreAuthorize("hasRole('ROLE_MODERATOR')")
+  public ResponseEntity<Void> queueDeposit(
+      @RequestBody OperationDTO operationDTO,
+      @RequestHeader(value = "Authorization", required = false) String token) {
 
-        CompletableFuture<ResponseEntity> future = new CompletableFuture<>();
-        try {
-            // Run a task specified by a Supplier object asynchronously
-            future = CompletableFuture.supplyAsync(new Supplier<ResponseEntity>() {
-                @Override
-                public ResponseEntity<String> get() {
-
-                        publisheTransaction.publisheOperation(new OperationDTO(OperationType.DEPOSITO,
-                                depositoDTO.getValorOperacao(), depositoDTO.getHash(), DebitCreditType.CREDITO,token));
-
-                        return ResponseEntity.status(OK).body("Solicitação de Deposito executada!");
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return CompletableFuture.completedFuture(future.get());
-    }
+    publishTransaction.publishOperation(
+        new OperationDTO(
+            OperationType.DEPOSITO,
+            operationDTO.getValorOperacao(),
+            operationDTO.getHash(),
+            DebitCreditType.CREDITO,
+            token));
+    return new ResponseEntity<>(ACCEPTED);
+  }
 }

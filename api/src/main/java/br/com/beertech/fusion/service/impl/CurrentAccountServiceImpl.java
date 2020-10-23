@@ -1,7 +1,6 @@
 package br.com.beertech.fusion.service.impl;
 
 import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
-import java.util.Optional;
 import br.com.beertech.fusion.controller.dto.CurrentAccountUserDTO;
 import br.com.beertech.fusion.domain.CurrentAccount;
 import br.com.beertech.fusion.repository.CurrentAccountRepository;

@@ -24,7 +24,7 @@ public class OperationServiceImpl implements OperationService {
 	private OperationRepository operationRepository;
 
 	@Autowired
-	private BalanceService saldoService;
+	private BalanceService balanceService;
 
 	@Autowired
 	private CurrentAccountService currentAccountService;
@@ -100,7 +100,7 @@ public class OperationServiceImpl implements OperationService {
 			if (transacoes.isEmpty()) {
 				return saldo;
 			}
-			saldo = saldoService
+			saldo = balanceService
 					.calcularSaldo(transacoes.stream().map(Operation::getOperacaoDto).collect(Collectors.toList()));
 			return saldo;
 		} catch (Exception e) {

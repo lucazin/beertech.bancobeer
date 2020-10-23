@@ -19,19 +19,19 @@ public class BalanceServiceImpl implements BalanceService {
         if (operacoes != null && !operacoes.isEmpty()) {
             Double depositos = operacoes.stream()
                     .filter(o -> OperationType.DEPOSITO.equals(o.getTipoOperacao()))
-                    .mapToDouble(o -> o.getValorOperacao())
+                    .mapToDouble(OperationDTO::getValorOperacao)
                     .sum();
             Double saques = operacoes.stream()
                     .filter(o -> OperationType.SAQUE.equals(o.getTipoOperacao()))
-                    .mapToDouble(o -> o.getValorOperacao())
+                    .mapToDouble(OperationDTO::getValorOperacao)
                     .sum();
             Double transferenciaDebito = operacoes.stream()
-                    .filter(o -> OperationType.TRANSFERENCIA.equals(o.getTipoOperacao()) && DebitCreditType.DEBITO.equals(o.getDebitCredit())) 
-                    .mapToDouble(o -> o.getValorOperacao())
+                    .filter(o -> OperationType.TRANSFERENCIA.equals(o.getTipoOperacao()) && DebitCreditType.DEBITO.equals(o.getDebitCredit()))
+                    .mapToDouble(OperationDTO::getValorOperacao)
                     .sum();
             Double transferenciaCredito = operacoes.stream()
                     .filter(o -> OperationType.TRANSFERENCIA.equals(o.getTipoOperacao()) && DebitCreditType.CREDITO.equals(o.getDebitCredit()))
-                    .mapToDouble(o -> o.getValorOperacao())
+                    .mapToDouble(OperationDTO::getValorOperacao)
                     .sum();
             valorTotal = (depositos + transferenciaCredito) - (saques - transferenciaDebito);
         }

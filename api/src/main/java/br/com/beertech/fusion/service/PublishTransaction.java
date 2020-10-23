@@ -5,8 +5,8 @@ import br.com.beertech.fusion.controller.dto.TransferDTO;
 
 public interface PublishTransaction {
 
-	void publisheOperation(OperationDTO operationDTO);
+	void publishOperation(OperationDTO operationDTO);
 	
-	void publisheTransfer(TransferDTO operationDTO);
+	void publishTransfer(TransferDTO operationDTO);
 	
 }

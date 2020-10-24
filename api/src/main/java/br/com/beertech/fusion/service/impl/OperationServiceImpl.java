@@ -46,20 +46,6 @@ public class OperationServiceImpl implements OperationService {
 	}
 
 	@Override
-	public List<Operation> listTransaction(String hash) {
-		return operationRepository.listTransactionByHash(hash);
-	}
-
-	@Override
-	public void RemoveTransacao(Long idOperation) {
-		operationRepository.delete(getOperationById(idOperation));
-	}
-
-	private Operation getOperationById(Long idOperation) {
-		return operationRepository.getOne(idOperation);
-	}
-
-	@Override
 	public List<Operation> listTransactionByHash(String hash) {
 		return operationRepository.listTransactionByHash(hash);
 	}
@@ -77,7 +63,7 @@ public class OperationServiceImpl implements OperationService {
 			throw new FusionException("Conta de destino inexistente!");
 		}
 
-		Balance sldOrigin = calculateBalance(transferDTO.getHashOrigin());
+		Balance sldOrigin = calculateBalanceByHash(transferDTO.getHashOrigin());
 
 		if (sldOrigin.getSaldo() != null && sldOrigin.getSaldo() >= transferDTO.getValue()) {
 			Operation origin = new Operation(transferDTO, OperationType.TRANSFERENCIA, transferDTO.getHashOrigin(), DebitCreditType.DEBITO);
@@ -91,21 +77,34 @@ public class OperationServiceImpl implements OperationService {
 	}
 
 	@Override
-	public Balance calculateBalance(String hash) {
-
-    Balance saldo = new Balance(0.);
-
+	public Balance calculateBalanceByHash(String hash) {
 		try {
-			List<Operation> transacoes = listTransactionByHash(hash);
-			if (transacoes.isEmpty()) {
-				return saldo;
-			}
-			saldo = balanceService
-					.calcularSaldo(transacoes.stream().map(Operation::getOperacaoDto).collect(Collectors.toList()));
-			return saldo;
+            List<Operation> transacoes = listTransactionByHash(hash);
+            return calculateBalanceByTransactionList(transacoes);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
+
+    private Balance calculateBalanceByTransactionList(List<Operation> transacoes) {
+        Balance saldo = new Balance(0.);
+        if (!transacoes.isEmpty()) {
+            saldo = balanceService
+                    .calcularSaldo(transacoes.stream().map(Operation::getOperacaoDto).collect(Collectors.toList()));
+        }
+        return saldo;
+    }
+
+    @Override
+    public List<Operation> listTransactionByCnpj(String cnpj) {
+        String hash = currentAccountService.findByCnpj(cnpj).map(CurrentAccount::getHash).orElseThrow(null);
+        return operationRepository.listTransactionByHash(hash);
+    }
+
+    @Override
+    public Balance calculateBalanceByCnpj(String cnpj) {
+        List<Operation> transactions = listTransactionByCnpj(cnpj);
+        return calculateBalanceByTransactionList(transactions);
+    }
 
 }

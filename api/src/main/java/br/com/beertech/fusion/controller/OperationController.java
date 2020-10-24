@@ -4,6 +4,7 @@ import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.HttpStatus.OK;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,11 @@ import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
 import br.com.beertech.fusion.domain.Balance;
 import br.com.beertech.fusion.domain.Operation;
+import br.com.beertech.fusion.domain.Users;
 import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.service.OperationService;
 import br.com.beertech.fusion.service.PublishTransaction;
+import br.com.beertech.fusion.service.UserService;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
@@ -33,17 +36,39 @@ public class OperationController {
 
   @Autowired private PublishTransaction publishTransaction;
   
+  @Autowired
+  private UserService userService;
+
+  @GetMapping("/bank-statement/")
+  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR')")
+  public ResponseEntity<List<Operation>> listUserBankStatement(
+          @RequestHeader(value = "Authorization", required = false) String token) {
+      Optional<Users> user = userService.getUserByToken(token);
+      List<Operation> operations = operationService.listTransactionByCnpj(user.map(Users::getCnpj).orElseThrow(null));
+      return new ResponseEntity<>(operations, OK);
+  }
+
+  @GetMapping("/balance/")
+  @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR')")
+  public ResponseEntity<Balance> gettUserBalanceAccount(
+          @RequestHeader(value = "Authorization", required = false) String token) {
+      Optional<Users> user = userService.getUserByToken(token);
+      Balance balance = operationService.calculateBalanceByCnpj(user.map(Users::getCnpj).orElseThrow(null));
+      return new ResponseEntity<>(balance, OK);
+  }
+
   @GetMapping("/bank-statement/{hash}")
-  @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
+  @PreAuthorize("hasRole('ROLE_MODERATOR')")
   public ResponseEntity<List<Operation>> listExtract(@PathVariable String hash) {
-    List<Operation> operations = operationService.listTransaction(hash);
+      List<Operation> operations = operationService.listTransactionByHash(hash);
     return new ResponseEntity<>(operations, OK);
   }
 
   @GetMapping("/balance/{hash}")
-  @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
+  @PreAuthorize("hasRole('ROLE_MODERATOR')")
   public ResponseEntity<Balance> listBalanceAccount(@PathVariable String hash) {
-    Balance balance = operationService.calculateBalance(hash);
+	  
+    Balance balance = operationService.calculateBalanceByHash(hash);
     return new ResponseEntity<>(balance, OK);
   }
 

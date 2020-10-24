@@ -49,4 +49,13 @@ public class UserServiceImpl implements UserService {
 		return currentUserRepository.findByUsername(userNameFromJwtToken);
 	}
 	
+
+    @Override
+    public Optional<Users> getUserByToken(String tokenComplete) {
+        // TODO Auto-generated method stub
+        String token = tokenComplete.substring(7, tokenComplete.length());
+        String userNameFromJwtToken = jwtUtils.getUserNameFromJwtToken(token);
+
+        return currentUserRepository.findByUsername(userNameFromJwtToken);
+    }
 }

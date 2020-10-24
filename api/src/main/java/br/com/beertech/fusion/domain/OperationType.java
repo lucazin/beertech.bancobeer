@@ -4,7 +4,8 @@ public enum OperationType {
 
     DEPOSITO(1),
     SAQUE(2),
-	TRANSFERENCIA(3);
+	TRANSFERENCIA(3),
+	PAGAMENTO(4);
 
     public int ID;
 
@@ -17,8 +18,10 @@ public enum OperationType {
             return DEPOSITO;
         } else if (id == 2) {
             return SAQUE;
-        } else {
+        } else if (id == 3) {
         	return TRANSFERENCIA;
+        } else {
+        	return PAGAMENTO;
         }
         	
     }

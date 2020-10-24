@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.service.BillExchangeService;
 import br.com.beertech.fusion.service.impl.BillExchangeServiceImpl;
 
@@ -22,7 +23,7 @@ public class BillExchangeTest {
 	}
 	
 	@Test
-	public void testFormatValue() {
+    public void testFormatValue() throws FusionException {
 
 		BillExchangeService billExchangeService = new BillExchangeServiceImpl();
 		String valueBarcode = billExchangeService.getValueBarcode(barcode);

@@ -33,7 +33,11 @@ public class BalanceServiceImpl implements BalanceService {
                     .filter(o -> OperationType.TRANSFERENCIA.equals(o.getTipoOperacao()) && DebitCreditType.CREDITO.equals(o.getDebitCredit()))
                     .mapToDouble(OperationDTO::getValorOperacao)
                     .sum();
-            valorTotal = (depositos + transferenciaCredito) - (saques - transferenciaDebito);
+            Double pagamentos = operacoes.stream()
+                    .filter(o -> OperationType.PAGAMENTO.equals(o.getTipoOperacao()))
+                    .mapToDouble(OperationDTO::getValorOperacao)
+                    .sum();
+            valorTotal = (depositos + transferenciaCredito) - (saques - transferenciaDebito) - pagamentos;
         }
         return new Balance(valorTotal);
     }

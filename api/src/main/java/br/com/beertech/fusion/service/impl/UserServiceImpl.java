@@ -3,6 +3,8 @@ package br.com.beertech.fusion.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import br.com.beertech.fusion.domain.security.roles.EnumRole;
 import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.repository.UserRepository;
 import br.com.beertech.fusion.repository.UserRoleRepository;
+import br.com.beertech.fusion.repository.impl.CurrentAccountUserRepositoryImpl;
 import br.com.beertech.fusion.service.UserService;
 import br.com.beertech.fusion.service.security.jwt.JwtUtils;
 
@@ -51,18 +54,7 @@ public class UserServiceImpl implements UserService {
 		return currentUserRepository.findByUsername(userNameFromJwtToken);
 	}
 	
-
-    @Override
-    public Optional<Users> getUserByToken(String tokenComplete) {
-        // TODO Auto-generated method stub
-        String token = tokenComplete.substring(7, tokenComplete.length());
-        String userNameFromJwtToken = jwtUtils.getUserNameFromJwtToken(token);
-
-        return currentUserRepository.findByUsername(userNameFromJwtToken);
-	}
-
 	public Optional<Users> findUserByToken(String token) {
-
 		token = token.substring(7, token.length());
 		String userNameFromJwtToken = jwtUtils.getUserNameFromJwtToken(token);
 

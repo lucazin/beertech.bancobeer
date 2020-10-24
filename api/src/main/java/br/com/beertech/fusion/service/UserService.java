@@ -12,7 +12,7 @@ public interface UserService {
 
     List<Users> listUsers();
 
-    Optional<Users> findUserByToken(String token) throws FusionException;
+    Optional<Users> findUserByToken(String token);
 
     void validateUserLogged(String token, String hash) throws FusionException;
 }

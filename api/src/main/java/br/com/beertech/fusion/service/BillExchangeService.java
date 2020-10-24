@@ -9,6 +9,6 @@ public interface BillExchangeService {
 	
 	String getValueBarcode(String barcode);
 	
-	Double formatValue(String barCode);
+    Double formatValue(String barCode) throws FusionException;
 
 }

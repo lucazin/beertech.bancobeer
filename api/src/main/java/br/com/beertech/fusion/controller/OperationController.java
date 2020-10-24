@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
 import br.com.beertech.fusion.domain.Balance;
@@ -47,7 +48,7 @@ public class OperationController {
   @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR')")
   public ResponseEntity<List<Operation>> listUserBankStatement(
           @RequestHeader(value = "Authorization", required = false) String token) {
-      Optional<Users> user = userService.getUserByToken(token);
+      Optional<Users> user = userService.findUserByToken(token);
       List<Operation> operations = operationService.listTransactionByCnpj(user.map(Users::getCnpj).orElseThrow(null));
       return new ResponseEntity<>(operations, OK);
   }
@@ -56,7 +57,7 @@ public class OperationController {
   @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR')")
   public ResponseEntity<Balance> gettUserBalanceAccount(
           @RequestHeader(value = "Authorization", required = false) String token) {
-      Optional<Users> user = userService.getUserByToken(token);
+      Optional<Users> user = userService.findUserByToken(token);
       Balance balance = operationService.calculateBalanceByCnpj(user.map(Users::getCnpj).orElseThrow(null));
       return new ResponseEntity<>(balance, OK);
   }

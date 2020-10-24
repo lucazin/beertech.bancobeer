@@ -41,6 +41,8 @@ public class OperationServiceImpl implements OperationService {
 			operation.setDebitCredit(DebitCreditType.CREDITO.id);
 		} else if(operation.getTipoOperacao() == OperationType.SAQUE.ID) {
 			operation.setDebitCredit(DebitCreditType.DEBITO.id);
+		} else if (operation.getTipoOperacao() == OperationType.PAGAMENTO.ID) {
+			operation.setDebitCredit(DebitCreditType.DEBITO.id);
 		}
 		
 		return operationRepository.save(operation);

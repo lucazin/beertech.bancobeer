@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.beertech.fusion.controller.dto.BillExchangeDTO;
+import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.domain.Balance;
 import br.com.beertech.fusion.domain.DebitCreditType;
 import br.com.beertech.fusion.domain.Operation;
@@ -30,7 +31,7 @@ public class BillExchangeServiceImpl implements BillExchangeService {
 
 	@Autowired
 	private OperationService operationService;
-
+	
 	@Override
 	public void payBillExchange(BillExchangeDTO billExchangeDTO, String token) throws FusionException {
 
@@ -40,33 +41,30 @@ public class BillExchangeServiceImpl implements BillExchangeService {
 		String valueBarcode = getValueBarcode(billExchangeDTO.getBarcode());
 		Double valueFormat = formatValue(valueBarcode);
 
-		Operation operation = new Operation();
+		OperationDTO operationDTO = new OperationDTO();
 
-		operation.setDebitCredit(DebitCreditType.DEBITO.id);
-		operation.setHash(hashUser);
-		operation.setValorOperacao(valueFormat);
-		operation.setTipoOperacao(OperationType.SAQUE.ID);
+		operationDTO.setDebitCredit(DebitCreditType.DEBITO);
+		operationDTO.setHash(hashUser);
+		operationDTO.setValorOperacao(valueFormat);
+		operationDTO.setTipoOperacao(OperationType.PAGAMENTO);
 
-		Balance balance = operationService.calculateBalance(hashUser);
+        Balance balance = operationService.calculateBalanceByHash(hashUser);
 
 		if (balance.getSaldo() != null && balance.getSaldo() >= valueFormat) {
-
-			operationService.newTransaction(operation);
+		
+			operationService.newTransaction(new Operation (operationDTO));
 		} else {
 			throw new FusionException("Saldo insuficiente!");
 		}
 	}
 
 	public String getValueBarcode(String barcode) {
-
 		return barcode.substring(barcode.length() - 10);
-
 	}
 
-	public Double formatValue(String barCode) {
+	public Double formatValue(String barCode) throws FusionException {
 		
 			String value = barCode.substring(barCode.length() - 10);
-
 			String partInt =  value.substring(0, value.length()-2);
 			String partDecimal =  value.substring(value.length() - 2);
 			String formatValue = partInt + "," + partDecimal;
@@ -77,7 +75,7 @@ public class BillExchangeServiceImpl implements BillExchangeService {
 			try {
 				number = format.parse(formatValue);
 			} catch (ParseException e) {
-				e.printStackTrace();
+				throw new FusionException(e.getMessage());
 			}
 			return number.doubleValue();
 		}

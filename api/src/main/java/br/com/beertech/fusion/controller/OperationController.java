@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
 import br.com.beertech.fusion.domain.Balance;
+import br.com.beertech.fusion.domain.CurrentAccount;
 import br.com.beertech.fusion.domain.Operation;
 import br.com.beertech.fusion.domain.Users;
 import br.com.beertech.fusion.exception.FusionException;
+import br.com.beertech.fusion.service.CurrentAccountService;
 import br.com.beertech.fusion.service.OperationService;
 import br.com.beertech.fusion.service.PublishTransaction;
 import br.com.beertech.fusion.service.UserService;
@@ -38,6 +40,9 @@ public class OperationController {
   
   @Autowired
   private UserService userService;
+
+  @Autowired
+  private CurrentAccountService currentAccountService;
 
   @GetMapping("/bank-statement/")
   @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR')")
@@ -60,6 +65,10 @@ public class OperationController {
   @GetMapping("/bank-statement/{hash}")
   @PreAuthorize("hasRole('ROLE_MODERATOR')")
   public ResponseEntity<List<Operation>> listExtract(@PathVariable String hash) {
+      Optional<CurrentAccount> currentAccount = currentAccountService.findByHash(hash);
+      if (!currentAccount.isPresent()) {
+          return ResponseEntity.badRequest().build();
+      }
       List<Operation> operations = operationService.listTransactionByHash(hash);
     return new ResponseEntity<>(operations, OK);
   }

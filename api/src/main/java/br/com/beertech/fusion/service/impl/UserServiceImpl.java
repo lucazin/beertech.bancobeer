@@ -14,7 +14,6 @@ import br.com.beertech.fusion.domain.UsersRoles;
 import br.com.beertech.fusion.domain.security.roles.EnumRole;
 import br.com.beertech.fusion.repository.UserRepository;
 import br.com.beertech.fusion.repository.UserRoleRepository;
-import br.com.beertech.fusion.repository.impl.CurrentAccountUserRepositoryImpl;
 import br.com.beertech.fusion.service.UserService;
 import br.com.beertech.fusion.service.security.jwt.JwtUtils;
 
@@ -28,11 +27,8 @@ public class UserServiceImpl implements UserService {
 	private UserRoleRepository currentUserRoleRepository;
 
 	@Autowired
-	JwtUtils jwtUtils;
+    private JwtUtils jwtUtils;
 	
-	@Autowired
-	private CurrentAccountUserRepositoryImpl currentAccountUserRepositoryImpl; 
-
 	@Override
 	public void updateUserRole(Long idUser) {
 		UsersRoles currentRole = currentUserRoleRepository.findUsersRolesByUsuariosId(idUser);

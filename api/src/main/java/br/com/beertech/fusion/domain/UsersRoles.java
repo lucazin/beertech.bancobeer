@@ -1,14 +1,10 @@
 package br.com.beertech.fusion.domain;
 
-import br.com.beertech.fusion.domain.security.roles.Role;
-import org.hibernate.annotations.DynamicUpdate;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @DynamicUpdate

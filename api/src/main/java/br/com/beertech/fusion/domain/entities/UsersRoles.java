@@ -1,4 +1,4 @@
-package br.com.beertech.fusion.domain;
+package br.com.beertech.fusion.domain.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

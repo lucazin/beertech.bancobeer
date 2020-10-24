@@ -18,6 +18,8 @@ public class OperationDTO {
   @ApiModelProperty(hidden = true)
   private String authToken;
 
+  @ApiModelProperty(hidden = true)
+  private String horarioOperacao;
 
   public OperationDTO() {}
 
@@ -81,5 +83,13 @@ public class OperationDTO {
 
   public void setAuthToken(String authToken) {
     this.authToken = authToken;
+  }
+
+  public String getHorarioOperacao() {
+      return horarioOperacao;
+  }
+
+  public void setHorarioOperacao(String horarioOperacao) {
+      this.horarioOperacao = horarioOperacao;
   }
 }

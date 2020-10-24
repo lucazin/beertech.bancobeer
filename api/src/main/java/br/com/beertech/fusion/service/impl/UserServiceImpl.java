@@ -9,8 +9,8 @@ import br.com.beertech.fusion.controller.dto.RoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.beertech.fusion.domain.User;
-import br.com.beertech.fusion.domain.UsersRoles;
+import br.com.beertech.fusion.domain.entities.User;
+import br.com.beertech.fusion.domain.entities.UsersRoles;
 import br.com.beertech.fusion.domain.security.roles.EnumRole;
 import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.repository.UserRepository;

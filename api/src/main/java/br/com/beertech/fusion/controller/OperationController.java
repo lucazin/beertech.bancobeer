@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
 import br.com.beertech.fusion.domain.Balance;
-import br.com.beertech.fusion.domain.CurrentAccount;
-import br.com.beertech.fusion.domain.Operation;
-import br.com.beertech.fusion.domain.User;
+import br.com.beertech.fusion.domain.entities.CurrentAccount;
+import br.com.beertech.fusion.domain.entities.Operation;
+import br.com.beertech.fusion.domain.entities.User;
 import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.service.CurrentAccountService;
 import br.com.beertech.fusion.service.OperationService;
@@ -99,10 +99,8 @@ public class OperationController {
   @ApiIgnore
   @PostMapping("/operation/save")
   @PreAuthorize("hasRole('ROLE_MODERATOR')")
-  public ResponseEntity<Operation> saveOperations(@RequestBody OperationDTO operationDTO) {
-
-    Operation operation = new Operation(operationDTO);
-    return new ResponseEntity<>(operationService.newTransaction(operation), OK);
+  public ResponseEntity<OperationDTO> saveOperations(@RequestBody OperationDTO operationDTO) {
+      return new ResponseEntity<>(operationService.newTransaction(operationDTO), OK);
   }
 
   @ApiIgnore

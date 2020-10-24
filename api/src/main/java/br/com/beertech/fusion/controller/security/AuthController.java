@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
-import br.com.beertech.fusion.domain.CurrentAccount;
-import br.com.beertech.fusion.domain.User;
+import br.com.beertech.fusion.domain.entities.CurrentAccount;
+import br.com.beertech.fusion.domain.entities.User;
 import br.com.beertech.fusion.domain.security.request.LoginRequest;
 import br.com.beertech.fusion.domain.security.request.SignupRequest;
 import br.com.beertech.fusion.domain.security.response.JwtResponse;

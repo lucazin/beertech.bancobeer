@@ -4,7 +4,7 @@ package br.com.beertech.fusion.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.beertech.fusion.domain.UsersRoles;
+import br.com.beertech.fusion.domain.entities.UsersRoles;
 
 
 @Repository

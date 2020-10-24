@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
 import br.com.beertech.fusion.controller.dto.CurrentAccountUserDTO;
-import br.com.beertech.fusion.domain.CurrentAccount;
+import br.com.beertech.fusion.domain.entities.CurrentAccount;
 import br.com.beertech.fusion.repository.CurrentAccountRepository;
 import br.com.beertech.fusion.repository.CurrentAccountUserRepository;
 import br.com.beertech.fusion.service.CurrentAccountService;

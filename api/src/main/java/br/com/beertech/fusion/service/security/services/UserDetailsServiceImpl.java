@@ -1,6 +1,6 @@
 package br.com.beertech.fusion.service.security.services;
 
-import br.com.beertech.fusion.domain.User;
+import br.com.beertech.fusion.domain.entities.User;
 import br.com.beertech.fusion.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

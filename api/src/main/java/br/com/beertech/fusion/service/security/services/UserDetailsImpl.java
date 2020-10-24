@@ -1,7 +1,9 @@
 package br.com.beertech.fusion.service.security.services;
 
-import br.com.beertech.fusion.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.beertech.fusion.domain.entities.User;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,7 +57,7 @@ public class UserDetailsImpl implements UserDetails {
 				usuario.getPassword(),
 				usuario.getCnpj(),
 				authorities,
-				usuario.getNome(),
+				usuario.getName());
 				usuario.getPhonenumber());
 	}
 

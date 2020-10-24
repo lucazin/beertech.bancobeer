@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.com.beertech.fusion.controller.dto.RoleDTO;
-import br.com.beertech.fusion.domain.User;
+import br.com.beertech.fusion.domain.entities.User;
 import br.com.beertech.fusion.exception.FusionException;
 
 public interface UserService {

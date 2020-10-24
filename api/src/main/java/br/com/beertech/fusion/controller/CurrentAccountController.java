@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
 import br.com.beertech.fusion.controller.dto.CurrentAccountUserDTO;
-import br.com.beertech.fusion.domain.CurrentAccount;
+import br.com.beertech.fusion.domain.entities.CurrentAccount;
 import br.com.beertech.fusion.service.CurrentAccountService;
 import springfox.documentation.annotations.ApiIgnore;
 

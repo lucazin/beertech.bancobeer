@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import br.com.beertech.fusion.domain.User;
+import br.com.beertech.fusion.domain.entities.User;
 import br.com.beertech.fusion.domain.security.response.MessageResponse;
 import br.com.beertech.fusion.service.UserService;
 

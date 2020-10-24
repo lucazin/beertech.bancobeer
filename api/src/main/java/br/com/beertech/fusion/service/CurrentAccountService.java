@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
 import br.com.beertech.fusion.controller.dto.CurrentAccountUserDTO;
-import br.com.beertech.fusion.domain.CurrentAccount;
+import br.com.beertech.fusion.domain.entities.CurrentAccount;
 
 public interface CurrentAccountService {
 

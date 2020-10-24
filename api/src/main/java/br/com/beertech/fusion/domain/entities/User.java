@@ -1,5 +1,6 @@
-package br.com.beertech.fusion.domain;
+package br.com.beertech.fusion.domain.entities;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +28,7 @@ import br.com.beertech.fusion.domain.security.roles.Role;
 
 @Entity
 @DynamicUpdate
-@Table(name = "usuario")
+@Table(name = "user")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,13 +67,13 @@ public class User {
 	private String cnpj;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "usuarios_roles",
-				joinColumns = @JoinColumn(name = "usuariosId"),
-				inverseJoinColumns = @JoinColumn(name = "roleId"))
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "roleId"))
 	private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<CurrentAccount> currentAccounts;
+    private List<CurrentAccount> currentAccounts = new ArrayList<>();
 
 	public User() {}
 
@@ -129,9 +130,9 @@ public class User {
 
 	public void setCnpj(String cnpj) { this.cnpj = cnpj; }
 
-	public String getNome() { return name; }
+	public String getName() { return name; }
 
-	public void setNome(String nome) { this.name = nome; }
+	public void setName(String name) { this.name = name; }
 
 	public String getPhonenumber() { return phonenumber; }
 

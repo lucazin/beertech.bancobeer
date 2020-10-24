@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.beertech.fusion.domain.Balance;
-import br.com.beertech.fusion.domain.Operation;
+import br.com.beertech.fusion.domain.entities.Operation;
 
 public interface OperationRepository extends JpaRepository<Operation, Long> {
 

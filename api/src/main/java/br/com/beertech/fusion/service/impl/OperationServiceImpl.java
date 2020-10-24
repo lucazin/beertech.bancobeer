@@ -12,7 +12,10 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
+import br.com.beertech.fusion.controller.dto.OperationDTO;
 import br.com.beertech.fusion.controller.dto.TransferDTO;
+import br.com.beertech.fusion.domain.entities.CurrentAccount;
+import br.com.beertech.fusion.domain.entities.Operation;
 import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.repository.OperationRepository;
 import br.com.beertech.fusion.service.BalanceService;
@@ -43,8 +46,9 @@ public class OperationServiceImpl implements OperationService {
 	}
 
 	@Override
-	public Operation newTransaction(Operation operation) {
-		if(operation.getTipoOperacao() == OperationType.DEPOSITO.ID) {
+    public OperationDTO newTransaction(OperationDTO operationDTO) {
+        Operation operation = new Operation(operationDTO);
+        if (operation.getTipoOperacao() == OperationType.DEPOSITO.ID) {
 			operation.setDebitCredit(DebitCreditType.CREDITO.id);
 		} else if(operation.getTipoOperacao() == OperationType.SAQUE.ID) {
 			operation.setDebitCredit(DebitCreditType.DEBITO.id);
@@ -74,7 +78,11 @@ public class OperationServiceImpl implements OperationService {
 		if(userphoneNumber != null  && userphoneNumber.trim().length() >= 11)
 			smsService.sendSmsUserOperation(operation,userphoneNumber,validOperation);
 
-		return operation;
+        Optional<CurrentAccount> currentAccount = currentAccountService.findByHash(operationDTO.getHash());
+        operation.setCurrentAccount(currentAccount.get());
+        operation = operationRepository.save(operation);
+        operationDTO.setHorarioOperacao(operation.getHorarioOperacao());
+        return operationDTO;
 	}
 
 	@Override

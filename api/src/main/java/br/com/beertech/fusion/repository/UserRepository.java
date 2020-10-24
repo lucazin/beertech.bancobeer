@@ -7,12 +7,12 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.domain.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-	Optional<Users> findByUsername(String username);
+	Optional<User> findByUsername(String username);
 
 	Boolean existsByCnpj(String cnpj);
 
@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<Users, Long> {
 
 	Boolean existsByEmail(String email);
 
-	List<Users> findAllBy();
+	List<User> findAllBy();
 
 }
 

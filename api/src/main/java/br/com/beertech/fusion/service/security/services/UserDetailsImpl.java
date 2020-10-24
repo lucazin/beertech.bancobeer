@@ -1,6 +1,6 @@
 package br.com.beertech.fusion.service.security.services;
 
-import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -43,7 +43,7 @@ public class UserDetailsImpl implements UserDetails {
 		this.phonenumber = phonenumber;
 	}
 
-	public static UserDetailsImpl build(Users usuario) {
+	public static UserDetailsImpl build(User usuario) {
 		List<GrantedAuthority> authorities = usuario.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 				.collect(Collectors.toList());

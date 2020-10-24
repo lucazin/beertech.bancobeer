@@ -1,16 +1,21 @@
 package br.com.beertech.fusion.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "conta_corrente")
+@Table(name = "current_account")
 public class CurrentAccount implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -18,18 +23,21 @@ public class CurrentAccount implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @JsonIgnore
-  private Long idConta;
+  private Long id;
 
+  @Column(nullable = false, unique = true)
   private String hash;
 
-  private String cnpj;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_fk", nullable = false)
+  private User user;
 
-  public Long getIdConta() {
-    return idConta;
+  public Long getId() {
+    return id;
   }
 
-  public void setIdConta(Long idConta) {
-    this.idConta = idConta;
+  public void setId(Long id) {
+      this.id = id;
   }
 
   public String getHash() {
@@ -40,11 +48,11 @@ public class CurrentAccount implements Serializable {
     this.hash = hash;
   }
 
-  public String getCnpj() {
-    return cnpj;
+  public User getUser() {
+      return user;
   }
 
-  public void setCnpj(String cnpj) {
-    this.cnpj = cnpj;
+  public void setUser(User user) {
+      this.user = user;
   }
 }

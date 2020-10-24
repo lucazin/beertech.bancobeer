@@ -22,7 +22,7 @@ import br.com.beertech.fusion.controller.dto.TransferDTO;
 import br.com.beertech.fusion.domain.Balance;
 import br.com.beertech.fusion.domain.CurrentAccount;
 import br.com.beertech.fusion.domain.Operation;
-import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.domain.User;
 import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.service.CurrentAccountService;
 import br.com.beertech.fusion.service.OperationService;
@@ -48,8 +48,8 @@ public class OperationController {
   @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR')")
   public ResponseEntity<List<Operation>> listUserBankStatement(
           @RequestHeader(value = "Authorization", required = false) String token) {
-      Optional<Users> user = userService.findUserByToken(token);
-      List<Operation> operations = operationService.listTransactionByCnpj(user.map(Users::getCnpj).orElseThrow(null));
+      Optional<User> user = userService.findUserByToken(token);
+      List<Operation> operations = operationService.listTransactionByCnpj(user.map(User::getCnpj).orElseThrow(null));
       return new ResponseEntity<>(operations, OK);
   }
 
@@ -57,8 +57,8 @@ public class OperationController {
   @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR')")
   public ResponseEntity<Balance> gettUserBalanceAccount(
           @RequestHeader(value = "Authorization", required = false) String token) {
-      Optional<Users> user = userService.findUserByToken(token);
-      Balance balance = operationService.calculateBalanceByCnpj(user.map(Users::getCnpj).orElseThrow(null));
+      Optional<User> user = userService.findUserByToken(token);
+      Balance balance = operationService.calculateBalanceByCnpj(user.map(User::getCnpj).orElseThrow(null));
       return new ResponseEntity<>(balance, OK);
   }
 

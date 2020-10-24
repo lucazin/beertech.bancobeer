@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.domain.User;
 import br.com.beertech.fusion.domain.security.response.MessageResponse;
 import br.com.beertech.fusion.service.UserService;
 
@@ -24,9 +24,9 @@ public class UsersController {
 
   @GetMapping("/users/list")
   @PreAuthorize("hasRole('ROLE_MODERATOR')")
-  public ResponseEntity<List<Users>> listUsers()
+  public ResponseEntity<List<User>> listUsers()
   {
-    List<Users> users = userService.listUsers();
+    List<User> users = userService.listUsers();
     return new ResponseEntity<>(users, ACCEPTED);
   }
 

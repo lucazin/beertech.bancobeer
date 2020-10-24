@@ -13,7 +13,7 @@ import br.com.beertech.fusion.domain.Balance;
 import br.com.beertech.fusion.domain.DebitCreditType;
 import br.com.beertech.fusion.domain.Operation;
 import br.com.beertech.fusion.domain.OperationType;
-import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.domain.User;
 import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.repository.impl.CurrentAccountUserRepositoryImpl;
 import br.com.beertech.fusion.service.BillExchangeService;
@@ -35,7 +35,7 @@ public class BillExchangeServiceImpl implements BillExchangeService {
 	@Override
 	public void payBillExchange(BillExchangeDTO billExchangeDTO, String token) throws FusionException {
 
-		Optional<Users> user = userService.findUserByToken(token);
+		Optional<User> user = userService.findUserByToken(token);
 		String hashUser = currentAccountUserRepositoryImpl.findAccountByUser(user.get().getUsername());
 
 		String valueBarcode = getValueBarcode(billExchangeDTO.getBarcode());

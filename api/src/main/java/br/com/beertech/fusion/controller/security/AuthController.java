@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
 import br.com.beertech.fusion.domain.CurrentAccount;
-import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.domain.User;
 import br.com.beertech.fusion.domain.security.request.LoginRequest;
 import br.com.beertech.fusion.domain.security.request.SignupRequest;
 import br.com.beertech.fusion.domain.security.response.JwtResponse;
@@ -122,7 +122,7 @@ public class AuthController {
 
 
 		//Cria nova conta do cliente
-		Users usuario = new Users(signUpRequest.getUsername(),
+		User usuario = new User(signUpRequest.getUsername(),
 							 signUpRequest.getEmail(),
 							 encoder.encode(signUpRequest.getPassword()),
 							 signUpRequest.getCnpj(),signUpRequest.getNome(),signUpRequest.getPhonenumber());
@@ -138,7 +138,7 @@ public class AuthController {
 		currentAccount.setCnpj(usuario.getCnpj());
 		currentAccountService.saveAccount(currentAccount);
 
-		return new ResponseEntity<Users>(usuario, HttpStatus.CREATED);
+		return new ResponseEntity<User>(usuario, HttpStatus.CREATED);
 
 	}
 }

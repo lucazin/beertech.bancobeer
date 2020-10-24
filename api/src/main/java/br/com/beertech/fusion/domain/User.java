@@ -1,44 +1,58 @@
 package br.com.beertech.fusion.domain;
 
-import br.com.beertech.fusion.domain.security.roles.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.DynamicUpdate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
+
+import org.hibernate.annotations.DynamicUpdate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.beertech.fusion.domain.security.roles.Role;
 
 @Entity
 @DynamicUpdate
-@Table(	name = "usuarios",
-		uniqueConstraints = { 
-			@UniqueConstraint(columnNames = "username"),
-			@UniqueConstraint(columnNames = "email")
-		})
-public class Users {
+@Table(name = "usuario")
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotBlank
 	@Size(max = 50)
-	private String nome;
+    @Column(nullable = false)
+	private String name;
 
 	@NotBlank
 	@Size(max = 20)
+    @Column(nullable = false, unique = true)
 	private String username;
 
 	@NotBlank
 	@Size(max = 50)
 	@Email
+    @Column(nullable = false, unique = true)
 	private String email;
 
 	@NotBlank
 	@Size(max = 120)
 	@JsonIgnore
+    @Column(nullable = false)
 	private String password;
 
 	@NotBlank
@@ -48,6 +62,7 @@ public class Users {
 
 	@NotBlank
 	@Size(max = 120)
+    @Column(nullable = false, unique = true)
 	private String cnpj;
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -56,17 +71,18 @@ public class Users {
 				inverseJoinColumns = @JoinColumn(name = "roleId"))
 	private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<CurrentAccount> currentAccounts;
 
-	public Users() {}
+	public User() {}
 
-	public Users(String username, String email, String password,String cnpj,String nome,String phonenumber) {
+	public User(String username, String email, String password,String cnpj,String name) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.cnpj = cnpj;
-		this.nome = nome;
+		this.name = name;
 		this.phonenumber = phonenumber;
-		
 	}
 
 	public Long getId() {
@@ -113,11 +129,19 @@ public class Users {
 
 	public void setCnpj(String cnpj) { this.cnpj = cnpj; }
 
-	public String getNome() { return nome; }
+	public String getNome() { return name; }
 
-	public void setNome(String nome) { this.nome = nome; }
+	public void setNome(String nome) { this.name = nome; }
 
 	public String getPhonenumber() { return phonenumber; }
 
 	public void setPhonenumber(String phonenumber) { this.phonenumber = phonenumber; }
+
+    public List<CurrentAccount> getCurrentAccounts() {
+        return currentAccounts;
+    }
+
+    public void setCurrentAccounts(List<CurrentAccount> currentAccounts) {
+        this.currentAccounts = currentAccounts;
+    }
 }

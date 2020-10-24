@@ -9,7 +9,7 @@ import br.com.beertech.fusion.controller.dto.RoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.domain.User;
 import br.com.beertech.fusion.domain.UsersRoles;
 import br.com.beertech.fusion.domain.security.roles.EnumRole;
 import br.com.beertech.fusion.exception.FusionException;
@@ -42,11 +42,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Users> listUsers() {
+	public List<User> listUsers() {
 		return currentUserRepository.findAllBy();
 	}
 
-	public Optional<Users> userByToken(HttpServletRequest request) {
+	public Optional<User> userByToken(HttpServletRequest request) {
 
 		String tokenComplete = request.getHeader("Authorization");
 		String token = tokenComplete.substring(7, tokenComplete.length());
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 		return currentUserRepository.findByUsername(userNameFromJwtToken);
 	}
 	
-	public Optional<Users> findUserByToken(String token) {
+	public Optional<User> findUserByToken(String token) {
 		token = token.substring(7, token.length());
 		String userNameFromJwtToken = jwtUtils.getUserNameFromJwtToken(token);
 
@@ -64,11 +64,11 @@ public class UserServiceImpl implements UserService {
 
 	public void validateUserLogged(String token, String hash) throws FusionException {
 
-		Optional<Users> userByToken = findUserByToken(token);
+		Optional<User> userByToken = findUserByToken(token);
 
 		if (userByToken.isPresent()) {
 
-			Optional<Users> user = currentUserRepository.findByUsername(userByToken.get().getUsername());
+			Optional<User> user = currentUserRepository.findByUsername(userByToken.get().getUsername());
 			String hashUser = currentAccountUserRepositoryImpl.findAccountByUser(user.get().getUsername());
 
 			if (!hashUser.equals(hash)) {

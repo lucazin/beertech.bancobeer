@@ -102,9 +102,9 @@ public class TransferTest {
 		when(operationServiceDeposit.saveTransfer(transferDTO)).thenReturn(transferDTO);
 
 		mock(OperationServiceImpl.class);
-		when(operationServiceDeposit.calculateBalance(HASH_DESTINATION)).thenReturn(new Balance(100.));
+		when(operationServiceDeposit.calculateBalanceByHash(HASH_DESTINATION)).thenReturn(new Balance(100.));
 	
-		assertEquals(operationServiceDeposit.calculateBalance(HASH_DESTINATION), new Balance(100.));
+		assertEquals(operationServiceDeposit.calculateBalanceByHash(HASH_DESTINATION), new Balance(100.));
 
 	}
 

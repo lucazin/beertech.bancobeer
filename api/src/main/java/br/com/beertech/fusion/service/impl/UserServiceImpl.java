@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.beertech.fusion.controller.dto.CurrentAccountUserDTO;
 import br.com.beertech.fusion.domain.Users;
 import br.com.beertech.fusion.domain.UsersRoles;
 import br.com.beertech.fusion.domain.security.roles.EnumRole;
@@ -62,4 +61,13 @@ public class UserServiceImpl implements UserService {
 //		}
 //		return false;		
 //	}
+
+    @Override
+    public Optional<Users> getUserByToken(String tokenComplete) {
+        // TODO Auto-generated method stub
+        String token = tokenComplete.substring(7, tokenComplete.length());
+        String userNameFromJwtToken = jwtUtils.getUserNameFromJwtToken(token);
+
+        return currentUserRepository.findByUsername(userNameFromJwtToken);
+    }
 }

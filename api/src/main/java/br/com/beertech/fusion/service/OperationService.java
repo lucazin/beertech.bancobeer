@@ -11,14 +11,14 @@ public interface OperationService {
 
     Operation newTransaction(Operation operacao);
 
-    void RemoveTransacao(Long idBeer);
-
-    List<Operation> listTransaction(String hash);
-    
     List<Operation> listTransactionByHash(String hash);
 
     TransferDTO saveTransfer(TransferDTO transferDTO) throws FusionException;
 	
-	Balance calculateBalance(String hash);
-	
+    Balance calculateBalanceByHash(String hash);
+
+    List<Operation> listTransactionByCnpj(String cnpj);
+
+    Balance calculateBalanceByCnpj(String cnpj);
+
 }

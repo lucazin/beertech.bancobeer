@@ -14,4 +14,6 @@ public interface UserService {
     List<Users> listUsers();
     
     public Optional<Users> userByToken(HttpServletRequest request);
+
+    Optional<Users> getUserByToken(String token);
 }

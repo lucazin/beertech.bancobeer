@@ -1,6 +1,7 @@
 package br.com.beertech.fusion.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,13 +54,13 @@ public class OperationServiceImpl implements OperationService {
 	@Override
 	public TransferDTO saveTransfer(TransferDTO transferDTO) throws FusionException {
 
-		CurrentAccount accountOrigin = currentAccountService.findByHash(transferDTO.getHashOrigin());
-		CurrentAccount accountDestiny = currentAccountService.findByHash(transferDTO.getHashDestination());
+        Optional<CurrentAccount> accountOrigin = currentAccountService.findByHash(transferDTO.getHashOrigin());
+        Optional<CurrentAccount> accountDestiny = currentAccountService.findByHash(transferDTO.getHashDestination());
 
-		if (accountOrigin == null) {
+		if (!accountOrigin.isPresent()) {
 			throw new FusionException("Conta de origem inexistente!");
 		}
-		if (accountDestiny == null) {
+		if (!accountDestiny.isPresent()) {
 			throw new FusionException("Conta de destino inexistente!");
 		}
 

@@ -9,7 +9,7 @@ import br.com.beertech.fusion.domain.CurrentAccount;
 
 public interface CurrentAccountRepository extends JpaRepository<CurrentAccount, Long> {
 
-	CurrentAccount findAccountByHash(String hash);
+    Optional<CurrentAccount> findAccountByHash(String hash);
 	
 	Optional<CurrentAccount> findAccountByCnpj(String cnpj);
 

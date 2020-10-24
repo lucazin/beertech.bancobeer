@@ -1,18 +1,19 @@
 package br.com.beertech.fusion.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import br.com.beertech.fusion.controller.dto.CurrentAccountDTO;
 import br.com.beertech.fusion.controller.dto.CurrentAccountUserDTO;
 import br.com.beertech.fusion.domain.CurrentAccount;
 import br.com.beertech.fusion.repository.CurrentAccountRepository;
 import br.com.beertech.fusion.repository.CurrentAccountUserRepository;
 import br.com.beertech.fusion.service.CurrentAccountService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class CurrentAccountServiceImpl implements CurrentAccountService {
@@ -39,7 +40,7 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
   }
 
   @Override
-  public CurrentAccount findByHash(String hash) {
+  public Optional<CurrentAccount> findByHash(String hash) {
     return currentAccountRepository.findAccountByHash(hash);
 	}
 	
@@ -60,9 +61,9 @@ public class CurrentAccountServiceImpl implements CurrentAccountService {
     if (id != null && StringUtils.isNotBlank(hash)) {
       currentAccount = currentAccountRepository.findAccountByIdAndHash(id, hash);
     } else if (StringUtils.isNotBlank(hash)) {
-      currentAccount = currentAccountRepository.findAccountByHash(hash);
+        currentAccount = currentAccountRepository.findAccountByHash(hash).get();
     } else if (id != null) {
-      Optional<CurrentAccount> optional = currentAccountRepository.findById(id);
+        Optional<CurrentAccount> optional = currentAccountRepository.findById(id);
       if (optional.isPresent()) {
         currentAccount = optional.get();
       }

@@ -11,7 +11,7 @@ public interface CurrentAccountService {
 
 	 List<CurrentAccount> listAccounts();
 	 
-	 CurrentAccount findByHash(String hash);
+     Optional<CurrentAccount> findByHash(String hash);
 	 
 	 public Optional<CurrentAccount> findByCnpj(String cnpj);
 

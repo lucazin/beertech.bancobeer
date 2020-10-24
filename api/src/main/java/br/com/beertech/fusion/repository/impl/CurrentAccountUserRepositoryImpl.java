@@ -23,6 +23,13 @@ public class CurrentAccountUserRepositoryImpl implements CurrentAccountUserRepos
 		return jdbcTemplate.query(sql, new CurrentAccountUserRowMapper());
 	}
 
+	@Override
+	public String findAccountByUserHash(String hashAccount) {
+
+		String sql	 = "select u.phonenumber from conta_corrente c, usuarios u where c.cnpj = u.cnpj and c.hash = ?";
+		return jdbcTemplate.queryForObject(sql, new Object[] {hashAccount}, String.class);
+	}
+
 	public String findAccountByUser(String user) {
 		
 		String sql	 = "select c.hash from conta_corrente c, usuarios u where c.cnpj = u.cnpj and u.username = ?";

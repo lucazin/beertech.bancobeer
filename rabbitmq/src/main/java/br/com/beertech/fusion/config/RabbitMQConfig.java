@@ -53,8 +53,7 @@ public class RabbitMQConfig {
 
   private Queue createQueue(final String queueName, String deadLetterExchangeName) {
 
-    return QueueBuilder.durable(queueName)
-        .withArgument("x-dead-letter-exchange", deadLetterExchangeName)
+    return QueueBuilder.nonDurable(queueName)
         .build();
   }
 

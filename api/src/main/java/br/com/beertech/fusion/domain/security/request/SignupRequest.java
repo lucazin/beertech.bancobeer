@@ -35,6 +35,11 @@ public class SignupRequest {
     @Email
     private String cnpj;
 
+    @NotBlank
+    @Size(max = 11)
+    private String phonenumber;
+
+
     public String getUsername() {
         return username;
     }
@@ -74,4 +79,9 @@ public class SignupRequest {
     public String getNome() { return nome; }
 
     public void setNome(String nome) { this.nome = nome; }
+
+    public String getPhonenumber() { return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) { this.phonenumber = phonenumber; }
 }

@@ -42,6 +42,11 @@ public class Users {
 	private String password;
 
 	@NotBlank
+	@Size(max = 11)
+	@Email
+	private String phonenumber;
+
+	@NotBlank
 	@Size(max = 120)
 	private String cnpj;
 
@@ -51,14 +56,16 @@ public class Users {
 				inverseJoinColumns = @JoinColumn(name = "roleId"))
 	private Set<Role> roles = new HashSet<>();
 
+
 	public Users() {}
 
-	public Users(String username, String email, String password,String cnpj,String nome) {
+	public Users(String username, String email, String password,String cnpj,String nome,String phonenumber) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.cnpj = cnpj;
 		this.nome = nome;
+		this.phonenumber = phonenumber;
 		
 	}
 
@@ -109,4 +116,8 @@ public class Users {
 	public String getNome() { return nome; }
 
 	public void setNome(String nome) { this.nome = nome; }
+
+	public String getPhonenumber() { return phonenumber; }
+
+	public void setPhonenumber(String phonenumber) { this.phonenumber = phonenumber; }
 }

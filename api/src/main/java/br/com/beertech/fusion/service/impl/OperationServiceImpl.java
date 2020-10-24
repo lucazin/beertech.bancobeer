@@ -1,23 +1,24 @@
 package br.com.beertech.fusion.service.impl;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import br.com.beertech.fusion.controller.dto.CurrentAccountUserDTO;
+import br.com.beertech.fusion.domain.*;
+import br.com.beertech.fusion.repository.CurrentAccountUserRepository;
+import br.com.beertech.fusion.service.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
 import br.com.beertech.fusion.controller.dto.TransferDTO;
-import br.com.beertech.fusion.domain.Balance;
-import br.com.beertech.fusion.domain.CurrentAccount;
-import br.com.beertech.fusion.domain.DebitCreditType;
-import br.com.beertech.fusion.domain.Operation;
-import br.com.beertech.fusion.domain.OperationType;
 import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.repository.OperationRepository;
 import br.com.beertech.fusion.service.BalanceService;
 import br.com.beertech.fusion.service.CurrentAccountService;
 import br.com.beertech.fusion.service.OperationService;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class OperationServiceImpl implements OperationService {
@@ -29,6 +30,12 @@ public class OperationServiceImpl implements OperationService {
 
 	@Autowired
 	private CurrentAccountService currentAccountService;
+
+	@Autowired
+	private CurrentAccountUserRepository currentAccountUserRepository;
+
+	@Autowired
+	private SmsService smsService;
 
 	@Autowired
 	public OperationServiceImpl(OperationRepository operationRepository) {
@@ -44,8 +51,27 @@ public class OperationServiceImpl implements OperationService {
 		} else if (operation.getTipoOperacao() == OperationType.PAGAMENTO.ID) {
 			operation.setDebitCredit(DebitCreditType.DEBITO.id);
 		}
-		
-		return operationRepository.save(operation);
+
+		String UserphoneNumber = currentAccountUserRepository.findAccountByUserHash(operation.getHash());
+
+		if(operation.getTipoOperacao() != OperationType.DEPOSITO.ID)
+		{
+			Balance initialBalance = calculateBalanceByHash(operation.getHash());
+
+			if(initialBalance.getSaldo() >= operation.getValorOperacao())
+			{
+				operationRepository.save(operation);
+				smsService.sendSmsUserOperation(operation,UserphoneNumber,true);
+			}
+			else
+				smsService.sendSmsUserOperation(operation,UserphoneNumber,false);
+		}
+		else
+		{
+			operationRepository.save(operation);
+			smsService.sendSmsUserOperation(operation,UserphoneNumber,true);
+		}
+		return operation;
 	}
 
 	@Override
@@ -56,6 +82,7 @@ public class OperationServiceImpl implements OperationService {
 	@Override
 	public TransferDTO saveTransfer(TransferDTO transferDTO) throws FusionException {
 
+		String UserphoneNumber = currentAccountUserRepository.findAccountByUserHash(transferDTO.getHashOrigin());
         Optional<CurrentAccount> accountOrigin = currentAccountService.findByHash(transferDTO.getHashOrigin());
         Optional<CurrentAccount> accountDestiny = currentAccountService.findByHash(transferDTO.getHashDestination());
 
@@ -68,12 +95,17 @@ public class OperationServiceImpl implements OperationService {
 
 		Balance sldOrigin = calculateBalanceByHash(transferDTO.getHashOrigin());
 
-		if (sldOrigin.getSaldo() != null && sldOrigin.getSaldo() >= transferDTO.getValue()) {
+		if (sldOrigin.getSaldo() != null && sldOrigin.getSaldo() >= transferDTO.getValue())
+		{
 			Operation origin = new Operation(transferDTO, OperationType.TRANSFERENCIA, transferDTO.getHashOrigin(), DebitCreditType.DEBITO);
 			Operation destiny = new Operation(transferDTO, OperationType.TRANSFERENCIA, transferDTO.getHashDestination(), DebitCreditType.CREDITO);
+
 			operationRepository.save(origin);
 			operationRepository.save(destiny);
+			smsService.sendSmsUserTransfer(transferDTO,UserphoneNumber,true);
+
 		} else {
+			smsService.sendSmsUserTransfer(transferDTO,UserphoneNumber,false);
 			throw new FusionException("Saldo insuficiente!");
 		}
 		return transferDTO;

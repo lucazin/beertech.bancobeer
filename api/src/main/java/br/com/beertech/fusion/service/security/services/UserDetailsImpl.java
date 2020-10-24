@@ -27,10 +27,12 @@ public class UserDetailsImpl implements UserDetails {
 	@JsonIgnore
 	private String password;
 
+	private  String phonenumber;
+
 	private Collection<? extends GrantedAuthority> authorities;
 
 	public UserDetailsImpl(Long id, String username, String email, String password, String cnpj,
-			Collection<? extends GrantedAuthority> authorities,String name) {
+			Collection<? extends GrantedAuthority> authorities,String name,String phonenumber) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
@@ -38,6 +40,7 @@ public class UserDetailsImpl implements UserDetails {
 		this.authorities = authorities;
 		this.cnpj = cnpj;
 		this.name = name;
+		this.phonenumber = phonenumber;
 	}
 
 	public static UserDetailsImpl build(Users usuario) {
@@ -52,7 +55,8 @@ public class UserDetailsImpl implements UserDetails {
 				usuario.getPassword(),
 				usuario.getCnpj(),
 				authorities,
-				usuario.getNome());
+				usuario.getNome(),
+				usuario.getPhonenumber());
 	}
 
 	@Override
@@ -114,4 +118,8 @@ public class UserDetailsImpl implements UserDetails {
 	public String getName() { return name; }
 
 	public void setName(String name) { this.name = name; }
+
+	public String getPhonenumber() { return phonenumber; }
+
+	public void setPhonenumber(String phonenumber) { this.phonenumber = phonenumber; }
 }

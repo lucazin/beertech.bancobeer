@@ -5,7 +5,7 @@ spring:
     username: guest
     password: guest
     queues:
-      operation: queueFusion
+      operation: queueDeposit
       transfer: queueTransfer
 
 microservices:

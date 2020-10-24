@@ -6,6 +6,7 @@ public class CurrentAccountUserDTO {
 	private String nome;
 	private String email;
 	private String cnpj;
+	private String phonenumber;
 
 	public String getHash() {
 		return hash;
@@ -38,5 +39,10 @@ public class CurrentAccountUserDTO {
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
+
+	public String getPhonenumber() { return phonenumber; }
+
+	public void setPhonenumber(String phonenumber) { this.phonenumber = phonenumber; }
+
 
 }

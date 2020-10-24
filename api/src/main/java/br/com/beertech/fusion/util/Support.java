@@ -44,7 +44,6 @@ public class Support {
         char dig13, dig14;
         int sm, i, r, num, peso;
 
-
         try {
             // Calculo do primeiro Digito Verificador
             sm = 0;

@@ -49,15 +49,14 @@ public class RestClient {
     HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
     ResponseEntity<Operation> response =
         this.restTemplate.postForEntity(urlOperation, entity, Operation.class);
+
     if (response.getStatusCode().equals(HttpStatus.CREATED)) {
       LOGGER.info(Objects.requireNonNull(response.getBody()).toString());
     }
   }
 
   public void sendPostTransferAPI(final Transfer transfer) {
-    if (new Validator(transfer).validateResponseRMQ()) {
-      LOGGER.info("Some field is not filled");
-    }
+
     this.restTemplate = new RestTemplateBuilder().build();
 
     HttpHeaders headers = new HttpHeaders();

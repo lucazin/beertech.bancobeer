@@ -20,7 +20,7 @@ import br.com.beertech.fusion.service.PublishTransaction;
 public class PublishTransactionImpl implements PublishTransaction {
 	
 	private static final String HOST = "localhost";
-	private static final String QUEUE_OPERATION_NAME = "queueFusion";
+	private static final String QUEUE_OPERATION_NAME = "queueDeposit";
 	private static final String QUEUE_TRANSFER_NAME = "queueTransfer";
 	
 	@Override

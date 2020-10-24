@@ -1,6 +1,6 @@
 package br.com.beertech.fusion.controller.dto;
 
-public class UserDto {
+public class UserDTO {
 
     private String username;
     private String password;

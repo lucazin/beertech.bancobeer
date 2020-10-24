@@ -8,5 +8,7 @@ public interface CurrentAccountUserRepository {
 	
 	public List<CurrentAccountUserDTO> findAccountAllUser();
 
+	public String findAccountByUserHash(String hashAccount);
+
 	public String findAccountByUser(String user);
 }

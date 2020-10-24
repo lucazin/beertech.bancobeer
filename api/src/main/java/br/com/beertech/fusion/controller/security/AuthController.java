@@ -76,7 +76,7 @@ public class AuthController {
 												 userDetails.getId(), 
 												 userDetails.getUsername(), 
 												 userDetails.getEmail(),
-												 hash,roles,userDetails.getName()));
+												 hash,roles,userDetails.getName(),userDetails.getPhonenumber()));
 	}
 
 	@PostMapping("/signup")
@@ -118,9 +118,8 @@ public class AuthController {
 		Users usuario = new Users(signUpRequest.getUsername(),
 							 signUpRequest.getEmail(),
 							 encoder.encode(signUpRequest.getPassword()),
-							 signUpRequest.getCnpj(),signUpRequest.getNome());
+							 signUpRequest.getCnpj(),signUpRequest.getNome(),signUpRequest.getPhonenumber());
 
-		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
 		Role userRole = roleRepository.findByName(EnumRole.ROLE_USER).orElseThrow(() -> new RuntimeException("Erro: Role não encontrada"));
 		roles.add(userRole);

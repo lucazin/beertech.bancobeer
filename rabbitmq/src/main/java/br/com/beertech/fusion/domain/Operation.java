@@ -14,7 +14,6 @@ public class Operation implements Serializable {
     private String debitCredit;
     private String authToken;
 
-
     public String getTipoOperacao() {
         return tipoOperacao;
     }
@@ -55,4 +54,5 @@ public class Operation implements Serializable {
     public String getAuthToken() { return authToken; }
 
     public void setAuthToken(String authToken) { this.authToken = authToken; }
+
 }

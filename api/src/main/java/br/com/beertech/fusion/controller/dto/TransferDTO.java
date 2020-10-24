@@ -13,7 +13,6 @@ public class TransferDTO {
     @ApiModelProperty(hidden = true)
 	private String authToken;
 
-
 	public String getHashOrigin() {
 		return hashOrigin;
 	}
@@ -49,4 +48,5 @@ public class TransferDTO {
 	public String getAuthToken() { return authToken; }
 
 	public void setAuthToken(String authToken) { this.authToken = authToken; }
+
 }

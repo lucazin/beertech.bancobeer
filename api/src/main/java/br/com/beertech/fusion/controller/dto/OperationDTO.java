@@ -18,6 +18,7 @@ public class OperationDTO {
   @ApiModelProperty(hidden = true)
   private String authToken;
 
+
   public OperationDTO() {}
 
   public OperationDTO(
@@ -27,6 +28,7 @@ public class OperationDTO {
     this.hash = hash;
     this.debitCredit = debitCredit;
   }
+
 
   public OperationDTO(
       OperationType tipoOperacao,

@@ -1,13 +1,16 @@
 package br.com.beertech.fusion.controller.dto;
 
 import br.com.beertech.fusion.domain.DebitCreditType;
+import io.swagger.annotations.ApiModelProperty;
 
 public class TransferDTO {
 	
 	private String hashOrigin;
 	private String hashDestination;
 	private Double value;
+    @ApiModelProperty(hidden = true)
 	private DebitCreditType debitCredit;
+    @ApiModelProperty(hidden = true)
 	private String authToken;
 
 

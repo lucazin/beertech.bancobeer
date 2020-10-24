@@ -76,9 +76,12 @@ public class OperationController {
   @GetMapping("/balance/{hash}")
   @PreAuthorize("hasRole('ROLE_MODERATOR')")
   public ResponseEntity<Balance> listBalanceAccount(@PathVariable String hash) {
-	  
-    Balance balance = operationService.calculateBalanceByHash(hash);
-    return new ResponseEntity<>(balance, OK);
+      Optional<CurrentAccount> currentAccount = currentAccountService.findByHash(hash);
+      if (!currentAccount.isPresent()) {
+          return ResponseEntity.badRequest().build();
+      }
+      Balance balance = operationService.calculateBalanceByHash(hash);
+      return new ResponseEntity<>(balance, OK);
   }
 
   @PostMapping("/transfer")

@@ -3,14 +3,13 @@ package br.com.beertech.fusion.service.impl;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.beertech.fusion.domain.Users;
 import br.com.beertech.fusion.domain.UsersRoles;
 import br.com.beertech.fusion.domain.security.roles.EnumRole;
+import br.com.beertech.fusion.exception.FusionException;
 import br.com.beertech.fusion.repository.UserRepository;
 import br.com.beertech.fusion.repository.UserRoleRepository;
 import br.com.beertech.fusion.service.UserService;
@@ -27,9 +26,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
     private JwtUtils jwtUtils;
-	
+
 	@Autowired
-	private CurrentAccountUserRepositoryImpl currentAccountUserRepositoryImpl; 
+	private CurrentAccountUserRepositoryImpl currentAccountUserRepositoryImpl;
 
 	@Override
 	public void updateUserRole(Long idUser) {
@@ -62,25 +61,29 @@ public class UserServiceImpl implements UserService {
         return currentUserRepository.findByUsername(userNameFromJwtToken);
 	}
 
-	public Optional<Users> userByToken(HttpServletRequest request) {
+	public Optional<Users> userByToken(String token) {
 
-		String tokenComplete = request.getHeader("Authorization");
-		String token = tokenComplete.substring(7, tokenComplete.length());
+		token = token.substring(7, token.length());
 		String userNameFromJwtToken = jwtUtils.getUserNameFromJwtToken(token);
 
 		return currentUserRepository.findByUsername(userNameFromJwtToken);
 	}
-	
-//	public boolean validateUserLogged(String hashLogin) {
-//	
-//		
-//		
-//		Optional<Users> username = currentUserRepository.findByUsername(userByToken);
-//		List<CurrentAccountUserDTO> accountByUser = currentAccountUserRepositoryImpl.findAccountByUser(username.toString());
-//		
-//		if(accountByUser.equals(hashLogin)) {
-//			return true;
-//		}
-//		return false;		
-//	}
+
+	public void validateUserLogged(String token, String hash) throws FusionException {
+
+		Optional<Users> userByToken = userByToken(token);
+
+		if (userByToken.isPresent()) {
+
+			Optional<Users> user = currentUserRepository.findByUsername(userByToken.get().getUsername());
+			String hashUser = currentAccountUserRepositoryImpl.findAccountByUser(user.get().getUsername());
+
+			if (!hashUser.equals(hash)) {
+				throw new FusionException("Conta informada não corresponde à conta do usuário!");
+			}
+		} else {
+			throw new FusionException("Usuário inexistente!");
+		}
+
+	}
 }

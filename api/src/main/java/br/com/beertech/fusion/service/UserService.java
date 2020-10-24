@@ -3,9 +3,8 @@ package br.com.beertech.fusion.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-
 import br.com.beertech.fusion.domain.Users;
+import br.com.beertech.fusion.exception.FusionException;
 
 public interface UserService {
 
@@ -13,7 +12,7 @@ public interface UserService {
 
     List<Users> listUsers();
 
-    public Optional<Users> userByToken(HttpServletRequest request);
+    Optional<Users> userByToken(String token) throws FusionException;
 
-    Optional<Users> getUserByToken(String token);
+    void validateUserLogged(String token, String hash) throws FusionException;
 }

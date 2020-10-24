@@ -8,5 +8,5 @@ public interface CurrentAccountUserRepository {
 	
 	public List<CurrentAccountUserDTO> findAccountAllUser();
 
-	public List<CurrentAccountUserDTO> findAccountByUser(String user);
+	public String findAccountByUser(String user);
 }

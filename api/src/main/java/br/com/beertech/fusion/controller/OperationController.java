@@ -83,16 +83,17 @@ public class OperationController {
       return new ResponseEntity<>(balance, OK);
   }
 
-  @PostMapping("/transfer")
-  @PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
-  public ResponseEntity<Void> queueTransfer(
-      @RequestHeader(value = "Authorization", required = false) String token,
-      @RequestBody TransferDTO transferDTO) {
+	@PostMapping("/transfer")
+	@PreAuthorize("hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
+	public ResponseEntity<Void> queueTransfer(@RequestHeader(value = "Authorization", required = false) String token,
+			@RequestBody TransferDTO transferDTO) throws FusionException {
 
-    transferDTO.setAuthToken(token);
-    publishTransaction.publishTransfer(transferDTO);
-    return new ResponseEntity<>(ACCEPTED);
-  }
+		userService.validateUserLogged(token, transferDTO.getHashOrigin());
+				
+		transferDTO.setAuthToken(token);
+		publishTransaction.publishTransfer(transferDTO);
+		return new ResponseEntity<>(ACCEPTED);
+	}
 
   @ApiIgnore
   @PostMapping("/operation/save")

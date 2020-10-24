@@ -1,9 +1,7 @@
 package br.com.beertech.fusion.controller.security;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -67,9 +65,8 @@ public class AuthController {
 		String jwt = jwtUtils.generateJwtToken(authentication);
 		
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-		List<String> roles = userDetails.getAuthorities().stream()
-				.map(item -> item.getAuthority())
-				.collect(Collectors.toList());
+		 String roles = userDetails.getAuthorities().stream()
+				 .map(item -> item.getAuthority()).findFirst().get().toString();
 		
 		String hash = currentAccountService.findByCnpj(userDetails.getCnpj()).map(CurrentAccount::getHash).orElse(null);
 		

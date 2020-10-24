@@ -1,18 +1,16 @@
 package br.com.beertech.fusion.domain.security.response;
 
-import java.util.List;
-
 public class JwtResponse {
 	private String token;
 	private String type = "Bearer";
 	private Long id;
 	private String username;
 	private String email;
-	private List<String> roles;
+	private String roles;
 	private String hash;
 	private String name;
 
-	public JwtResponse(String accessToken, Long id, String username, String email, String hash, List<String> roles,String name) {
+	public JwtResponse(String accessToken, Long id, String username, String email, String hash, String roles,String name) {
 		this.token = accessToken;
 		this.id = id;
 		this.username = username;
@@ -62,7 +60,7 @@ public class JwtResponse {
 		this.username = username;
 	}
 
-	public List<String> getRoles() {
+	public String getRoles() {
 		return roles;
 	}
 

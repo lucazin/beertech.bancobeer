@@ -1,7 +1,5 @@
 package br.com.beertech.fusion.domain.security.roles;
 
-import br.com.beertech.fusion.domain.DebitCreditType;
-
 public enum EnumRole {
 
     ROLE_USER(1),

@@ -13,3 +13,6 @@ microservices:
     url: http://localhost:8081/beercoin/operation/save
   transfer:
     url: http://localhost:8081/beercoin/transfer/save
+
+amqp:
+  maxRetry: 3

@@ -10,12 +10,11 @@ public enum EnumRole {
         id = value;
     }
 
-    public static EnumRole getById(String id) {
-        if (id.equals(1)) {
+    public static EnumRole getByName(String ROLE) {
+        if (ROLE.equals(ROLE_USER.toString())) {
             return ROLE_USER;
         } else {
             return ROLE_MODERATOR;
         }
-
     }
 }

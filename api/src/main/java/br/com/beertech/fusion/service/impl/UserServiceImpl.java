@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.beertech.fusion.controller.dto.RoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +35,9 @@ public class UserServiceImpl implements UserService {
 	private CurrentAccountUserRepositoryImpl currentAccountUserRepositoryImpl;
 
 	@Override
-	public void updateUserRole(Long idUser) {
-		UsersRoles currentRole = currentUserRoleRepository.findUsersRolesByUsuariosId(idUser);
-		currentRole.setRoleId(EnumRole.ROLE_MODERATOR.id);
+	public void updateUserRole(RoleDTO roleDTO) {
+		UsersRoles currentRole = currentUserRoleRepository.findUsersRolesByUsuariosId(roleDTO.getUserId());
+		currentRole.setRoleId(EnumRole.getByName(roleDTO.getRoleType()).id);
 		currentUserRoleRepository.save(currentRole);
 	}
 

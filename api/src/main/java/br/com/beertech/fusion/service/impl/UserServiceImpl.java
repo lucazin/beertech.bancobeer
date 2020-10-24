@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         return currentUserRepository.findByUsername(userNameFromJwtToken);
 	}
 
-	public Optional<Users> userByToken(String token) {
+	public Optional<Users> findUserByToken(String token) {
 
 		token = token.substring(7, token.length());
 		String userNameFromJwtToken = jwtUtils.getUserNameFromJwtToken(token);
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
 
 	public void validateUserLogged(String token, String hash) throws FusionException {
 
-		Optional<Users> userByToken = userByToken(token);
+		Optional<Users> userByToken = findUserByToken(token);
 
 		if (userByToken.isPresent()) {
 

@@ -19,7 +19,7 @@ public class CurrentAccountUserRepositoryImpl implements CurrentAccountUserRepos
 	@Override
 	public List<CurrentAccountUserDTO> findAccountAllUser() {
 		
-		String sql	 = "select u.cnpj, u.nome, u.email, c.hash from conta_corrente c, usuarios u where c.cnpj = u.cnpj";
+		String sql	 = "select u.cnpj, u.nome, u.email, c.hash, u.phonenumber from conta_corrente c, usuarios u where c.cnpj = u.cnpj";
 		return jdbcTemplate.query(sql, new CurrentAccountUserRowMapper());
 	}
 

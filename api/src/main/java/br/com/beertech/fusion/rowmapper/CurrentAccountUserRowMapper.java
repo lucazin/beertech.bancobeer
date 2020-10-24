@@ -18,7 +18,7 @@ public class CurrentAccountUserRowMapper  implements RowMapper<CurrentAccountUse
 		currentAccountUserDTO.setCnpj(rs.getString("cnpj"));
 		currentAccountUserDTO.setEmail(rs.getString("email"));
 		currentAccountUserDTO.setNome(rs.getString("nome"));
-		currentAccountUserDTO.setNome(rs.getString("phonenumber"));
+		currentAccountUserDTO.setPhonenumber(rs.getString("phonenumber"));
 		
 		return currentAccountUserDTO;
 	}

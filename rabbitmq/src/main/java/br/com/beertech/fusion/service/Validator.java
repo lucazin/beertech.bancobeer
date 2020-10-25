@@ -18,8 +18,9 @@ public class Validator {
 
   public boolean validateResponseRMQ() {
 
-    return ((objectValidator.getTipoOperacao().equals("DEPOSITO")
-            || objectValidator.getTipoOperacao().equals("SAQUE")) && objectValidator.getValorOperacao() > 0) && !objectValidator.getAuthToken().isEmpty();
+    return ((objectValidator.getTipoOperacao().equals("DEPOSITO") || objectValidator.getTipoOperacao().equals("SAQUE")) &&
+            (objectValidator.getValorOperacao() != null && objectValidator.getValorOperacao() > 0) &&
+            !objectValidator.getAuthToken().isEmpty());
   }
 
   public boolean validateTransferResponseRMQ() {

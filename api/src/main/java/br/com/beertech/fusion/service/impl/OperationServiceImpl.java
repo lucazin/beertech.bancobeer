@@ -52,7 +52,8 @@ public class OperationServiceImpl implements OperationService {
 			operation.setDebitCredit(DebitCreditType.DEBITO.id);
 		}
 
-		String UserphoneNumber = currentAccountUserRepository.findAccountByUserHash(operation.getHash());
+		String userphoneNumber = currentAccountUserRepository.findAccountByUserHash(operation.getHash());
+		boolean validOperation = false;
 
 		if(operation.getTipoOperacao() != OperationType.DEPOSITO.ID)
 		{
@@ -60,17 +61,19 @@ public class OperationServiceImpl implements OperationService {
 
 			if(initialBalance.getSaldo() >= operation.getValorOperacao())
 			{
+				validOperation = true;
 				operationRepository.save(operation);
-				smsService.sendSmsUserOperation(operation,UserphoneNumber,true);
 			}
-			else
-				smsService.sendSmsUserOperation(operation,UserphoneNumber,false);
 		}
 		else
 		{
 			operationRepository.save(operation);
-			smsService.sendSmsUserOperation(operation,UserphoneNumber,true);
+			validOperation = true;
 		}
+
+		if(userphoneNumber != null  && userphoneNumber.trim().length() >= 11)
+			smsService.sendSmsUserOperation(operation,userphoneNumber,validOperation);
+
 		return operation;
 	}
 
@@ -82,7 +85,9 @@ public class OperationServiceImpl implements OperationService {
 	@Override
 	public TransferDTO saveTransfer(TransferDTO transferDTO) throws FusionException {
 
-		String UserphoneNumber = currentAccountUserRepository.findAccountByUserHash(transferDTO.getHashOrigin());
+		String userphoneNumber = currentAccountUserRepository.findAccountByUserHash(transferDTO.getHashOrigin());
+		boolean validTransfer = false;
+
         Optional<CurrentAccount> accountOrigin = currentAccountService.findByHash(transferDTO.getHashOrigin());
         Optional<CurrentAccount> accountDestiny = currentAccountService.findByHash(transferDTO.getHashDestination());
 
@@ -102,12 +107,12 @@ public class OperationServiceImpl implements OperationService {
 
 			operationRepository.save(origin);
 			operationRepository.save(destiny);
-			smsService.sendSmsUserTransfer(transferDTO,UserphoneNumber,true);
-
+			validTransfer = true;
 		} else {
-			smsService.sendSmsUserTransfer(transferDTO,UserphoneNumber,false);
 			throw new FusionException("Saldo insuficiente!");
 		}
+
+		smsService.sendSmsUserTransfer(transferDTO,userphoneNumber,validTransfer);
 		return transferDTO;
 	}
 

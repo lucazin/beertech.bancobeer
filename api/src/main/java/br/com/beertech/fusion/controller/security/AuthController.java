@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import br.com.beertech.fusion.util.Support;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -98,6 +99,12 @@ public class AuthController {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Erro: Usuário já existente!"));
+		}
+
+		if (signUpRequest.getPhonenumber() == null || signUpRequest.getPhonenumber().trim().length() < 11) {
+			return ResponseEntity
+					.badRequest()
+					.body(new MessageResponse("Erro: O número de telefone é obrigatório!"));
 		}
 
 		if(Support.isCNPJ(signUpRequest.getCnpj())){

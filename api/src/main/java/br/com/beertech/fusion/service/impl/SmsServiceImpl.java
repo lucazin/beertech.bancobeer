@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.*;
 
 @Service
@@ -33,25 +36,32 @@ public class SmsServiceImpl implements SmsService {
 	public boolean sendSmsUserOperation(Operation operation, String phonenumber,boolean validate) {
 
 		boolean retorno = false;
+		String smsMessage = "";
 		try {
-			String smsMessage = "";
+
+			Locale locale = new Locale("pt", "BR");
+			NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+			String valueOperation = formatter.format(operation.getValorOperacao());
 
 			if(validate)
 			{
 				if(operation.getTipoOperacao() == OperationType.DEPOSITO.ID)
-					smsMessage = "[BeerCoin] - Depósito efetuado com sucesso no valor de: "+operation.getValorOperacao()+ "";
+					smsMessage = "[BeerCoin] - Depósito efetuado com sucesso no valor de: "+valueOperation+ "";
 
 				else if(operation.getTipoOperacao() == OperationType.SAQUE.ID)
-					smsMessage = "[BeerCoin] - Saque efetuado com sucesso no valor de: "+operation.getValorOperacao()+ "";
+					smsMessage = "[BeerCoin] - Saque efetuado com sucesso no valor de: "+valueOperation+ "";
+
 				else
-					smsMessage = "[BeerCoin] - Pagamento efetuado com sucesso no valor de: "+operation.getValorOperacao()+ "";
+					smsMessage = "[BeerCoin] - Pagamento efetuado com sucesso no valor de: "+valueOperation+ "";
 			}
 			else
 			{
 				if(operation.getTipoOperacao() == OperationType.DEPOSITO.ID)
 					smsMessage = "[BeerCoin] - Não foi possível concluir a operação de depósito!";
+
 				else if(operation.getTipoOperacao() == OperationType.SAQUE.ID)
 					smsMessage = "[BeerCoin] - Não foi possível concluir a operação de saque!";
+
 				else
 					smsMessage = "[BeerCoin] - Não foi possível realizar este pagamento!";
 			}
@@ -74,17 +84,20 @@ public class SmsServiceImpl implements SmsService {
 
 	@Override
 	public boolean sendSmsUserTransfer(TransferDTO transfer, String phonenumber,boolean validate) {
-
 		String smsMessage = "";
 		boolean retorno = false;
 
-		if(validate)
-			smsMessage = "[BeerCoin] - Transferência realizada com sucesso no valor de: "+transfer.getValue()+ "";
-		else
-			smsMessage = "[BeerCoin] - Não foi possível realizar a transfêrencia!";
-
 		try
 		{
+			Locale locale = new Locale("pt", "BR");
+			NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+			String valueTransfer = formatter.format(transfer.getValue());
+
+			if(validate)
+				smsMessage = "[BeerCoin] - Transferência realizada com sucesso no valor de: "+valueTransfer+ "";
+			else
+				smsMessage = "[BeerCoin] - Não foi possível realizar a transfêrencia!";
+
 			ResponseEntity<SmsSend> response = processSMS(phonenumber,smsMessage);
 			if (response.getStatusCode() == HttpStatus.CREATED) {
 				retorno = true;

@@ -39,20 +39,21 @@ public class SmsServiceImpl implements SmsService {
 			if(validate)
 			{
 				if(operation.getTipoOperacao() == OperationType.DEPOSITO.ID)
-					smsMessage = "Depósito efetuado com sucesso no valor de: "+operation.getValorOperacao()+ "";
+					smsMessage = "[BeerCoin] - Depósito efetuado com sucesso no valor de: "+operation.getValorOperacao()+ "";
+
 				else if(operation.getTipoOperacao() == OperationType.SAQUE.ID)
-					smsMessage = "Saque efetuado com sucesso no valor de: "+operation.getValorOperacao()+ "";
+					smsMessage = "[BeerCoin] - Saque efetuado com sucesso no valor de: "+operation.getValorOperacao()+ "";
 				else
-					smsMessage = "Pagamento efetuado com sucesso no valor de: "+operation.getValorOperacao()+ "";
+					smsMessage = "[BeerCoin] - Pagamento efetuado com sucesso no valor de: "+operation.getValorOperacao()+ "";
 			}
 			else
 			{
 				if(operation.getTipoOperacao() == OperationType.DEPOSITO.ID)
-					smsMessage = "Não foi possível concluir a operação de depósito!";
+					smsMessage = "[BeerCoin] - Não foi possível concluir a operação de depósito!";
 				else if(operation.getTipoOperacao() == OperationType.SAQUE.ID)
-					smsMessage = "Não foi possível concluir a operação de saque!";
+					smsMessage = "[BeerCoin] - Não foi possível concluir a operação de saque!";
 				else
-					smsMessage = "Não foi possível realizar este pagamento!";
+					smsMessage = "[BeerCoin] - Não foi possível realizar este pagamento!";
 			}
 
 			ResponseEntity<SmsSend> response = processSMS(phonenumber,smsMessage);
@@ -78,9 +79,9 @@ public class SmsServiceImpl implements SmsService {
 		boolean retorno = false;
 
 		if(validate)
-			smsMessage = "Transferência realizada com sucesso no valor de: "+transfer.getValue()+ "";
+			smsMessage = "[BeerCoin] - Transferência realizada com sucesso no valor de: "+transfer.getValue()+ "";
 		else
-			smsMessage = "Não foi possível realizar a transfêrencia!";
+			smsMessage = "[BeerCoin] - Não foi possível realizar a transfêrencia!";
 
 		try
 		{

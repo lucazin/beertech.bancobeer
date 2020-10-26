@@ -23,7 +23,9 @@ import br.com.beertech.fusion.service.UserService;
 @Service
 public class BillExchangeServiceImpl implements BillExchangeService {
 
-	@Autowired
+	private static final int INDEX_VALUE_BARCODE = 37;
+
+    @Autowired
 	private UserService userService;
 
 	@Autowired
@@ -59,17 +61,15 @@ public class BillExchangeServiceImpl implements BillExchangeService {
 	}
 
 	public String getValueBarcode(String barcode) {
-		return barcode.substring(barcode.length() - 10);
+        return barcode.substring(INDEX_VALUE_BARCODE);
 	}
 
-	public Double formatValue(String barCode) throws FusionException {
-		
-			String value = barCode.substring(barCode.length() - 10);
-			String partInt =  value.substring(0, value.length()-2);
-			String partDecimal =  value.substring(value.length() - 2);
-			String formatValue = partInt + "," + partDecimal;
+	public Double formatValue(String valueBarCode) throws FusionException {
+        String partInt = valueBarCode.substring(0, valueBarCode.length() - 2);
+        String partDecimal = valueBarCode.substring(valueBarCode.length() - 2);
+        String formatValue = partInt + "." + partDecimal;
 
-			DecimalFormat format = new DecimalFormat("#.##");
+        DecimalFormat format = new DecimalFormat("#.##");
 
 			Number number = null;
 			try {

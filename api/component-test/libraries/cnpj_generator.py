@@ -1,5 +1,6 @@
 import random
 
+# https://gist.github.com/lucascnr/24c70409908a31ad253f97f9dd4c6b7c
 def generate_cnpj(self):                                                       
     def calculate_special_digit(l):                                             
         digit = 0                                                               

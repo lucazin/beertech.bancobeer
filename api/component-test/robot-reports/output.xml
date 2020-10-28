@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.2 (Python 3.8.5 on linux)" generated="20201027 22:34:55.163" rpa="false">
+<suite id="s1" name="Tests" source="/home/malu/workspaces/beertech/beertech.bancobeer/api/component-test/tests">
+<suite id="s1-s1" name="Post User" source="/home/malu/workspaces/beertech/beertech.bancobeer/api/component-test/tests/post_user.robot">
+<test id="s1-s1-t1" name="I send a post request and the user was succesfully created">
+<kw name="Given I create a valid user JSON" library="commons_keywords">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<assign>
+<var>${currentDate}</var>
+</assign>
+<msg timestamp="20201027 22:34:55.521" level="INFO">${currentDate} = 2020-10-27 22:34:55.521</msg>
+<status status="PASS" starttime="20201027 22:34:55.521" endtime="20201027 22:34:55.522"></status>
+</kw>
+<kw name="Generate Cnpj" library="cnpj_generator">
+<arguments>
+<arg>1</arg>
+</arguments>
+<assign>
+<var>${cnpj}</var>
+</assign>
+<msg timestamp="20201027 22:34:55.523" level="INFO">${cnpj} = 20699622000167</msg>
+<status status="PASS" starttime="20201027 22:34:55.522" endtime="20201027 22:34:55.523"></status>
+</kw>
+<kw name="I create an insert user JSON" library="commons_keywords">
+<arguments>
+<arg>${cnpj}</arg>
+<arg>${cnpj}@teste.com</arg>
+<arg>Welligton</arg>
+<arg>${currentDate}</arg>
+<arg>123455678910</arg>
+<arg>${cnpj}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>cnpj</arg>
+<arg>${cnpj}</arg>
+<arg>email</arg>
+<arg>${email}</arg>
+<arg>nome</arg>
+<arg>${nome}</arg>
+<arg>password</arg>
+<arg>${password}</arg>
+<arg>phonenumber</arg>
+<arg>${phonenumber}</arg>
+<arg>username</arg>
+<arg>${username}</arg>
+</arguments>
+<assign>
+<var>${userJson}</var>
+</assign>
+<msg timestamp="20201027 22:34:55.528" level="INFO">${userJson} = {'cnpj': '20699622000167', 'email': '20699622000167@teste.com', 'nome': 'Welligton', 'password': '2020-10-27 22:34:55.521', 'phonenumber': '123455678910', 'username': '20699622000167'}</msg>
+<status status="PASS" starttime="20201027 22:34:55.526" endtime="20201027 22:34:55.528"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${userJson}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:55.534" level="INFO">${userJson} = {'cnpj': '20699622000167', 'email': '20699622000167@teste.com', 'nome': 'Welligton', 'password': '2020-10-27 22:34:55.521', 'phonenumber': '123455678910', 'username': '20699622000167'}</msg>
+<status status="PASS" starttime="20201027 22:34:55.529" endtime="20201027 22:34:55.534"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:55.523" endtime="20201027 22:34:55.535"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:55.519" endtime="20201027 22:34:55.535"></status>
+</kw>
+<kw name="When I send a post request" library="commons_keywords">
+<arguments>
+<arg>${user_url}</arg>
+<arg>${user_uri}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type</arg>
+<arg>application/json</arg>
+</arguments>
+<assign>
+<var>${header}</var>
+</assign>
+<msg timestamp="20201027 22:34:55.539" level="INFO">${header} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20201027 22:34:55.538" endtime="20201027 22:34:55.539"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>post</arg>
+<arg>${user_url}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:55.540" level="INFO">Creating Session using : alias=post, url=http://localhost:8081, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201027 22:34:55.539" endtime="20201027 22:34:55.541"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>post</arg>
+<arg>uri=${user_uri}</arg>
+<arg>headers=${header}</arg>
+<arg>data=${userJson}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20201027 22:34:56.713" level="INFO">POST Request : url=http://localhost:8081/beercoin/auth/signup 
+ path_url=/beercoin/auth/signup 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '184'} 
+ body={"cnpj": "20699622000167", "email": "20699622000167@teste.com", "nome": "Welligton", "password": "2020-10-27 22:34:55.521", "phonenumber": "123455678910", "username": "20699622000167"} 
+ </msg>
+<msg timestamp="20201027 22:34:56.713" level="INFO">POST Response : url=http://localhost:8081/beercoin/auth/signup 
+ status=201, reason= 
+ body={"id":29,"nome":"Welligton","username":"20699622000167","email":"20699622000167@teste.com","phonenumber":"123455678910","cnpj":"20699622000167","roles":[{"id":2,"name":"ROLE_USER"}]} 
+ </msg>
+<msg timestamp="20201027 22:34:56.714" level="INFO">${resp} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:55.542" endtime="20201027 22:34:56.714"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:56.715" level="INFO">${resp} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:56.714" endtime="20201027 22:34:56.715"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:56.716" level="INFO">&lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:56.715" endtime="20201027 22:34:56.716"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:55.536" endtime="20201027 22:34:56.716"></status>
+</kw>
+<kw name="Then the response status code should be &quot;201&quot;" library="commons_keywords">
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${statusCode}</arg>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:56.719" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:56.718" endtime="20201027 22:34:56.719"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:56.717" endtime="20201027 22:34:56.720"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:55.517" endtime="20201027 22:34:56.720" critical="yes"></status>
+</test>
+<test id="s1-s1-t2" name="I send a post request and the user was succesfully created with user role">
+<kw name="Given I create a valid user JSON" library="commons_keywords">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<assign>
+<var>${currentDate}</var>
+</assign>
+<msg timestamp="20201027 22:34:56.725" level="INFO">${currentDate} = 2020-10-27 22:34:56.725</msg>
+<status status="PASS" starttime="20201027 22:34:56.724" endtime="20201027 22:34:56.725"></status>
+</kw>
+<kw name="Generate Cnpj" library="cnpj_generator">
+<arguments>
+<arg>1</arg>
+</arguments>
+<assign>
+<var>${cnpj}</var>
+</assign>
+<msg timestamp="20201027 22:34:56.726" level="INFO">${cnpj} = 55507412000104</msg>
+<status status="PASS" starttime="20201027 22:34:56.725" endtime="20201027 22:34:56.726"></status>
+</kw>
+<kw name="I create an insert user JSON" library="commons_keywords">
+<arguments>
+<arg>${cnpj}</arg>
+<arg>${cnpj}@teste.com</arg>
+<arg>Welligton</arg>
+<arg>${currentDate}</arg>
+<arg>123455678910</arg>
+<arg>${cnpj}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>cnpj</arg>
+<arg>${cnpj}</arg>
+<arg>email</arg>
+<arg>${email}</arg>
+<arg>nome</arg>
+<arg>${nome}</arg>
+<arg>password</arg>
+<arg>${password}</arg>
+<arg>phonenumber</arg>
+<arg>${phonenumber}</arg>
+<arg>username</arg>
+<arg>${username}</arg>
+</arguments>
+<assign>
+<var>${userJson}</var>
+</assign>
+<msg timestamp="20201027 22:34:56.734" level="INFO">${userJson} = {'cnpj': '55507412000104', 'email': '55507412000104@teste.com', 'nome': 'Welligton', 'password': '2020-10-27 22:34:56.725', 'phonenumber': '123455678910', 'username': '55507412000104'}</msg>
+<status status="PASS" starttime="20201027 22:34:56.728" endtime="20201027 22:34:56.734"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${userJson}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:56.736" level="INFO">${userJson} = {'cnpj': '55507412000104', 'email': '55507412000104@teste.com', 'nome': 'Welligton', 'password': '2020-10-27 22:34:56.725', 'phonenumber': '123455678910', 'username': '55507412000104'}</msg>
+<status status="PASS" starttime="20201027 22:34:56.735" endtime="20201027 22:34:56.736"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:56.726" endtime="20201027 22:34:56.736"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:56.723" endtime="20201027 22:34:56.737"></status>
+</kw>
+<kw name="When I send a post request" library="commons_keywords">
+<arguments>
+<arg>${user_url}</arg>
+<arg>${user_uri}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type</arg>
+<arg>application/json</arg>
+</arguments>
+<assign>
+<var>${header}</var>
+</assign>
+<msg timestamp="20201027 22:34:56.748" level="INFO">${header} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20201027 22:34:56.739" endtime="20201027 22:34:56.748"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>post</arg>
+<arg>${user_url}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:56.749" level="INFO">Creating Session using : alias=post, url=http://localhost:8081, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201027 22:34:56.748" endtime="20201027 22:34:56.749"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>post</arg>
+<arg>uri=${user_uri}</arg>
+<arg>headers=${header}</arg>
+<arg>data=${userJson}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20201027 22:34:57.855" level="INFO">POST Request : url=http://localhost:8081/beercoin/auth/signup 
+ path_url=/beercoin/auth/signup 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '184'} 
+ body={"cnpj": "55507412000104", "email": "55507412000104@teste.com", "nome": "Welligton", "password": "2020-10-27 22:34:56.725", "phonenumber": "123455678910", "username": "55507412000104"} 
+ </msg>
+<msg timestamp="20201027 22:34:57.855" level="INFO">POST Response : url=http://localhost:8081/beercoin/auth/signup 
+ status=201, reason= 
+ body={"id":30,"nome":"Welligton","username":"55507412000104","email":"55507412000104@teste.com","phonenumber":"123455678910","cnpj":"55507412000104","roles":[{"id":2,"name":"ROLE_USER"}]} 
+ </msg>
+<msg timestamp="20201027 22:34:57.855" level="INFO">${resp} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:56.750" endtime="20201027 22:34:57.855"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:57.856" level="INFO">${resp} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:57.856" endtime="20201027 22:34:57.856"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:57.857" level="INFO">&lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:57.857" endtime="20201027 22:34:57.857"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:56.737" endtime="20201027 22:34:57.858"></status>
+</kw>
+<kw name="Then the response status code should be &quot;201&quot;" library="commons_keywords">
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${statusCode}</arg>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:57.861" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:57.860" endtime="20201027 22:34:57.861"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:57.858" endtime="20201027 22:34:57.862"></status>
+</kw>
+<kw name="And the role should be equal &quot;ROLE_USER&quot;" library="commons_keywords">
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${role}</arg>
+<arg>${resp.json()["roles"][0]["name"]}</arg>
+</arguments>
+<status status="PASS" starttime="20201027 22:34:57.863" endtime="20201027 22:34:57.864"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:57.863" endtime="20201027 22:34:57.865"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:56.721" endtime="20201027 22:34:57.865" critical="yes"></status>
+</test>
+<test id="s1-s1-t3" name="I send a post request with invalid CNPJ">
+<kw name="Given I create a user JSON with invalid CNPJ" library="commons_keywords">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<assign>
+<var>${currentDate}</var>
+</assign>
+<msg timestamp="20201027 22:34:57.870" level="INFO">${currentDate} = 2020-10-27 22:34:57.870</msg>
+<status status="PASS" starttime="20201027 22:34:57.869" endtime="20201027 22:34:57.870"></status>
+</kw>
+<kw name="I create an insert user JSON" library="commons_keywords">
+<arguments>
+<arg>12345</arg>
+<arg>${currentDate}@teste.com</arg>
+<arg>Welligton</arg>
+<arg>${currentDate}</arg>
+<arg>123455678910</arg>
+<arg>${currentDate}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>cnpj</arg>
+<arg>${cnpj}</arg>
+<arg>email</arg>
+<arg>${email}</arg>
+<arg>nome</arg>
+<arg>${nome}</arg>
+<arg>password</arg>
+<arg>${password}</arg>
+<arg>phonenumber</arg>
+<arg>${phonenumber}</arg>
+<arg>username</arg>
+<arg>${username}</arg>
+</arguments>
+<assign>
+<var>${userJson}</var>
+</assign>
+<msg timestamp="20201027 22:34:57.874" level="INFO">${userJson} = {'cnpj': '12345', 'email': '2020-10-27 22:34:57.870@teste.com', 'nome': 'Welligton', 'password': '2020-10-27 22:34:57.870', 'phonenumber': '123455678910', 'username': '2020-10-27 22:34:57.870'}</msg>
+<status status="PASS" starttime="20201027 22:34:57.872" endtime="20201027 22:34:57.874"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${userJson}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:57.875" level="INFO">${userJson} = {'cnpj': '12345', 'email': '2020-10-27 22:34:57.870@teste.com', 'nome': 'Welligton', 'password': '2020-10-27 22:34:57.870', 'phonenumber': '123455678910', 'username': '2020-10-27 22:34:57.870'}</msg>
+<status status="PASS" starttime="20201027 22:34:57.874" endtime="20201027 22:34:57.875"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:57.870" endtime="20201027 22:34:57.876"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:57.869" endtime="20201027 22:34:57.876"></status>
+</kw>
+<kw name="When I send a post request" library="commons_keywords">
+<arguments>
+<arg>${user_url}</arg>
+<arg>${user_uri}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type</arg>
+<arg>application/json</arg>
+</arguments>
+<assign>
+<var>${header}</var>
+</assign>
+<msg timestamp="20201027 22:34:57.883" level="INFO">${header} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20201027 22:34:57.882" endtime="20201027 22:34:57.883"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>post</arg>
+<arg>${user_url}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:57.884" level="INFO">Creating Session using : alias=post, url=http://localhost:8081, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201027 22:34:57.883" endtime="20201027 22:34:57.885"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>post</arg>
+<arg>uri=${user_uri}</arg>
+<arg>headers=${header}</arg>
+<arg>data=${userJson}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20201027 22:34:58.085" level="INFO">POST Request : url=http://localhost:8081/beercoin/auth/signup 
+ path_url=/beercoin/auth/signup 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '193'} 
+ body={"cnpj": "12345", "email": "2020-10-27 22:34:57.870@teste.com", "nome": "Welligton", "password": "2020-10-27 22:34:57.870", "phonenumber": "123455678910", "username": "2020-10-27 22:34:57.870"} 
+ </msg>
+<msg timestamp="20201027 22:34:58.089" level="INFO">POST Response : url=http://localhost:8081/beercoin/auth/signup 
+ status=400, reason= 
+ body={"message":"Erro: CNPJ inválido!"} 
+ </msg>
+<msg timestamp="20201027 22:34:58.090" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:57.885" endtime="20201027 22:34:58.090"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:58.091" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:58.090" endtime="20201027 22:34:58.091"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:58.092" level="INFO">&lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:58.092" endtime="20201027 22:34:58.093"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:57.881" endtime="20201027 22:34:58.093"></status>
+</kw>
+<kw name="Then the response status code should be &quot;400&quot;" library="commons_keywords">
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${statusCode}</arg>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:58.096" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:58.095" endtime="20201027 22:34:58.096"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:58.094" endtime="20201027 22:34:58.096"></status>
+</kw>
+<kw name="And the respose message should be equal &quot;Erro: CNPJ inválido!&quot;" library="commons_keywords">
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${expectedMessage}</arg>
+<arg>${resp.json()["message"]}</arg>
+</arguments>
+<status status="PASS" starttime="20201027 22:34:58.099" endtime="20201027 22:34:58.100"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:58.097" endtime="20201027 22:34:58.101"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:57.868" endtime="20201027 22:34:58.102" critical="yes"></status>
+</test>
+<test id="s1-s1-t4" name="I send a post request without phonenumber">
+<kw name="Given I create a user JSON without phonenumber" library="commons_keywords">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<assign>
+<var>${currentDate}</var>
+</assign>
+<msg timestamp="20201027 22:34:58.107" level="INFO">${currentDate} = 2020-10-27 22:34:58.107</msg>
+<status status="PASS" starttime="20201027 22:34:58.106" endtime="20201027 22:34:58.107"></status>
+</kw>
+<kw name="Generate Cnpj" library="cnpj_generator">
+<arguments>
+<arg>1</arg>
+</arguments>
+<assign>
+<var>${cnpj}</var>
+</assign>
+<msg timestamp="20201027 22:34:58.108" level="INFO">${cnpj} = 99588338000173</msg>
+<status status="PASS" starttime="20201027 22:34:58.107" endtime="20201027 22:34:58.108"></status>
+</kw>
+<kw name="I create an insert user JSON" library="commons_keywords">
+<arguments>
+<arg>${cnpj}</arg>
+<arg>${cnpj}@teste.com</arg>
+<arg>Welligton</arg>
+<arg>${currentDate}</arg>
+<arg>${empty}</arg>
+<arg>${cnpj}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>cnpj</arg>
+<arg>${cnpj}</arg>
+<arg>email</arg>
+<arg>${email}</arg>
+<arg>nome</arg>
+<arg>${nome}</arg>
+<arg>password</arg>
+<arg>${password}</arg>
+<arg>phonenumber</arg>
+<arg>${phonenumber}</arg>
+<arg>username</arg>
+<arg>${username}</arg>
+</arguments>
+<assign>
+<var>${userJson}</var>
+</assign>
+<msg timestamp="20201027 22:34:58.111" level="INFO">${userJson} = {'cnpj': '99588338000173', 'email': '99588338000173@teste.com', 'nome': 'Welligton', 'password': '2020-10-27 22:34:58.107', 'phonenumber': '', 'username': '99588338000173'}</msg>
+<status status="PASS" starttime="20201027 22:34:58.110" endtime="20201027 22:34:58.111"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${userJson}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:58.113" level="INFO">${userJson} = {'cnpj': '99588338000173', 'email': '99588338000173@teste.com', 'nome': 'Welligton', 'password': '2020-10-27 22:34:58.107', 'phonenumber': '', 'username': '99588338000173'}</msg>
+<status status="PASS" starttime="20201027 22:34:58.111" endtime="20201027 22:34:58.113"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:58.108" endtime="20201027 22:34:58.114"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:58.105" endtime="20201027 22:34:58.114"></status>
+</kw>
+<kw name="When I send a post request" library="commons_keywords">
+<arguments>
+<arg>${user_url}</arg>
+<arg>${user_uri}</arg>
+</arguments>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type</arg>
+<arg>application/json</arg>
+</arguments>
+<assign>
+<var>${header}</var>
+</assign>
+<msg timestamp="20201027 22:34:58.117" level="INFO">${header} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20201027 22:34:58.116" endtime="20201027 22:34:58.117"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>post</arg>
+<arg>${user_url}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:58.118" level="INFO">Creating Session using : alias=post, url=http://localhost:8081, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201027 22:34:58.118" endtime="20201027 22:34:58.119"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>post</arg>
+<arg>uri=${user_uri}</arg>
+<arg>headers=${header}</arg>
+<arg>data=${userJson}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20201027 22:34:58.302" level="INFO">POST Request : url=http://localhost:8081/beercoin/auth/signup 
+ path_url=/beercoin/auth/signup 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '172'} 
+ body={"cnpj": "99588338000173", "email": "99588338000173@teste.com", "nome": "Welligton", "password": "2020-10-27 22:34:58.107", "phonenumber": "", "username": "99588338000173"} 
+ </msg>
+<msg timestamp="20201027 22:34:58.305" level="INFO">POST Response : url=http://localhost:8081/beercoin/auth/signup 
+ status=400, reason= 
+ body={"message":"Erro: O número de telefone é obrigatório!"} 
+ </msg>
+<msg timestamp="20201027 22:34:58.306" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:58.119" endtime="20201027 22:34:58.306"></status>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:58.307" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:58.307" endtime="20201027 22:34:58.308"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:58.308" level="INFO">&lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:58.308" endtime="20201027 22:34:58.309"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:58.115" endtime="20201027 22:34:58.309"></status>
+</kw>
+<kw name="Then the response status code should be &quot;400&quot;" library="commons_keywords">
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${statusCode}</arg>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20201027 22:34:58.311" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'int'&gt;</msg>
+<status status="PASS" starttime="20201027 22:34:58.311" endtime="20201027 22:34:58.312"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:58.309" endtime="20201027 22:34:58.312"></status>
+</kw>
+<kw name="And the respose message should be equal &quot;Erro: O número de telefone é obrigatório!&quot;" library="commons_keywords">
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${expectedMessage}</arg>
+<arg>${resp.json()["message"]}</arg>
+</arguments>
+<status status="PASS" starttime="20201027 22:34:58.313" endtime="20201027 22:34:58.314"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:58.313" endtime="20201027 22:34:58.315"></status>
+</kw>
+<status status="PASS" starttime="20201027 22:34:58.103" endtime="20201027 22:34:58.316" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20201027 22:34:55.234" endtime="20201027 22:34:58.318"></status>
+</suite>
+<status status="PASS" starttime="20201027 22:34:55.166" endtime="20201027 22:34:58.325"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0">Critical Tests</stat>
+<stat pass="4" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="4" fail="0" id="s1" name="Tests">Tests</stat>
+<stat pass="4" fail="0" id="s1-s1" name="Post User">Tests.Post User</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

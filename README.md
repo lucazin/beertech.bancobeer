@@ -63,6 +63,13 @@ Após a instalação do docker finalizada.
 ## Postman
 * Após a instalação de todos os passos acima, instale o postman para testar as chamadas da api do projeto: https://www.postman.com/downloads/
 
+## Robot
+* Instalados: Python, robotframework, pip
+* Rodar o pip para instalar a library do robotframework requests  
+```pip install -U pymongo robotframework requests robotframework-requests deepdiff```
+* Na raiz do projeto rodar o robot  
+```robot -d robot-reports ./api/component-test/tests```
+* Os testes estão rodando diretamente na aplicação do heroku, por ser um serviço free pode ser que a aplicação esteja inativa e após o primeiro request será ativada, em caso de erro no primeiro teste rodar o comando do robot novamente.
 
 Author: Time Fusion
 Patricia Crevelário Lisboa  

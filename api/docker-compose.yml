@@ -15,6 +15,22 @@ services:
       - RABBITMQ_HOST=localhost
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
+    networks:
+      - fusion-compose-network
+  mysqldb:
+    image: mysql:5.7
+    networks: 
+      - fusion-compose-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=MyNewPass
+      - MYSQL_DATABASE=beertech
+  api-fusion:
+    image: legacy-poc-fusion
+    ports:
+      - "8081:8081"
+    networks:
+      - fusion-compose-network
+    depends_on:
+      - mysqldb
 networks:
-  mysql-compose-network:
-    driver: bridge
+  fusion-compose-network:

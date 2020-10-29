@@ -12,7 +12,7 @@
 	<groupId>br.com.beertech</groupId>
 	<artifactId>legacy-poc-fusion</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>Projeto Fusion</name>
 	<description>Project beertech - Legacy POC</description>
 

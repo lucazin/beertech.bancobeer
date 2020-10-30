@@ -24,10 +24,12 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=MyNewPass
       - MYSQL_DATABASE=beertech
+    ports:
+      - "3306:3306"
   api-fusion:
     image: legacy-poc-fusion
     ports:
-      - "8081:8081"
+      - "8080:8080"
     networks:
       - fusion-compose-network
     depends_on:

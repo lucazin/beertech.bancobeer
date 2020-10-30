@@ -24,10 +24,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=MyNewPass
       - MYSQL_DATABASE=beertech
-    ports:
-      - "3306:3306"
   api-fusion:
-    image: legacy-poc-fusion
+    image: api:latest
     ports:
       - "8080:8080"
     networks:
